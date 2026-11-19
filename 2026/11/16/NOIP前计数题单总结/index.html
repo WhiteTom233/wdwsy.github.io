@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 8.1.2">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" integrity="sha256-VHqXKFhhMxcpubYf9xiWdCiojEbY9NexQ4jh8AxbvcM=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"wdwsy.github.io","root":"/","images":"/images","scheme":"Muse","darkmode":true,"version":"8.27.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12,"width":240},"hljswrap":true,"codeblock":{"theme":{"light":"github-dark","dark":"github-dark-dimmed"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"language":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.json","localsearch":{"enable":true,"top_n_per_article":1,"unescape":true,"preload":false,"trigger":"auto"}}</script><script src="/js/config.js" defer></script>
+
+    <meta name="description" content="AT_arc171_c [ARC171C] Swap on Tree借着这个题目，规范一下做这种统计操作后最终局面个数的题目。 首先不要设计状态，考虑哪些操作顺序&#x2F;方式改变之后不影响最终答案，这是我们会算重的部分。这个题目中我们发现，两个不相邻边进行操作，可以交换顺序。 还可以考虑，知道最终状态之后，相当于知道了操作的哪些信息。在这个题目中，我们通过最终状态可以推出操作过的边的集合。 我">
+<meta property="og:type" content="article">
+<meta property="og:title" content="NOIP前计数题单总结">
+<meta property="og:url" content="https://wdwsy.github.io/2026/11/16/NOIP%E5%89%8D%E8%AE%A1%E6%95%B0%E9%A2%98%E5%8D%95%E6%80%BB%E7%BB%93/index.html">
+<meta property="og:site_name" content="wdwsy&#39;s Blog">
+<meta property="og:description" content="AT_arc171_c [ARC171C] Swap on Tree借着这个题目，规范一下做这种统计操作后最终局面个数的题目。 首先不要设计状态，考虑哪些操作顺序&#x2F;方式改变之后不影响最终答案，这是我们会算重的部分。这个题目中我们发现，两个不相邻边进行操作，可以交换顺序。 还可以考虑，知道最终状态之后，相当于知道了操作的哪些信息。在这个题目中，我们通过最终状态可以推出操作过的边的集合。 我">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2026-11-16T13:46:19.000Z">
+<meta property="article:modified_time" content="2026-11-17T12:07:16.348Z">
+<meta property="article:author" content="wdwsy">
+<meta property="article:tag" content="dp">
+<meta property="article:tag" content="计数">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://wdwsy.github.io/2026/11/16/NOIP%E5%89%8D%E8%AE%A1%E6%95%B0%E9%A2%98%E5%8D%95%E6%80%BB%E7%BB%93/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"https://wdwsy.github.io/2026/11/16/NOIP%E5%89%8D%E8%AE%A1%E6%95%B0%E9%A2%98%E5%8D%95%E6%80%BB%E7%BB%93/","path":"2026/11/16/NOIP前计数题单总结/","title":"NOIP前计数题单总结"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>NOIP前计数题单总结 | wdwsy's Blog</title>
+  
+
+
+
+
+
+
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous" defer></script>
+<script src="/js/utils.js" defer></script><script src="/js/motion.js" defer></script><script src="/js/sidebar.js" defer></script><script src="/js/next-boot.js" defer></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.5.0/search.js" integrity="sha256-xFC6PJ82SL9b3WkGjFavNiA9gm5z6UBxWPiu4CYjptg=" crossorigin="anonymous" defer></script>
+<script src="/js/third-party/search/local-search.js" defer></script>
+
+
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"ams","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js" defer></script>
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">wdwsy's Blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">算法的世界</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="Searching..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#AT-arc171-c-ARC171C-Swap-on-Tree"><span class="nav-number">1.</span> <span class="nav-text">AT_arc171_c [ARC171C] Swap on Tree</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#AT-agc040-f-AGC040F-Two-Pieces"><span class="nav-number">2.</span> <span class="nav-text">AT_agc040_f [AGC040F] Two Pieces</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="wdwsy"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">wdwsy</p>
+  <div class="site-description" itemprop="description">算法竞赛、C++、OI 技术分享</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">54</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">categories</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">25</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/wdwsy" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;wdwsy" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://wdwsy.github.io/2026/11/16/NOIP%E5%89%8D%E8%AE%A1%E6%95%B0%E9%A2%98%E5%8D%95%E6%80%BB%E7%BB%93/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="wdwsy">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="wdwsy's Blog">
+      <meta itemprop="description" content="算法竞赛、C++、OI 技术分享">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="NOIP前计数题单总结 | wdwsy's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          NOIP前计数题单总结
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2026-11-16 21:46:19" itemprop="dateCreated datePublished" datetime="2026-11-16T21:46:19+08:00">2026-11-16</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2026-11-17 20:07:16" itemprop="dateModified" datetime="2026-11-17T20:07:16+08:00">2026-11-17</time>
+    </span>
+
+  
+    <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">Views: </span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h1 id="AT-arc171-c-ARC171C-Swap-on-Tree"><a href="#AT-arc171-c-ARC171C-Swap-on-Tree" class="headerlink" title="AT_arc171_c [ARC171C] Swap on Tree"></a><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/AT_arc171_c">AT_arc171_c [ARC171C] Swap on Tree</a></h1><p>借着这个题目，规范一下做这种统计操作后最终局面个数的题目。</p>
+<p>首先不要设计状态，考虑哪些操作顺序&#x2F;方式改变之后不影响最终答案，这是我们会算重的部分。<br>这个题目中我们发现，两个不相邻边进行操作，可以交换顺序。</p>
+<p>还可以考虑，知道最终状态之后，相当于知道了操作的哪些信息。<br>在这个题目中，我们通过最终状态可以推出操作过的边的集合。</p>
+<p>我们就自然想到，如果在一个点，规定所有相邻边的顺序呢？<br>那么就考虑证明，规定所有点相邻的边的操作顺序，那么就可以唯一对应最终局面。</p>
+<p>考虑证明这和最终局面是一一对应的<br>考虑两个命题：</p>
+<ol>
+<li>固定顺序之后，至少有一种合法操作方式。发现，我们每一个点需要第一次操作的边，由于这些边形成了树，所以肯定有至少两个边 <span class="math-inline">\((u,v),(v,u)\)</span> 分别是 <span class="math-inline">\(u,v\)</span> 第一次需要操作的点。<br>归纳发现，永远有这样可以操作的边，所以一定可以操作下去。</li>
+<li>固定顺序之后，只有一种最终局面。发现这样互为第一次操作的边 <span class="math-inline">\((u,v),(v,u)\)</span> 一定不论其他位置怎么操作，这两个点都不会参与的。也就是说，如果最后的操作边序列为 <span class="math-inline">\(E_1,E_2,E_3,\dots\)</span> 那么我们一定可以把当前的边换到最前面。那么归纳证明，可以发现唯一对应一个操作序列，也就唯一对应一个最终局面。</li>
+</ol>
+<p>那么直接设置 dp 决定每一条边是否操作，在第几个操作，没有难度了。</p>
+<h1 id="AT-agc040-f-AGC040F-Two-Pieces"><a href="#AT-agc040-f-AGC040F-Two-Pieces" class="headerlink" title="AT_agc040_f [AGC040F] Two Pieces"></a><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/AT_agc040_f">AT_agc040_f [AGC040F] Two Pieces</a></h1><p><del>怎么写着写着脑子烧起来了</del></p>
+<p>首先考虑建立最终序列和操作序列的关系。<br>发现这是一个一对多的关系，也就是不同的操作序列可能对应同一个最终局面。<br>但是显然这并不方便我们计数。</p>
+<p>进一步发现，只有当当前 <span class="math-inline">\((a,b),a&lt;b\)</span> 差值为 <span class="math-inline">\(1\)</span> 的时候，我们无论是用 <span class="math-inline">\(a+1\)</span> 操作还是 <span class="math-inline">\(a&#x3D;b\)</span> 的操作效果相同。</p>
+<p>所以考虑重新定义操作，和描述二元组 <span class="math-inline">\((b,x)\)</span>。</p>
+<ul>
+<li><span class="math-inline">\(b\)</span> 表示较大的数字的值。</li>
+<li><span class="math-inline">\(x\)</span> 表示两个数字的差。</li>
+</ul>
+<p>操作为：</p>
+<ul>
+<li><span class="math-inline">\(U\)</span>：<span class="math-inline">\(b\leftarrow b+1,x\leftarrow x+1\)</span>。</li>
+<li><span class="math-inline">\(D\)</span>：<span class="math-inline">\(a\)</span> 增加一，在当面描述二元组下为 <span class="math-inline">\(x\leftarrow x-1\)</span>。条件为 <span class="math-inline">\(x\geq 2\)</span>。</li>
+<li><span class="math-inline">\(Z\)</span>：<span class="math-inline">\(x\leftarrow 0\)</span>。</li>
+</ul>
+<p>发现 <span class="math-inline">\(U\)</span> 操作的个数等于 <span class="math-inline">\(b\)</span>，那么只需要枚举 <span class="math-inline">\(D\)</span> 的操作次数为 <span class="math-inline">\(k\)</span>，那么就能知道 <span class="math-inline">\(Z\)</span> 的操作次数为 <span class="math-inline">\(n-b-k\)</span>。</p>
+<p>接下来我们主要处理好 <span class="math-inline">\(x\geq 2\)</span> 的限制。<br>以执行 <span class="math-inline">\(U\)</span> 的次数为横轴，以执行 <span class="math-inline">\(D\)</span> 的次数为纵轴。那么也就是要求，除了原点意外事件，不在其他位置触碰 <span class="math-inline">\(y&#x3D;x\)</span> 这个线。如果不考虑 <span class="math-inline">\(Z\)</span> 可以直接用格路计数求出。</p>
+<p>这里有一个关键结论：不管 <span class="math-inline">\(U,D\)</span> 顺序如何组合，只要确定了个数，那么 <span class="math-inline">\(Z\)</span> 可以操作的位置都是固定的。</p>
+<p>由于操作 <span class="math-inline">\(Z\)</span> 之后，就把当前位置看成基准线，然后后面的操作，都不能再触碰这个基准线，也就等价于，只有在一种高度最后一次出现的时候才能符合要求。（这里坐标系和之前不一样，现在是 <span class="math-inline">\(U\)</span> 代表增加一，<span class="math-inline">\(D\)</span> 代表减少 <span class="math-inline">\(1\)</span>，横轴为操作次数）。<br>而且 <span class="math-inline">\(Z\)</span> 的最后一次操作是固定的，假设最后一次操作的位置为 <span class="math-inline">\(h\)</span>，那么有 <span class="math-inline">\(b-k-h&#x3D;b-a\)</span>，那么 <span class="math-inline">\(h&#x3D;k-a\)</span>。而且 <span class="math-inline">\([0,h]\)</span> 的最后一次出现的位置，都可以容纳任意次 <span class="math-inline">\(Z\)</span> 操作，我们直接插板法。一共有 <span class="math-inline">\(r&#x3D;n-b-k\)</span> 次操作，最后一次固定，其他可以在 <span class="math-inline">\([0,h]\)</span> 一共 <span class="math-inline">\(h+1\)</span> 的位置任意放，方案数为：</p>
+<div class="math-display">\[r-1+h\choose r-1\]</div>
+<p>注意特殊判断 <span class="math-inline">\(b&#x3D;0\)</span> 和 <span class="math-inline">\(n-b-k&#x3D;0\)</span>（<span class="math-inline">\(Z\)</span> 操作次数为 <span class="math-inline">\(0\)</span>） 的情况。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E8%AE%A1%E6%95%B0/" rel="tag"># 计数</a>
+              <a href="/tags/dp/" rel="tag"># dp</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2026/11/12/%E6%9D%8E%E8%B6%85%E7%BA%BF%E6%AE%B5%E6%A0%91%E5%86%99%E6%B3%95%E6%80%BB%E7%BB%93/" rel="prev" title="李超线段树写法总结">
+                  <i class="fa fa-angle-left"></i> 李超线段树写法总结
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2026/11/19/%E7%AB%9E%E8%B5%9B%E5%9B%BE%E6%80%A7%E8%B4%A8%E6%80%BB%E7%BB%93/" rel="next" title="竞赛图性质总结">
+                  竞赛图性质总结 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2026</span>
+    <span class="with-love">
+      <i class=""></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">wdwsy</span>
+  </div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="Total Visitors">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="Total Views">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+<script defer src="/js/blog-code.js"></script>
+
+</body>
+</html>
