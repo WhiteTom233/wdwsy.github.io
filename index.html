@@ -178,7 +178,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">52</span>
+          <span class="site-state-item-count">53</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -210,6 +210,174 @@
     </div>
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://wdwsy.github.io/2026/11/19/%E7%AB%9E%E8%B5%9B%E5%9B%BE%E6%80%A7%E8%B4%A8%E6%80%BB%E7%BB%93/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="wdwsy">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="wdwsy's Blog">
+      <meta itemprop="description" content="算法竞赛、C++、OI 技术分享">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content=" | wdwsy's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2026/11/19/%E7%AB%9E%E8%B5%9B%E5%9B%BE%E6%80%A7%E8%B4%A8%E6%80%BB%E7%BB%93/" class="post-title-link" itemprop="url">竞赛图性质总结</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2026-11-19 18:48:38" itemprop="dateCreated datePublished" datetime="2026-11-19T18:48:38+08:00">2026-11-19</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>竞赛图可以理解为：<strong>每两个人恰好比一场，而且一定分出胜负。</strong> 用 <span class="math-inline">\(u\to v\)</span> 表示 <span class="math-inline">\(u\)</span> 战胜 <span class="math-inline">\(v\)</span>，那么任意两个不同的点之间恰好有一条有向边。</p>
+<p>因此，<span class="math-inline">\(n\)</span> 个点的竞赛图恰好有 <span class="math-inline">\(\binom{n}{2}\)</span> 条边，并且对每个点都有</p>
+<div class="math-display">\[d^+(v)+d^-(v)&#x3D;n-1.\]</div>
+<p>其中，<span class="math-inline">\(d^+(v)\)</span> 是出度，也就是赢的场数；<span class="math-inline">\(d^-(v)\)</span> 是入度，也就是输的场数。</p>
+<p>做题时，可以先按问题的类型选性质：<strong>可达性看强连通分量和割，局部环看三元环，构造一条长路径看哈密顿路径。</strong></p>
+<h2 id="1-强连通分量之间有确定的先后顺序"><a href="#1-强连通分量之间有确定的先后顺序" class="headerlink" title="1. 强连通分量之间有确定的先后顺序"></a>1. 强连通分量之间有确定的先后顺序</h2><p>把强连通分量缩点，再按拓扑序排成 <span class="math-inline">\(C_1,C_2,\ldots,C_s\)</span>。对于任意 <span class="math-inline">\(i&lt;j\)</span>，<span class="math-inline">\(C_i\)</span> 中的每个人都战胜 <span class="math-inline">\(C_j\)</span> 中的每个人。</p>
+<p>因为这两个人之间一定有一条边，而反方向的边会违反拓扑序。所以，给定两个选手 <span class="math-inline">\(u,v\)</span>，他们的可达关系只取决于所在的分量。</p>
+<table>
+<thead>
+<tr>
+<th>所在分量</th>
+<th>可达关系</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>同一分量</td>
+<td>两人互相可达</td>
+</tr>
+<tr>
+<td><span class="math-inline">\(u\)</span> 的分量排在 <span class="math-inline">\(v\)</span> 前面</td>
+<td><span class="math-inline">\(u\)</span> 能到达 <span class="math-inline">\(v\)</span>，<span class="math-inline">\(v\)</span> 无法到达 <span class="math-inline">\(u\)</span></td>
+</tr>
+<tr>
+<td><span class="math-inline">\(u\)</span> 的分量排在 <span class="math-inline">\(v\)</span> 后面</td>
+<td><span class="math-inline">\(v\)</span> 能到达 <span class="math-inline">\(u\)</span>，<span class="math-inline">\(u\)</span> 无法到达 <span class="math-inline">\(v\)</span></td>
+</tr>
+</tbody></table>
+<p>进一步，如果某个分量之前有 <span class="math-inline">\(L\)</span> 个点，算上这个分量一共有 <span class="math-inline">\(R\)</span> 个点，那么其中任意点的入度满足</p>
+<div class="math-display">\[L\le d^-(v)\le R-1.\]</div>
+<p>前面的 <span class="math-inline">\(L\)</span> 个点全都向它连边，后面的点全都被它指向，分量内部至多再贡献 <span class="math-inline">\(R-L-1\)</span> 个入度。而下一个分量里的点，入度至少为 <span class="math-inline">\(R\)</span>。</p>
+<p>因此，<strong>按入度升序排序，每个强连通分量必然占据一个连续段，而且相同入度的点一定在同一个分量里。</strong> 这使得我们可以通过入度排序来研究强连通分量；下一节的割边公式还能确定这些连续段的边界。</p>
+<h2 id="2-入度之和可以算出割边数"><a href="#2-入度之和可以算出割边数" class="headerlink" title="2. 入度之和可以算出割边数"></a>2. 入度之和可以算出割边数</h2><p>对任意点集 <span class="math-inline">\(S\)</span>，记 <span class="math-inline">\(\overline S\)</span> 为其补集，<span class="math-inline">\(e(\overline S,S)\)</span> 为从集合外指向集合内的边数。那么</p>
+<div class="math-display">\[e(\overline S,S)&#x3D;\sum_{v\in S}d^-(v)-\binom{|S|}{2}.\]</div>
+<p>数一数所有终点在 <span class="math-inline">\(S\)</span> 里的边即可。内部边恰好有 <span class="math-inline">\(\binom{|S|}{2}\)</span> 条，减掉它们，剩下的就是从外面进来的边。</p>
+<p>这个等式还有一个很实用的推论：<strong>如果要求恰好选 <span class="math-inline">\(k\)</span> 个点，使从外面进来的边最少，只需选入度最小的 <span class="math-inline">\(k\)</span> 个点。</strong> 因为集合大小固定后，右边只有入度之和会变化。</p>
+<p>设升序入度为 <span class="math-inline">\(a_1,\ldots,a_n\)</span>，这个最小值就是</p>
+<div class="math-display">\[\delta_k&#x3D;\sum_{i&#x3D;1}^k a_i-\binom{k}{2}.\]</div>
+<p>对于 <span class="math-inline">\(1\le k&lt;n\)</span>：</p>
+<ul>
+<li>如果 <span class="math-inline">\(\delta_k&#x3D;0\)</span>，这个前缀没有外来的边，后面的点也就无法沿路径进入前缀，因此这里一定是强连通分量的边界。</li>
+<li>如果切在强连通分量的边界上，所有跨界边都从前向后，所以 <span class="math-inline">\(\delta_k&#x3D;0\)</span>。</li>
+</ul>
+<p>因此，<strong>竞赛图强连通，当且仅当每个 <span class="math-inline">\(1\le k&lt;n\)</span> 都有 <span class="math-inline">\(\delta_k&gt;0\)</span>。</strong></p>
+<p>遇到“能否选出一批人，使得他们全部战胜外面的人”这类条件，可以直接想到这个割边公式。</p>
+<h2 id="3-三元环是判断传递性和做计数的入口"><a href="#3-三元环是判断传递性和做计数的入口" class="headerlink" title="3. 三元环是判断传递性和做计数的入口"></a>3. 三元环是判断传递性和做计数的入口</h2><h3 id="只要有环，就一定有三元环"><a href="#只要有环，就一定有三元环" class="headerlink" title="只要有环，就一定有三元环"></a>只要有环，就一定有三元环</h3><p>如果没有三元环，那么只要 <span class="math-inline">\(u\to v\)</span> 且 <span class="math-inline">\(v\to w\)</span>，就一定有 <span class="math-inline">\(u\to w\)</span>，因为 <span class="math-inline">\(w\to u\)</span> 会形成三元环。</p>
+<p>于是胜负关系具有传递性，可以把所有人排成一列，每个人都战胜后面的所有人。这样的图叫<strong>传递竞赛图</strong>。</p>
+<p>所以，“无环”“无三元环”“胜负关系可排成严格的全序”是等价的。</p>
+<h3 id="只知道度数，也能算出三元环总数"><a href="#只知道度数，也能算出三元环总数" class="headerlink" title="只知道度数，也能算出三元环总数"></a>只知道度数，也能算出三元环总数</h3><p>任取三个点，只有两种情况：它们形成一个三元环，或者其中恰好有一个点战胜另外两个点。</p>
+<p>固定这个全胜点 <span class="math-inline">\(v\)</span>，从它的出邻居里任选两个点，就得到一个传递三元组，并且每个传递三元组恰好被数一次。因此</p>
+<div class="math-display">\[T&#x3D;\binom{n}{3}-\sum_v\binom{d^+(v)}{2},\]</div>
+<p>其中 <span class="math-inline">\(T\)</span> 表示三元环总数。</p>
+<p>这条公式还能处理动态翻边。若翻转前是 <span class="math-inline">\(u\to v\)</span>，且两人的出度分别为 <span class="math-inline">\(x,y\)</span>，翻转后出度变为 <span class="math-inline">\(x-1,y+1\)</span>。于是</p>
+<div class="math-display">\[\begin{aligned}
+\Delta T
+&amp;&#x3D;\binom{x}{2}+\binom{y}{2}
+  -\binom{x-1}{2}-\binom{y+1}{2}\\
+&amp;&#x3D;x-y-1.
+\end{aligned}\]</div>
+<p>所以，<strong>每次翻边可以用 <span class="math-inline">\(O(1)\)</span> 的时间更新三元环总数</strong>，再同步修改这两个点的出度即可。</p>
+<h2 id="4-任意竞赛图都有哈密顿路径"><a href="#4-任意竞赛图都有哈密顿路径" class="headerlink" title="4. 任意竞赛图都有哈密顿路径"></a>4. 任意竞赛图都有哈密顿路径</h2><p>哈密顿路径经过每个点恰好一次。这个结论可以直接用来构造。</p>
+<h3 id="逐点插入：-O-n-2"><a href="#逐点插入：-O-n-2" class="headerlink" title="逐点插入：\(O(n^2)\)"></a>逐点插入：<span class="math-inline">\(O(n^2)\)</span></h3><p>假设已经有一条路径 <span class="math-inline">\(v_1\to v_2\to\cdots\to v_k\)</span>，现在加入新点 <span class="math-inline">\(x\)</span>。从左往右找第一个满足 <span class="math-inline">\(x\to v_i\)</span> 的点：</p>
+<ul>
+<li>若找到了，就把 <span class="math-inline">\(x\)</span> 插在 <span class="math-inline">\(v_i\)</span> 前面。若 <span class="math-inline">\(i&gt;1\)</span>，由于 <span class="math-inline">\(v_i\)</span> 是第一个被 <span class="math-inline">\(x\)</span> 战胜的点，必有 <span class="math-inline">\(v_{i-1}\to x\)</span>。</li>
+<li>若找不到，所有旧点都战胜 <span class="math-inline">\(x\)</span>，把它接到末尾即可。</li>
+</ul>
+<p>这样可以用 <span class="math-inline">\(O(n^2)\)</span> 的时间构造一条哈密顿路径。</p>
+<h3 id="分治归并：-O-n-log-n"><a href="#分治归并：-O-n-log-n" class="headerlink" title="分治归并：\(O(n\log n)\)"></a>分治归并：<span class="math-inline">\(O(n\log n)\)</span></h3><p>把点分成两半，各自构造路径。归并时比较两条路径的队首，取胜者；如果其中一条已经取完，就接上另一条剩余的部分。</p>
+<p>取出的点既战胜另一条路径的队首，也战胜自己原路径上的下一个点，因此无论下一步取谁，都能接在它后面。一次归并是线性的，总时间为 <span class="math-inline">\(O(n\log n)\)</span>。这里假设查询两点间的边方向需要 <span class="math-inline">\(O(1)\)</span> 时间；如果输入本身是邻接矩阵，读入仍需要 <span class="math-inline">\(O(n^2)\)</span> 时间。</p>
+<p>一个容易混淆的地方是，<strong>路径只要求相邻两个人之间胜负方向正确</strong>。若要求任意前面的人都战胜后面的人，就回到了上一节的传递竞赛图。</p>
+<h2 id="5-强连通竞赛图有哈密顿环"><a href="#5-强连通竞赛图有哈密顿环" class="headerlink" title="5. 强连通竞赛图有哈密顿环"></a>5. 强连通竞赛图有哈密顿环</h2><p>对 <span class="math-inline">\(n\ge 3\)</span>，<strong>一个竞赛图有哈密顿环，当且仅当它强连通。</strong></p>
+<p>沿着哈密顿环可以从任何点到达任何点，所以一个方向立即成立。另一个方向可以用<strong>从三元环开始扩环</strong>来证明。强连通竞赛图一定有环，因此也一定有三元环。</p>
+<p>设当前有一个长度为 <span class="math-inline">\(k&lt;n\)</span> 的有向环 <span class="math-inline">\(C\)</span>，分两种情况。</p>
+<h3 id="环外有点与环上的胜负关系不一致"><a href="#环外有点与环上的胜负关系不一致" class="headerlink" title="环外有点与环上的胜负关系不一致"></a>环外有点与环上的胜负关系不一致</h3><p>存在一个环外点 <span class="math-inline">\(x\)</span>，它既战胜过环上的人，也输给过环上的人。</p>
+<p>沿环走一圈，一定能找到相邻两点 <span class="math-inline">\(u,v\)</span>，满足 <span class="math-inline">\(u\to x\to v\)</span>。把环上的边 <span class="math-inline">\(u\to v\)</span> 替换为 <span class="math-inline">\(u\to x\to v\)</span>，环就长了 <span class="math-inline">\(1\)</span>。</p>
+<h3 id="每个环外点与环上的胜负关系都一致"><a href="#每个环外点与环上的胜负关系都一致" class="headerlink" title="每个环外点与环上的胜负关系都一致"></a>每个环外点与环上的胜负关系都一致</h3><p>把战胜环上所有点的环外点记为 <span class="math-inline">\(A\)</span>，把输给环上所有点的环外点记为 <span class="math-inline">\(B\)</span>。</p>
+<p>由强连通性，这两类都非空：若只有 <span class="math-inline">\(A\)</span>，环上的点无法到达环外；若只有 <span class="math-inline">\(B\)</span>，环外的点无法到达环上。</p>
+<p>进一步，必有一条 <span class="math-inline">\(b\to a\)</span>，其中 <span class="math-inline">\(b\in B\)</span>、<span class="math-inline">\(a\in A\)</span>。考虑一条从环上走到 <span class="math-inline">\(A\)</span> 的路径，第一次进入 <span class="math-inline">\(A\)</span> 时，前一个点不可能在环上，只能在 <span class="math-inline">\(B\)</span> 中。</p>
+<p>此时任选环上连续三点 <span class="math-inline">\(u\to v\to w\)</span>，把这段替换成</p>
+<div class="math-display">\[u\to b\to a\to w.\]</div>
+<p>因为环上的点都战胜 <span class="math-inline">\(b\)</span>，而 <span class="math-inline">\(a\)</span> 战胜环上的所有点，所以新环成立。这次去掉了原环上的 <span class="math-inline">\(v\)</span>，加入了 <span class="math-inline">\(a,b\)</span>，环的长度仍然恰好增加 <span class="math-inline">\(1\)</span>。</p>
+<p>从长度为 <span class="math-inline">\(3\)</span> 的环开始，反复应用这两种操作，就能得到长度为 <span class="math-inline">\(n\)</span> 的环。因此，强连通竞赛图里甚至有<strong>每种长度 <span class="math-inline">\(3,4,\ldots,n\)</span> 的有向环</strong>。</p>
+<h2 id="6-出度最大的人，两步以内能到达所有人"><a href="#6-出度最大的人，两步以内能到达所有人" class="headerlink" title="6. 出度最大的人，两步以内能到达所有人"></a>6. 出度最大的人，两步以内能到达所有人</h2><p>取出度最大的点 <span class="math-inline">\(v\)</span>。对于任意其他点 <span class="math-inline">\(u\)</span>，如果 <span class="math-inline">\(v\to u\)</span>，一步就能到达。否则 <span class="math-inline">\(u\to v\)</span>。</p>
+<p>假设 <span class="math-inline">\(u\)</span> 还战胜了 <span class="math-inline">\(v\)</span> 的所有出邻居，那么 <span class="math-inline">\(u\)</span> 至少战胜了这些点和 <span class="math-inline">\(v\)</span> 本人，出度比 <span class="math-inline">\(v\)</span> 多至少 <span class="math-inline">\(1\)</span>，矛盾。</p>
+<p>所以一定有某个 <span class="math-inline">\(w\)</span> 满足</p>
+<div class="math-display">\[v\to w\to u.\]</div>
+<p>这就是竞赛图中的 <strong>2-king 性质</strong>。题目若要求找一个能在至多两步内到达所有人的点，直接取出度最大者即可。</p>
+<h2 id="7-怎样判断竞赛图的入度序列？"><a href="#7-怎样判断竞赛图的入度序列？" class="headerlink" title="7. 怎样判断竞赛图的入度序列？"></a>7. 怎样判断竞赛图的入度序列？</h2><p>将给定的非负整数升序排列为 <span class="math-inline">\(a_1,\ldots,a_n\)</span>。<strong>Landau 定理</strong>给出的充要条件是</p>
+<div class="math-display">\[\sum_{i&#x3D;1}^k a_i\ge\binom{k}{2}\quad(1\le k\le n),
+\qquad
+\sum_{i&#x3D;1}^n a_i&#x3D;\binom{n}{2}.\]</div>
+<h3 id="必要性：割边数非负"><a href="#必要性：割边数非负" class="headerlink" title="必要性：割边数非负"></a>必要性：割边数非负</h3><p>必要性就是第 2 节的割边公式：任何点集的入度之和，至少等于内部的边数；所有点的入度之和，恰好等于总边数。</p>
+<h3 id="充分性：为每场比赛选择负者"><a href="#充分性：为每场比赛选择负者" class="headerlink" title="充分性：为每场比赛选择负者"></a>充分性：为每场比赛选择负者</h3><p>充分性可以用一个匹配模型来理解：<strong>每场比赛要选它的负者。</strong></p>
+<p>给选手 <span class="math-inline">\(i\)</span> 准备 <span class="math-inline">\(a_i\)</span> 个输球名额。二分图左侧是所有比赛，右侧是所有名额；每场比赛向它的两名参赛者的所有名额连边。</p>
+<p>任取一批比赛，设它们涉及的选手集合为 <span class="math-inline">\(S\)</span>。这些比赛都发生在 <span class="math-inline">\(S\)</span> 内部，所以比赛数至多为 <span class="math-inline">\(\binom{|S|}{2}\)</span>。而它们能使用的名额总数为</p>
+<div class="math-display">\[\sum_{i\in S}a_i
+\ge\sum_{i&#x3D;1}^{|S|}a_i
+\ge\binom{|S|}{2}.\]</div>
+<p>第一个不等式来自升序排列，第二个来自题设条件。因此满足 Hall 条件，可以为每场比赛匹配到一个不同的输球名额，选定负者。</p>
+<p>名额总数正好等于比赛数，因此每个人的名额都会恰好用完，得到的竞赛图入度也就恰好是给定的序列。</p>
+<p>这也给出一个常见的竞赛建模思路：<strong>题目给了每个点应该有多少入度时，可以把“给边定向”转成“给每条边选择它的终点”。</strong></p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -1373,114 +1541,6 @@ h_i(t)&#x3D;\sum_{\substack{i&lt;j\le t\\j\text{ 为左端点}}}2^{-c(i,j)}.\]</
 <p>所以我们就考虑重新定义每一个点的权值，可以假设一个点如果选择，那么他后面所有和他构成逆序对的位置都要选择。<br>那么容易计算贡献为 $b_i&#x3D;\sum_{j&#x3D;1}^{i-1} [p_j&gt;p_i]-[p_j&lt;p_i]-2\times\sum_{j&#x3D;i+1}^{n}[p_j&lt;p_i]$。</p>
 <p>最后还要加上一个 $k \choose 2$，但是显然推式子不是本题的重点。</p>
 
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://wdwsy.github.io/2026/10/13/2026-10-13NOIP%E6%A8%A1%E6%8B%9F%E8%B5%9B/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="wdwsy">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="wdwsy's Blog">
-      <meta itemprop="description" content="算法竞赛、C++、OI 技术分享">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content=" | wdwsy's Blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2026/10/13/2026-10-13NOIP%E6%A8%A1%E6%8B%9F%E8%B5%9B/" class="post-title-link" itemprop="url">2026-10-13NOIP模拟赛</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-      
-
-      <time title="Created: 2026-10-13 21:35:29 / Modified: 22:16:35" itemprop="dateCreated datePublished" datetime="2026-10-13T21:35:29+08:00">2026-10-13</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="5919-–-迷路的送货车"><a href="#5919-–-迷路的送货车" class="headerlink" title="5919 – 迷路的送货车"></a><a target="_blank" rel="noopener" href="http://172.17.226.198/OnlineJudge/contestproblem.php?id=16165919">5919 – 迷路的送货车</a></h1><p>首先，可以发现每一点客观上肯定是有一个到终点的最小代价，假设这个代价为 $d_i$。</p>
-<p>假设一条边连接 $(u,v)$，如果 $d_u&lt;d_v$ 那么只会从 $v\rightarrow u$ 进行转移，反之亦然。原因是我们不会花钱让距离终点更远。</p>
-<p>考虑我们现在就是要求出 $d$。<br>考虑倒推，$d_n&#x3D;0$，接下来考虑直接找到距离最小的点，这里距离定义为屏蔽代价加上通行代价，按照 djkstra 的方式把这个最小点从 priority 中取出来，然后去更新别的点。这样做就是正确的。因为我们每次更新的是最小点，而最小点所有向外转移的边都已经做好了。</p>
-<p>这样思路很简单，但是因为卡空间，维护屏蔽代价的时候需要使用 fhq treap。</p>
-<p>这里介绍一个更加简单的做法，发现代价可以拆成两个部分（屏蔽代价，通行代价），并且这两种代价都非负。考虑把每一条边拆成上再新建一个点，记录 $dis_u+w$，$w$ 表示通行代价。然后我们发现进入点 $v$ 的每条边，就是按照 $dis_u+w$ 升序加入的。在计算屏蔽代价的时候，我们只关心每个点 $dis_u+w$ 的排名，这样我们在边点转移到真实点的代价也能计算了。那么直接 dijkstra 就做完了。</p>
-<p>这个题目很妙，我们在一开始不知道所有边的边权，但是在做 dijkstra 的过程中，可以逐渐知道每一条边的权值。保证我们可以完整正常的 dijkstra 流程。</p>
-<h1 id="5920-–-双轨灯幕"><a href="#5920-–-双轨灯幕" class="headerlink" title="5920 – 双轨灯幕"></a><a target="_blank" rel="noopener" href="http://218.22.67.60:30808/OnlineJudge/contestproblem.php?id=16165920">5920 – 双轨灯幕</a></h1><p>对于这样选一个递增，一个递减序列的问题，在二位坐标上表示看起来像一个 X，这种问题我们有以下两种思路：</p>
-<ol>
-<li>寻找中心点。</li>
-<li>排除不合法四元组。</li>
-</ol>
-<p>这个题目两个做法都可以，但是使用 2 会好写一些。</p>
-<h2 id="做法-1"><a href="#做法-1" class="headerlink" title="做法 1"></a>做法 1</h2><p>考虑寻找中心点。</p>
-<p>在中心点两侧分别是一段 V 字形，用单调栈不难处理冲合法的极大区间。</p>
-<p>但是我们发现有些合法构造没有办法找到中心点。<br>比如：3 1 4 2</p>
-<div class="note primary"><p>🔷 3142 表示有四元组 $(i,j,k,l)$ 满足 $(a_i,a_j,a_k,a_l)$ 从小到大的排名分别为 3 1 4 2</p>
-</div>
-
-<p>这里没有一个位置可以作为中心点。<br>但是我们发现，只有中心情况大小关系刚好是 3142 或者 2413 的时候会找不到中心点，但是仍然合法。</p>
-<p>所以可以分类讨论解决。但是太烦了。</p>
-<h2 id="做法-2"><a href="#做法-2" class="headerlink" title="做法 2"></a>做法 2</h2><p>考虑寻找不合法的四元组。</p>
-<p>发现一，二，三元组永远合法。</p>
-<p>对于 3412 或者 2143 这样的四元组，那么就会不合法。</p>
-<p>显然这是一个必要条件，是不是充要的可以打表证明，真正的证明需要使用数学图论的相关知识。<br>打表的时候可以设 $f_{i}$ 表示上升序列结尾为 $i$ 下降序列结尾数字最大是多少，$g_{i}$ 表示下降序列结尾为 $i$ 上升序列结尾的最小数字是多少。</p>
-<p>最后上一个简单的 dp，应该谁都会。</p>
-<h2 id="小总结"><a href="#小总结" class="headerlink" title="小总结"></a>小总结</h2><h2 id="对于类-X-问题"><a href="#对于类-X-问题" class="headerlink" title="对于类 X 问题"></a>对于类 X 问题</h2><p>对于选择一个上升序列和一个下降序列的问题（即选出一个 X 的问题）<br>我们有两种方式：</p>
-<ol>
-<li>找中心点。</li>
-<li>排除不合法四元组。</li>
-</ol>
-<p>对于第一种情况，如果当前不满足条件的时候，可以考虑以下几个方面来贴合题目：</p>
-<ul>
-<li>考虑分类讨论中心点的情况。</li>
-<li>把中心点看作一条链上的点，假设中心点为 $x$，然后条件修改为：后面的上升链大于 $x$ 之前第一个小于 $a_x$ 的值，后面的下降链小于 $x$ 之前第一个大于 $a_x$ 的值。</li>
-</ul>
-<h2 id="对于排除四元组问题"><a href="#对于排除四元组问题" class="headerlink" title="对于排除四元组问题"></a>对于排除四元组问题</h2><p>总结一下目前遇到的排除四元组问题类型。</p>
-<p>一个就是当前题目，要求选择一个上升序列和一个下降序列，要求不出现 2143 和 3412。</p>
-<p>还有一个题目如下：<br>给你一个序列 $a_i$，一开始每一个数字是一个单独的集合，现在每次可以把相邻两个位置合并，要求合并的两个集合 $[\text{集合最小值},\text{集合最大值}]$ 这样的区间没有交。求最多能合并多少次。 </p>
-<p>这个问题的要求是不出现 2413 和 3124。</p>
-<h1 id="5921-–-重剪巡游录像"><a href="#5921-–-重剪巡游录像" class="headerlink" title="5921 – 重剪巡游录像"></a><a target="_blank" rel="noopener" href="http://218.22.67.60:30808/OnlineJudge/contestproblem.php?id=16165921">5921 – 重剪巡游录像</a></h1>
       
     </div>
 
