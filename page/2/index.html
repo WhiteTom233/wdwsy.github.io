@@ -178,7 +178,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">54</span>
+          <span class="site-state-item-count">55</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -210,6 +210,91 @@
     </div>
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://wdwsy.github.io/2026/10/16/%E5%9B%9B%E5%85%83%E6%94%AF%E9%85%8D%E9%97%AE%E9%A2%98/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="wdwsy">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="wdwsy's Blog">
+      <meta itemprop="description" content="算法竞赛、C++、OI 技术分享">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content=" | wdwsy's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2026/10/16/%E5%9B%9B%E5%85%83%E6%94%AF%E9%85%8D%E9%97%AE%E9%A2%98/" class="post-title-link" itemprop="url">四元支配问题</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+      
+
+      <time title="Created: 2026-10-16 21:35:02 / Modified: 21:35:24" itemprop="dateCreated datePublished" datetime="2026-10-16T21:35:02+08:00">2026-10-16</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>四元支配问题，可以从以下两个角度来思考：</p>
+<ul>
+<li>分组逐步消除偏序关系，如：2143，可以 21 分一组，43 分一组。</li>
+<li>选择数数字为值域分组，如：2413，选择 24 之后，13可以贪心选择。</li>
+</ul>
+<h3 id="处理-2143-偏序的方式"><a href="#处理-2143-偏序的方式" class="headerlink" title="处理 2143 偏序的方式"></a>处理 2143 偏序的方式</h3><p>首先 21 分为一组 43 分为一组。</p>
+<p>然后在 2 处找到其右边第一个比它小的数字，就是 1。<br>在 3 处找到其左边第一个比它大的数字就是 4。</p>
+<p>接下来合并两部分，需要满足 $val_{2}&gt;val_{3},pos_{1}&lt;val_{4}$ 二维偏序，可以使用扫描线解决。</p>
+<h1 id="CF2165F-Arctic-Acquisition"><a href="#CF2165F-Arctic-Acquisition" class="headerlink" title="CF2165F Arctic Acquisition"></a><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF2165F">CF2165F Arctic Acquisition</a></h1><h2 id="题目简述"><a href="#题目简述" class="headerlink" title="题目简述"></a>题目简述</h2><p>给你一个长度为 $n$ 序列 $a$。<br>要求计算包含 21435 的子序列个数。</p>
+<h2 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h2><p>发现多了一个 $5$。<br>所以还是考虑分组。把 21 分一组，把 435 分一组。</p>
+<p>然后发现 435 并不好计算。<br>首先我们应该只能枚举一个位置，显然考虑枚举 3 的位置。<br>接下来发现 5 只需要取第一个大于 3 的位置，然后 check 有没有合法的 4 就足够了，原因如下：<br>考虑一个合法的 435，如果 3 到 5 的位置之间有大小介于他们之间的数字，设这个数字为 $x$。</p>
+<ul>
+<li>如果 $x&gt;4$ 那么选择 43x 更优。</li>
+<li>如果 $x&lt;4$ 那么可以转而选择 4x5。</li>
+</ul>
+<p>然后就可以用类似 2143 的方式，这次是把 21 435 用偏序关系连接起来，时间复杂度 $O(n\log n)$。</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -1266,121 +1351,6 @@ f(m)
 </ul>
 <p>发现这个条件其实不困难，考虑去 check 一个序列，本质上其实就是从前往后扫，然后把每一个数字压入栈中，新加入的数字会让栈顶元素 <span class="math-inline">\(-1\)</span>，然后去除所有为 <span class="math-inline">\(0\)</span> 的就好。不难发现只要最后栈为空（对应 <span class="math-inline">\(S_n\)</span> 的限制），而且不会出现栈为空还要弹（对应 <span class="math-inline">\(S_i\)</span> 的限制）。</p>
 <p>接下来考虑格路计数，不难。</p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://wdwsy.github.io/2026/09/03/%E5%B9%B3%E9%9D%A2%E5%9B%BE%E6%AC%A7%E6%8B%89%E5%AE%9A%E7%90%86%E2%80%94%E2%80%94%E6%8F%8F%E8%BF%B0%E8%BF%9E%E9%80%9A%E5%9D%97%E6%95%B0%E7%9A%84%E6%9C%89%E5%8A%9B%E5%B7%A5%E5%85%B7/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="wdwsy">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="wdwsy's Blog">
-      <meta itemprop="description" content="算法竞赛、C++、OI 技术分享">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content=" | wdwsy's Blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2026/09/03/%E5%B9%B3%E9%9D%A2%E5%9B%BE%E6%AC%A7%E6%8B%89%E5%AE%9A%E7%90%86%E2%80%94%E2%80%94%E6%8F%8F%E8%BF%B0%E8%BF%9E%E9%80%9A%E5%9D%97%E6%95%B0%E7%9A%84%E6%9C%89%E5%8A%9B%E5%B7%A5%E5%85%B7/" class="post-title-link" itemprop="url">平面图欧拉定理——描述连通块数的有力工具</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2026-09-03 12:32:53" itemprop="dateCreated datePublished" datetime="2026-09-03T12:32:53+08:00">2026-09-03</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2026-10-09 21:30:13" itemprop="dateModified" datetime="2026-10-09T21:30:13+08:00">2026-10-09</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="平面图"><a href="#平面图" class="headerlink" title="平面图"></a>平面图</h1><p>定义：除了顶点之外，平面内没有任何一个点被大于 $1$ 条边经过点图为平面图。</p>
-<h1 id="定理内容"><a href="#定理内容" class="headerlink" title="定理内容"></a>定理内容</h1><p>平面图欧拉定理简洁地揭示了图中常见量：顶点数 $V$, 边数 $E$，面数 $F$，连通块数 $K$ 之间的关系。<br>具体等式如下：<br>$$<br>V-E+F&#x3D;K<br>$$</p>
-<p>这是类似于容斥的形式，应该容易理解，可以描述为 $\text{1维}-\text{2维}+\text{3维}&#x3D;\text{连通块数}$</p>
-<h1 id="P8990-北大集训-2021-小明的树"><a href="#P8990-北大集训-2021-小明的树" class="headerlink" title="P8990 [北大集训 2021] 小明的树"></a><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P8990">P8990 [北大集训 2021] 小明的树</a></h1><p>这个题目的关键在于如何转化题目要求的东西。</p>
-<p>我们称被点亮的的点为白点。</p>
-<p>题目中统计答案的条件是子树限制，当树的形态发生变化的时候比较难以处理。<br>考虑这个限制其实等价于任意一个黑点的祖先中都没有白点，进一步地等价于每一个所有黑点称为一个连通块（注意这里根一定为黑点）。</p>
-<p>那么我们如何刻画所有黑点都在一个连通块里面呢？<br>没错就是我们的平面图欧拉定理，但是现在因为是树，连环都没有，所有 $F&#x3D;0$，所以直接统计 $V-E$，动态统计用线段树区间操作是不困难的。</p>
-<p>接下来考虑统计答案，答案的贡献为白点的连通块数量，我们这里再用一次平面图欧拉定理当然没有问题，但是介于本题的特殊性，其实统计两端点颜色不同的边的数量，其本质上就等价于连通块数量。</p>
-<p>我们对于时间轴建线段树。<br>我们用 $b_u$ 代表节点 $u$ 被加入的时刻。<br>假设 $V-E$ 的值为 $v$，当前时刻的连通块数量为 $c$，加入一条边 $(u,v)$ 的时候（假设 $b_u&lt;b_v$）：</p>
-<ul>
-<li>$[1,b_u-1]$ 的 $v$ 减掉 $1$。</li>
-<li>$[b_u,b_v-1]$ 的 $c$ 加上 $1$。<br>初始时刻 $i$ 有： $v&#x3D;n-i,c&#x3D;0$。</li>
-</ul>
-<p>每次树发生改变的时候直接加入一条边删除一条就好。</p>
-<h1 id="FZOJ-5732-–-黎明"><a href="#FZOJ-5732-–-黎明" class="headerlink" title="FZOJ 5732 – 黎明"></a><a target="_blank" rel="noopener" href="http://218.22.67.60:30808/OnlineJudge/contestproblem.php?id=15965732">FZOJ 5732 – 黎明</a></h1><h2 id="题面概述"><a href="#题面概述" class="headerlink" title="题面概述"></a>题面概述</h2><p>给定一个 $n \times m$ 的整数矩阵，定义矩阵的值为所有正整数在四连通意义下形成的连通块数量。</p>
-<p>需要维护 $q$ 次操作：</p>
-<ul>
-<li><code>add x</code>：将矩阵中所有元素的值加上 $x$；</li>
-<li><code>set x y z</code>：将位置 $(x,y)$ 的值修改为 $z$。</li>
-</ul>
-<p>每次操作后输出当前矩阵的值。</p>
-<p>额外保证：任意时刻，对于任意不在矩阵边界的位置 $(i,j)$，其四个相邻位置中至少有一个值严格小于 $a_{i,j}$。</p>
-<h2 id="做法"><a href="#做法" class="headerlink" title="做法"></a>做法</h2><p>其实和上面一个题目基本一样。</p>
-<p>但是考虑到这里是图，所以存在面，我们考虑面是什么样的。<br>我们假设 $\leq 0$ 的位置为黑色，否则为白色。<br>我们发现由于有<strong>额外保证</strong>，所以不会出现黑色谷地，也就是说白点形成的面一定为 $(i,j),(i,j+1),(i+1,j),(i+1,j+1)$ 这样的四个位置。</p>
-<p>我们发现还有一个问题 —— add 操作，那么我们考虑图上不同结构出现的条件：</p>
-<ul>
-<li>点：这个点为白点。</li>
-<li>边: 边点两个端点都已经是白点。</li>
-<li>面: 面的四个点都是白点。</li>
-</ul>
-<p>所以对于每一个结构，我们可以找到一个 $add$ 的临界值。我们只需要线段树上大于临界值的位置加上对应的贡献就行。<br>查询的时候直接查询线段树上当前 $add$ 值对应的节点就好。</p>
-<p>具体实现上可以使用树状数组。</p>
-<h2 id="P3776-APIO2017-斑斓之地"><a href="#P3776-APIO2017-斑斓之地" class="headerlink" title="P3776 [APIO2017] 斑斓之地"></a><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3776">P3776 [APIO2017] 斑斓之地</a></h2><p>不难啊，也是模版题。</p>
-<p>发现首先填充水内部的点，边，面都要减掉。<br>用一个 map 不难维护。<br>接下来对于点，边，面分别开一个线段树来扫描线就好，不难。</p>
-<h2 id="平面图最小链覆盖"><a href="#平面图最小链覆盖" class="headerlink" title="平面图最小链覆盖"></a>平面图最小链覆盖</h2><h2 id="P8857-POI-2000-R1-POI-2002-R3-滑雪者"><a href="#P8857-POI-2000-R1-POI-2002-R3-滑雪者" class="headerlink" title="P8857 [POI 2000 R1 &#x2F; POI 2002 R3] 滑雪者"></a><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P8857">P8857 [POI 2000 R1 &#x2F; POI 2002 R3] 滑雪者</a></h2><p>感觉类似模版题，想不出来很正常。</p>
-<p>这个题目有几个难点。</p>
-<p>首先发现平面图这个性质不太会用。考虑我们实际上要求最小链覆盖，可以转化为最长反链长度。</p>
-<p>这里有一个不知道是否经典的结论：对于最长反链中相邻两条链，它们一定分别是一个面的左右界的一条边。</p>
-<p>想一想这是显然正确的。</p>
-<p>接下来考虑如何 dp，发现输入是从西到东给入的。而且根据结论，我们只需要关注一个面左右（东西）两边的边之间进行转移，具体实现上和耳分解类似。</p>
 
       
     </div>
