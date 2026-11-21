@@ -1176,7 +1176,7 @@ f(m)
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2026-11-16 21:56:28" itemprop="dateModified" datetime="2026-11-16T21:56:28+08:00">2026-11-16</time>
+      <time title="Modified: 2026-11-21 20:07:48" itemprop="dateModified" datetime="2026-11-21T20:07:48+08:00">2026-11-21</time>
     </span>
 
   
@@ -1189,7 +1189,7 @@ f(m)
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="https-www-luogu-com-cn-problem-P16433"><a href="#https-www-luogu-com-cn-problem-P16433" class="headerlink" title="https://www.luogu.com.cn/problem/P16433"></a><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P16433">https://www.luogu.com.cn/problem/P16433</a></h1><p>感觉这个题目 dp 状态基本想到了，但是由于转移能力比较差，没有看出这个状态可以简单转移。</p>
+          <h1 id="P16433-APIO-2026-中国赛区-上升"><a href="#P16433-APIO-2026-中国赛区-上升" class="headerlink" title="P16433 [APIO 2026 中国赛区] 上升"></a><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P16433">P16433 [APIO 2026 中国赛区] 上升</a></h1><p>感觉这个题目 dp 状态基本想到了，但是由于转移能力比较差，没有看出这个状态可以简单转移。</p>
 <h2 id="题目概述"><a href="#题目概述" class="headerlink" title="题目概述"></a>题目概述</h2><p>给你一个残缺的序列 <span class="math-inline">\(p\)</span>，已知的位置中是升序的。你需要计算所有可能的 <span class="math-inline">\(p\)</span> 的价值和。<br>一个序列的<strong>价值</strong> 为 <span class="math-inline">\(f(q) &#x3D; \prod_{i \in S(q)} w_i\)</span>。特别地，若 <span class="math-inline">\(S(q) &#x3D; \varnothing\)</span>，则 <span class="math-inline">\(f(q) &#x3D; 1\)</span>。</p>
 <p>其中 <span class="math-inline">\(w_i\)</span> 是给定的权值序列。</p>
 <h2 id="做法"><a href="#做法" class="headerlink" title="做法"></a>做法</h2><p>发现特殊性质中，如果序列 <span class="math-inline">\(p\)</span> 中所有位置都是未知的，那么这个题目是好做的。<br>所以我们考虑两个一直位置之间，连续一段的未知位置。<br>首先，显然我们不能记录绝对位置，要使用插入式 dp。<br>所以我们就直接设计状态 <span class="math-inline">\(f_{i,j}\)</span> 表示到了位置 <span class="math-inline">\(i\)</span>，当前最后一个填入的数字，在前缀所有数字中排第 <span class="math-inline">\(j\)</span> 大。<br>发现这个状态的问题在于，由于我们没有给每一个位置分配具体数字，所以我们在切换到另外一个 <span class="math-inline">\(0\)</span> 连续段就会无法转移。因为这个时候，我们需要知道最后一个数字和 <span class="math-inline">\(p_i\)</span> 的关系，所以我们必须把 <span class="math-inline">\(&lt;p_i\)</span> 的数字的位置固定下来，或者记录有多少个在前缀中。</p>

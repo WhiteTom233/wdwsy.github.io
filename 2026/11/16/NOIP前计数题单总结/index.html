@@ -28,7 +28,7 @@
 <meta property="og:description" content="AT_arc171_c [ARC171C] Swap on Tree借着这个题目，规范一下做这种统计操作后最终局面个数的题目。 首先不要设计状态，考虑哪些操作顺序&#x2F;方式改变之后不影响最终答案，这是我们会算重的部分。这个题目中我们发现，两个不相邻边进行操作，可以交换顺序。 还可以考虑，知道最终状态之后，相当于知道了操作的哪些信息。在这个题目中，我们通过最终状态可以推出操作过的边的集合。 我">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2026-11-16T13:46:19.000Z">
-<meta property="article:modified_time" content="2026-11-19T13:05:08.046Z">
+<meta property="article:modified_time" content="2026-11-21T11:46:35.813Z">
 <meta property="article:author" content="wdwsy">
 <meta property="article:tag" content="dp">
 <meta property="article:tag" content="计数">
@@ -167,7 +167,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#AT-arc171-c-ARC171C-Swap-on-Tree"><span class="nav-number">1.</span> <span class="nav-text">AT_arc171_c [ARC171C] Swap on Tree</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#AT-agc040-f-AGC040F-Two-Pieces"><span class="nav-number">2.</span> <span class="nav-text">AT_agc040_f [AGC040F] Two Pieces</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#AGC013D-Piling-Up"><span class="nav-number">3.</span> <span class="nav-text">[AGC013D] Piling Up</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%BA%E5%AE%9A%E5%88%9D%E5%A7%8B%E9%85%8D%E8%89%B2"><span class="nav-number">3.1.</span> <span class="nav-text">固定初始配色</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%82%B9%E5%87%8F%E8%BE%B9%E5%AE%B9%E6%96%A5"><span class="nav-number">3.2.</span> <span class="nav-text">点减边容斥</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%8C%E7%BA%BF%E5%8F%8D%E5%B0%84"><span class="nav-number">3.3.</span> <span class="nav-text">双线反射</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%8D%E6%9D%82%E5%BA%A6"><span class="nav-number">3.4.</span> <span class="nav-text">复杂度</span></a></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#AT-arc171-c-ARC171C-Swap-on-Tree"><span class="nav-number">1.</span> <span class="nav-text">AT_arc171_c [ARC171C] Swap on Tree</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#AT-agc040-f-AGC040F-Two-Pieces"><span class="nav-number">2.</span> <span class="nav-text">AT_agc040_f [AGC040F] Two Pieces</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#AGC013D-Piling-Up"><span class="nav-number">3.</span> <span class="nav-text">[AGC013D] Piling Up</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%BA%E5%AE%9A%E5%88%9D%E5%A7%8B%E9%85%8D%E8%89%B2"><span class="nav-number">3.1.</span> <span class="nav-text">固定初始配色</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%82%B9%E5%87%8F%E8%BE%B9%E5%AE%B9%E6%96%A5"><span class="nav-number">3.2.</span> <span class="nav-text">点减边容斥</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%8C%E7%BA%BF%E5%8F%8D%E5%B0%84"><span class="nav-number">3.3.</span> <span class="nav-text">双线反射</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%8D%E6%9D%82%E5%BA%A6"><span class="nav-number">3.4.</span> <span class="nav-text">复杂度</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#AT-agc056-b-AGC056B-Range-Argmax"><span class="nav-number">4.</span> <span class="nav-text">AT_agc056_b [AGC056B] Range Argmax</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -260,7 +260,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2026-11-19 21:05:08" itemprop="dateModified" datetime="2026-11-19T21:05:08+08:00">2026-11-19</time>
+      <time title="Modified: 2026-11-21 19:46:35" itemprop="dateModified" datetime="2026-11-21T19:46:35+08:00">2026-11-21</time>
     </span>
 
   
@@ -335,6 +335,14 @@ r+\left\lfloor\frac{x+y}{2}\right\rfloor &amp;\ge y.
 <p>枚举的终点有 <span class="math-inline">\(2m+1\)</span> 个，每个相邻终点的 <span class="math-inline">\(d\)</span> 相差 <span class="math-inline">\(2\)</span>，所以带内终点只有 <span class="math-inline">\(O(\min(m,W))\)</span> 个。每条带的扫描和反射合计是</p>
 <div class="math-display">\[O\!\left(m+\min(m,W)\left(1+\frac{m}{W}\right)\right)&#x3D;O(m).\]</div>
 <p>共计算 <span class="math-inline">\(2n+1\)</span> 条带，时间复杂度为 <span class="math-inline">\(O(nm)\)</span>。阶乘和逆阶乘预处理到 <span class="math-inline">\(2m\)</span>，空间复杂度为 <span class="math-inline">\(O(m)\)</span>。</p>
+<h1 id="AT-agc056-b-AGC056B-Range-Argmax"><a href="#AT-agc056-b-AGC056B-Range-Argmax" class="headerlink" title="AT_agc056_b [AGC056B] Range Argmax"></a><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/AT_agc056_b">AT_agc056_b [AGC056B] Range Argmax</a></h1><p>感觉这个题目比较跳脱呢？</p>
+<p>计数常用技巧，发现多个不同的数列可以生成同样的一个最终局面的时候，考虑钦定统计字典序最大&#x2F;小的方案。</p>
+<p>显然这个问题可以区间 dp，每次枚举最大值位置 <span class="math-inline">\(k\)</span>，那么虽有跨过左右区间的都是会回答 <span class="math-inline">\(k\)</span>，那么只需要考虑在区间内的问题了，这就是子问题。</p>
+<p>然后考虑去除重复。<br>钦定最大值选择在可行位置的最左边。假设整段最大值位置为 <span class="math-inline">\(x\)</span>。</p>
+<p>设左侧的最大值 <span class="math-inline">\(y\)</span>，如果不存在一个询问 <span class="math-inline">\([l,r]\)</span> 满足 <span class="math-inline">\(l\leq y\leq x \leq r\)</span>，那么可以交换 <span class="math-inline">\(p_x,p_y\)</span>，同样满足条件。<br>那么此时 <span class="math-inline">\(y\)</span> 一定要大于等于 <span class="math-inline">\(min_{x\in[l_i,r_i]}l_i\)</span>。<br>自然的我们设置状态 <span class="math-inline">\(f_{i,j,k}\)</span>，表示整段最大值位置 <span class="math-inline">\(\geq k\)</span>，那么这一段方案数是多少。</p>
+<p>转移：</p>
+<div class="math-display">\[f_{i,j,k}&#x3D;f_{i,j,k+1}+f_{i,k-1,g_{i,j,k}}\times f_{k+1,j,k+1}\]</div>
+<p>其中 <span class="math-inline">\(g_{i,j,k}&#x3D;min_{x\in[l_i,r_i]\subseteq [i,j]}l_i\)</span>，第一项是让整段最大值 <span class="math-inline">\(&gt;k\)</span> 的答案，后面两项相乘是整段最大值刚好在 <span class="math-inline">\(k\)</span> 的答案。</p>
 
     </div>
 
