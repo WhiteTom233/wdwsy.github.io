@@ -771,7 +771,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2026-11-16 18:57:50" itemprop="dateModified" datetime="2026-11-16T18:57:50+08:00">2026-11-16</time>
+      <time title="Modified: 2026-11-21 19:28:48" itemprop="dateModified" datetime="2026-11-21T19:28:48+08:00">2026-11-21</time>
     </span>
 
   
@@ -1710,6 +1710,74 @@ z(u,c)\ge z(v,c),\]</div>
 <h1 id="4-远方的答案"><a href="#4-远方的答案" class="headerlink" title="4.  远方的答案"></a><a target="_blank" rel="noopener" href="https://xinyoudui.com/ac/contest/7470167BF000D5F0A03059/problem/48989">4.  远方的答案</a></h1><p><a target="_blank" rel="noopener" href="https://chatgpt.com/share/6afacb4c-cfbc-83e8-b78b-50abeb2a6a72">chatgpt 聊天记录</a></p>
 <p>核心思想：我们考虑最高为的数字范围为 <span class="math-inline">\([a,b],(a\not &#x3D; b)\)</span><br>如果选择 <span class="math-inline">\([a+1,b-1]\)</span> 后续不管怎么选择都满足在 <span class="math-inline">\([L,R]\)</span> 之间。<br>如果选择 <span class="math-inline">\(a\)</span> 那么只有最小值限制。<br>如果选择 <span class="math-inline">\(b\)</span> 那么只有最大值限制。</p>
 <p>接下来考虑按照数值 <span class="math-inline">\(0,1,2,3,\dots,B-1\)</span> 依次填入，枚举填入几个就好。</p>
+<h1 id="UOJ-重差排邻相"><a href="#UOJ-重差排邻相" class="headerlink" title="UOJ. 重差排邻相"></a><a target="_blank" rel="noopener" href="https://uoj.ac/contest/116/problem/1131">UOJ. 重差排邻相</a></h1><h1 id="UOJ-1131《跳跃大赛》复习笔记"><a href="#UOJ-1131《跳跃大赛》复习笔记" class="headerlink" title="UOJ #1131《跳跃大赛》复习笔记"></a>UOJ #1131《跳跃大赛》复习笔记</h1><p>补全环上的残缺排列，最大化相邻元素的绝对差之和。主要做法是分类讨论、排序和反悔贪心。</p>
+<h2 id="1-绝对值转成峰谷贡献"><a href="#1-绝对值转成峰谷贡献" class="headerlink" title="1. 绝对值转成峰谷贡献"></a>1. 绝对值转成峰谷贡献</h2><p>用 <span class="math-inline">\(|a-b|&#x3D;\max_{s\in\{-1,1\}}s(a-b)\)</span>，将答案写成</p>
+<div class="math-display">\[\max_{p,s}\sum_{i&#x3D;1}^{n}s_i(p_i-p_{i+1})
+&#x3D;\max_{p,s}\sum_{i&#x3D;1}^{n}(s_i-s_{i-1})p_i.\]</div>
+<p>先定符号。系数 <span class="math-inline">\(+2\)</span> 的空位叫峰，系数 <span class="math-inline">\(-2\)</span> 的叫谷，同号时系数为 <span class="math-inline">\(0\)</span>。若有 <span class="math-inline">\(H\)</span> 个峰、<span class="math-inline">\(L\)</span> 个谷，就分别填最大的 <span class="math-inline">\(H\)</span> 个和最小的 <span class="math-inline">\(L\)</span> 个缺失数。</p>
+<p>考虑两端为 <span class="math-inline">\(a,b\)</span>、中间有 <span class="math-inline">\(d\)</span> 个空位的一段。固定首尾边符号 <span class="math-inline">\(s_0,s_d\)</span> 后，变号次数每增加两次，就多一个峰和一个谷。若原先有两个系数为 <span class="math-inline">\(0\)</span> 的空位，取其中较大的数填新峰，较小的填新谷，其余数按原先的系数重排，贡献严格增大。因此变号次数应取到由首尾符号决定的最大值，即 <span class="math-inline">\(d\)</span> 或 <span class="math-inline">\(d-1\)</span>。</p>
+<p>记 <span class="math-inline">\(\ell&#x3D;\min(a,b)\)</span>、<span class="math-inline">\(r&#x3D;\max(a,b)\)</span>。首尾同号时，有 <span class="math-inline">\(\lfloor d&#x2F;2\rfloor\)</span> 对峰谷，端点贡献最大为 <span class="math-inline">\(r-\ell\)</span>，以此作为基准。首尾异号时，端点贡献 <span class="math-inline">\(s_0a-s_db\)</span> 分别为 <span class="math-inline">\(a+b\)</span> 或 <span class="math-inline">\(-a-b\)</span>，比基准多 <span class="math-inline">\(2\ell\)</span> 或少 <span class="math-inline">\(2r\)</span>。本段峰数减谷数等于 <span class="math-inline">\((s_d-s_0)&#x2F;2\)</span>，结合变号次数即可得到下表。</p>
+<table>
+<thead>
+<tr>
+<th>空位数 <span class="math-inline">\(d\)</span></th>
+<th>首尾符号</th>
+<th>相对基准的峰谷变化</th>
+<th>端点增量的一半</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>正偶数</td>
+<td><span class="math-inline">\(+,-\)</span></td>
+<td>少一个峰</td>
+<td><span class="math-inline">\(+\ell\)</span></td>
+</tr>
+<tr>
+<td>正偶数</td>
+<td><span class="math-inline">\(-,+\)</span></td>
+<td>少一个谷</td>
+<td><span class="math-inline">\(-r\)</span></td>
+</tr>
+<tr>
+<td>奇数</td>
+<td><span class="math-inline">\(+,-\)</span></td>
+<td>多一个谷</td>
+<td><span class="math-inline">\(+\ell\)</span></td>
+</tr>
+<tr>
+<td>奇数</td>
+<td><span class="math-inline">\(-,+\)</span></td>
+<td>多一个峰</td>
+<td><span class="math-inline">\(-r\)</span></td>
+</tr>
+</tbody></table>
+<p><span class="math-inline">\(d&#x3D;0\)</span> 时只计算端点差。全空时可旋转排列，先固定 <span class="math-inline">\(p_1&#x3D;1\)</span>。</p>
+<h2 id="2-偶数段并入两张排序表"><a href="#2-偶数段并入两张排序表" class="headerlink" title="2. 偶数段并入两张排序表"></a>2. 偶数段并入两张排序表</h2><p>偶数段「少一个峰，端点加 <span class="math-inline">\(2\ell\)</span>」等价于让 <span class="math-inline">\(\ell\)</span> 占据一个峰的数值名额。少一个谷时，同理让 <span class="math-inline">\(r\)</span> 占据一个谷的名额。据此构造两张表。</p>
+<ul>
+<li><span class="math-inline">\(A\)</span> 收集所有缺失数和每个正偶数段的 <span class="math-inline">\(\ell\)</span>，降序排列。</li>
+<li><span class="math-inline">\(D\)</span> 收集所有缺失数和每个正偶数段的 <span class="math-inline">\(r\)</span>，升序排列。</li>
+</ul>
+<p>设 <span class="math-inline">\(B&#x3D;\sum\lfloor d&#x2F;2\rfloor\)</span>，奇数段有 <span class="math-inline">\(q\)</span> 个，缺失数有 <span class="math-inline">\(K&#x3D;2B+q\)</span> 个。如果奇数段额外选择 <span class="math-inline">\(h\)</span> 个峰、<span class="math-inline">\(g\)</span> 个谷，就从 <span class="math-inline">\(A,D\)</span> 分别取前 <span class="math-inline">\(B+h\)</span> 项和前 <span class="math-inline">\(B+g\)</span> 项。选中的真实缺失数分别是最大的一批和最小的一批，合计至多 <span class="math-inline">\(2B+h+g\le K\)</span> 个，所以两批互不相交。</p>
+<p>若某个偶数段的 <span class="math-inline">\(\ell,r\)</span> 同时被选中，两表总共选了至多 <span class="math-inline">\(K\)</span> 项且含这两个端点项，必有一个缺失数 <span class="math-inline">\(x\)</span> 两边都没选到。按排序有 <span class="math-inline">\(x&lt;\ell\)</span> 且 <span class="math-inline">\(x&gt;r\)</span>，与 <span class="math-inline">\(\ell\le r\)</span> 矛盾。这里的严格不等号来自缺失数与已知端点不同。因此两边各取最优前缀可以同时实现。</p>
+<h2 id="3-奇数段排序，再用堆维护分界两侧"><a href="#3-奇数段排序，再用堆维护分界两侧" class="headerlink" title="3. 奇数段排序，再用堆维护分界两侧"></a>3. 奇数段排序，再用堆维护分界两侧</h2><p>以下增量都按答案的一半计。第 <span class="math-inline">\(k\)</span> 个额外峰获得 <span class="math-inline">\(A_{B+k}\)</span>，选段 <span class="math-inline">\(i\)</span> 的代价为 <span class="math-inline">\(r_i\)</span>。第 <span class="math-inline">\(k\)</span> 个额外谷获得 <span class="math-inline">\(-D_{B+k}\)</span>，选段 <span class="math-inline">\(j\)</span> 的收益为 <span class="math-inline">\(\ell_j\)</span>。</p>
+<p>若 <span class="math-inline">\(i\)</span> 加峰、<span class="math-inline">\(j\)</span> 加谷，交换时两类点数不变，两张表取出的数也不变。收益变化为</p>
+<div class="math-display">\[(-r_j+\ell_i)-(-r_i+\ell_j)
+&#x3D;(\ell_i+r_i)-(\ell_j+r_j).\]</div>
+<p>因此按 <span class="math-inline">\(\ell_i+r_i\)</span> 升序排序后，可以把加峰的段放在加谷的段之前。枚举分界，左边挑峰，右边挑谷，剩余段沿用基准。</p>
+<p>扫左侧前缀时，若选 <span class="math-inline">\(k\)</span> 段，就取 <span class="math-inline">\(r_i\)</span> 最小的 <span class="math-inline">\(k\)</span> 段。第 <span class="math-inline">\(k\)</span> 项的边际收益是 <span class="math-inline">\(A_{B+k}-r_{(k)}\)</span>，其中 <span class="math-inline">\(r_{(k)}\)</span> 是前缀内第 <span class="math-inline">\(k\)</span> 小的代价。两项分别不增、不减，因此选到边际收益仍非负为止。</p>
+<p>用大根堆存已选代价。设原来选了 <span class="math-inline">\(k\)</span> 段，插入新代价 <span class="math-inline">\(c\)</span>，令 <span class="math-inline">\(v&#x3D;A_{B+k+1}\)</span>、<span class="math-inline">\(t\)</span> 为插入后的堆顶。旧的 <span class="math-inline">\(k\)</span> 个仍可选，旧的未选代价都大于 <span class="math-inline">\(v\)</span>，所以只需判断能否多选一个。</p>
+<ul>
+<li>若 <span class="math-inline">\(t\le v\)</span>，保留新元素，收益增加 <span class="math-inline">\(v-c\)</span>。</li>
+<li>若 <span class="math-inline">\(t&gt;v\)</span>，弹出 <span class="math-inline">\(t\)</span>，收益增加 <span class="math-inline">\(t-c\)</span>。</li>
+</ul>
+<p>右侧从后往前扫，代价用 <span class="math-inline">\(-\ell_i\)</span>，第 <span class="math-inline">\(k\)</span> 项收益用 <span class="math-inline">\(-D_{B+k}\)</span>，复用同样的堆操作。</p>
+<p>最终答案为</p>
+<div class="math-display">\[\sum_{\text{段}}(r-\ell)
++2\left(
+\sum_{k&#x3D;1}^{B}(A_k-D_k)
++\max_{0\le t\le q}\bigl(\mathrm{pre}_t+\mathrm{suf}_{t+1}\bigr)
+\right).\]</div>
+<p><span class="math-inline">\(\mathrm{pre}_t\)</span> 和 <span class="math-inline">\(\mathrm{suf}_{t+1}\)</span> 分别是分界两侧额外选峰、选谷的最优收益。时间复杂度 <span class="math-inline">\(O(n\log n)\)</span>，空间复杂度 <span class="math-inline">\(O(n)\)</span>。</p>
 
       
     </div>
