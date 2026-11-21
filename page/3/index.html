@@ -771,7 +771,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2026-11-21 19:28:48" itemprop="dateModified" datetime="2026-11-21T19:28:48+08:00">2026-11-21</time>
+      <time title="Modified: 2026-11-21 19:29:04" itemprop="dateModified" datetime="2026-11-21T19:29:04+08:00">2026-11-21</time>
     </span>
 
   
@@ -1710,7 +1710,7 @@ z(u,c)\ge z(v,c),\]</div>
 <h1 id="4-远方的答案"><a href="#4-远方的答案" class="headerlink" title="4.  远方的答案"></a><a target="_blank" rel="noopener" href="https://xinyoudui.com/ac/contest/7470167BF000D5F0A03059/problem/48989">4.  远方的答案</a></h1><p><a target="_blank" rel="noopener" href="https://chatgpt.com/share/6afacb4c-cfbc-83e8-b78b-50abeb2a6a72">chatgpt 聊天记录</a></p>
 <p>核心思想：我们考虑最高为的数字范围为 <span class="math-inline">\([a,b],(a\not &#x3D; b)\)</span><br>如果选择 <span class="math-inline">\([a+1,b-1]\)</span> 后续不管怎么选择都满足在 <span class="math-inline">\([L,R]\)</span> 之间。<br>如果选择 <span class="math-inline">\(a\)</span> 那么只有最小值限制。<br>如果选择 <span class="math-inline">\(b\)</span> 那么只有最大值限制。</p>
 <p>接下来考虑按照数值 <span class="math-inline">\(0,1,2,3,\dots,B-1\)</span> 依次填入，枚举填入几个就好。</p>
-<h1 id="UOJ-重差排邻相"><a href="#UOJ-重差排邻相" class="headerlink" title="UOJ. 重差排邻相"></a><a target="_blank" rel="noopener" href="https://uoj.ac/contest/116/problem/1131">UOJ. 重差排邻相</a></h1><h1 id="UOJ-1131《跳跃大赛》复习笔记"><a href="#UOJ-1131《跳跃大赛》复习笔记" class="headerlink" title="UOJ #1131《跳跃大赛》复习笔记"></a>UOJ #1131《跳跃大赛》复习笔记</h1><p>补全环上的残缺排列，最大化相邻元素的绝对差之和。主要做法是分类讨论、排序和反悔贪心。</p>
+<h1 id="UOJ-重差排邻相"><a href="#UOJ-重差排邻相" class="headerlink" title="UOJ. 重差排邻相"></a><a target="_blank" rel="noopener" href="https://uoj.ac/contest/116/problem/1131">UOJ. 重差排邻相</a></h1><p>补全环上的残缺排列，最大化相邻元素的绝对差之和。主要做法是分类讨论、排序和反悔贪心。</p>
 <h2 id="1-绝对值转成峰谷贡献"><a href="#1-绝对值转成峰谷贡献" class="headerlink" title="1. 绝对值转成峰谷贡献"></a>1. 绝对值转成峰谷贡献</h2><p>用 <span class="math-inline">\(|a-b|&#x3D;\max_{s\in\{-1,1\}}s(a-b)\)</span>，将答案写成</p>
 <div class="math-display">\[\max_{p,s}\sum_{i&#x3D;1}^{n}s_i(p_i-p_{i+1})
 &#x3D;\max_{p,s}\sum_{i&#x3D;1}^{n}(s_i-s_{i-1})p_i.\]</div>
