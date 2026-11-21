@@ -771,7 +771,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2026-11-21 19:29:04" itemprop="dateModified" datetime="2026-11-21T19:29:04+08:00">2026-11-21</time>
+      <time title="Modified: 2026-11-21 20:44:08" itemprop="dateModified" datetime="2026-11-21T20:44:08+08:00">2026-11-21</time>
     </span>
 
   
@@ -1778,6 +1778,36 @@ z(u,c)\ge z(v,c),\]</div>
 +\max_{0\le t\le q}\bigl(\mathrm{pre}_t+\mathrm{suf}_{t+1}\bigr)
 \right).\]</div>
 <p><span class="math-inline">\(\mathrm{pre}_t\)</span> 和 <span class="math-inline">\(\mathrm{suf}_{t+1}\)</span> 分别是分界两侧额外选峰、选谷的最优收益。时间复杂度 <span class="math-inline">\(O(n\log n)\)</span>，空间复杂度 <span class="math-inline">\(O(n)\)</span>。</p>
+<h1 id="⭐️ARC233-C-Equal-Degree-Deletion"><a href="#⭐️ARC233-C-Equal-Degree-Deletion" class="headerlink" title="⭐️ARC233 C - Equal Degree Deletion"></a>⭐️ARC233 C - Equal Degree Deletion</h1><p>上一年信友队的图灵杯有类似的题目。</p>
+<h2 id="把删边变成边标号"><a href="#把删边变成边标号" class="headerlink" title="把删边变成边标号"></a>把删边变成边标号</h2><p>给每条边标上它被删除时两端的公共度数。对于度数为 <span class="math-inline">\(d\)</span> 的顶点，每删掉一条与它相连的边，它的度数就减一，所以它的相邻边标号恰好是 <span class="math-inline">\(1,2,\ldots,d\)</span>。</p>
+<p>反过来，如果存在这样的标号，按标号从大到小删边即可。删到标号为 <span class="math-inline">\(k\)</span> 的边时，它的两个端点都恰好剩下标号为 <span class="math-inline">\(1,2,\ldots,k\)</span> 的边，当前度数都是 <span class="math-inline">\(k\)</span>。</p>
+<p><strong>同一棵树的合法标号至多有一种。</strong> 断开一条边 <span class="math-inline">\(e\)</span>，任选一侧 <span class="math-inline">\(A\)</span>。对任意 <span class="math-inline">\(k\)</span>，标号为 <span class="math-inline">\(k\)</span> 的边恰好为每个度数至少为 <span class="math-inline">\(k\)</span> 的顶点提供一条关联边。<span class="math-inline">\(A\)</span> 内部的这种边各覆盖两个顶点，跨出去的边只有可能是 <span class="math-inline">\(e\)</span>。因此，<span class="math-inline">\(e\)</span> 的标号是否为 <span class="math-inline">\(k\)</span>，由 <span class="math-inline">\(A\)</span> 内度数至少为 <span class="math-inline">\(k\)</span> 的顶点数是否为奇数决定。于是可以直接统计带标号的子树。</p>
+<h2 id="树形-DP"><a href="#树形-DP" class="headerlink" title="树形 DP"></a>树形 DP</h2><p>任意定根。设 <span class="math-inline">\(dp_{v,k}\)</span> 表示在 <span class="math-inline">\(v\)</span> 的后代中选出一个包含 <span class="math-inline">\(v\)</span> 的连通子树，规定父边已选且标号为 <span class="math-inline">\(k\)</span>，使 <span class="math-inline">\(v\)</span> 这一侧的所有顶点都满足标号条件的方案数。父边只作为接口，计入 <span class="math-inline">\(v\)</span> 的度数。</p>
+<p>逐个处理 <span class="math-inline">\(v\)</span> 的儿子，用 <span class="math-inline">\(F[S]\)</span> 记录已选儿子边的标号集合恰好为 <span class="math-inline">\(S\)</span> 的方案数，初始 <span class="math-inline">\(F[\varnothing]&#x3D;1\)</span>。处理儿子 <span class="math-inline">\(u\)</span> 时，不选它就保留 <span class="math-inline">\(S\)</span>；选它并给边 <span class="math-inline">\(vu\)</span> 标上 <span class="math-inline">\(j\)</span>，就要求 <span class="math-inline">\(j\notin S\)</span>，并乘上 <span class="math-inline">\(u\)</span> 这一侧的方案数。</p>
+<div class="math-display">\[\begin{aligned}
+F&#39;[S] &amp;\mathrel{+}&#x3D; F[S],\\
+F&#39;[S\cup\{j\}] &amp;\mathrel{+}&#x3D; F[S]\cdot dp_{u,j}\qquad(j\notin S).
+\end{aligned}\]</div>
+<p>记 <span class="math-inline">\(P_d&#x3D;\{1,\ldots,d\}\)</span>，其中 <span class="math-inline">\(P_0&#x3D;\varnothing\)</span>。处理完所有儿子后，若 <span class="math-inline">\(v\)</span> 的最终度数为 <span class="math-inline">\(d\)</span>、父边标号为 <span class="math-inline">\(k\)</span>，儿子边就要补齐 <span class="math-inline">\(P_d\setminus\{k\}\)</span>。若 <span class="math-inline">\(v\)</span> 是所选子树的最高点，所有选边都通向儿子，儿子边的标号集合就是完整的 <span class="math-inline">\(P_d\)</span>。</p>
+<div class="math-display">\[dp_{v,k}&#x3D;\sum_{d\ge k}F[P_d\setminus\{k\}],
+\qquad
+ans_v&#x3D;\sum_{d\ge 0}F[P_d].\]</div>
+<p>每个连通子树有唯一的最高点，因此答案为 <span class="math-inline">\(\sum_v ans_v\)</span>。其中 <span class="math-inline">\(F[P_0]\)</span> 计入单点子树。所有计数对 <span class="math-inline">\(998244353\)</span> 取模。</p>
+<h2 id="复杂度优化"><a href="#复杂度优化" class="headerlink" title="复杂度优化"></a>复杂度优化</h2><p>记 <span class="math-inline">\(M_v\)</span> 为 <span class="math-inline">\(v\)</span> 能接上的最大父边标号。先证明一个比 <span class="math-inline">\(M_v&#x3D;O(\log N)\)</span> 更强的结论：<strong>如果父边能标成 <span class="math-inline">\(k\)</span>，那么 <span class="math-inline">\(v\)</span> 下方距离它至多 <span class="math-inline">\(k-1\)</span> 的范围内，至少有 <span class="math-inline">\(2^{k-1}\)</span> 个顶点。</strong></p>
+<p>对 <span class="math-inline">\(k\)</span> 归纳。<span class="math-inline">\(k&#x3D;1\)</span> 时只需数 <span class="math-inline">\(v\)</span> 自己。若父边标号为 <span class="math-inline">\(k&gt;1\)</span>，则 <span class="math-inline">\(v\)</span> 必须有标号分别为 <span class="math-inline">\(1,\ldots,k-1\)</span> 的儿子边。标号为 <span class="math-inline">\(j\)</span> 的儿子按归纳假设能提供 <span class="math-inline">\(2^{j-1}\)</span> 个顶点，这些点距离该儿子至多 <span class="math-inline">\(j-1\)</span>，所以距离 <span class="math-inline">\(v\)</span> 至多 <span class="math-inline">\(j\)</span>。各个儿子的分支互不相交，加上 <span class="math-inline">\(v\)</span> 自己，共有至少</p>
+<div class="math-display">\[1+\sum_{j&#x3D;1}^{k-1}2^{j-1}&#x3D;2^{k-1}\]</div>
+<p>个点。因此所有 <span class="math-inline">\(M_v\)</span> 都不超过 <span class="math-inline">\(K&#x3D;\lfloor\log_2 N\rfloor+1\)</span>。</p>
+<p><strong>按 <span class="math-inline">\(M_u\)</span> 从小到大合并儿子。</strong> 处理到 <span class="math-inline">\(M_u&#x3D;m\)</span> 的儿子时，前面处理过的儿子也只会用到 <span class="math-inline">\(1,\ldots,m\)</span>。此时只需维护 <span class="math-inline">\(2^m\)</span> 个掩码，每个掩码尝试至多 <span class="math-inline">\(m\)</span> 个标号，所以这一步花费 <span class="math-inline">\(O(m2^m)\)</span>。排序让每次合并的开销由当前儿子的 <span class="math-inline">\(M_u\)</span> 决定。</p>
+<p><strong>用距离限制做摊还。</strong> 对每个 <span class="math-inline">\(u\)</span>，选出上面证明的 <span class="math-inline">\(2^{M_u-1}\)</span> 个点，每个点分摊一单位开销。一个固定的点 <span class="math-inline">\(x\)</span> 只可能替距离它至多 <span class="math-inline">\(K-1\)</span> 的祖先分摊开销，包含 <span class="math-inline">\(x\)</span> 自己在内最多有 <span class="math-inline">\(K\)</span> 个这样的祖先。因此</p>
+<div class="math-display">\[\sum_u 2^{M_u-1}\le NK,
+\qquad
+\sum_{u\ne r} M_u2^{M_u}
+\le 2K\sum_u2^{M_u-1}
+\le 2NK^2.\]</div>
+<p>这里距离限制不可少：它把同一个点被多少个祖先重复计入，从树高限制到了 <span class="math-inline">\(O(\log N)\)</span>。</p>
+<p>若儿子能提供的最大标号为 <span class="math-inline">\(B\)</span>（没有儿子时取 <span class="math-inline">\(0\)</span>），那么提取 <span class="math-inline">\(ans_v\)</span> 时只枚举到 <span class="math-inline">\(d&#x3D;B\)</span>，提取 <span class="math-inline">\(dp_{v,k}\)</span> 时只枚举到 <span class="math-inline">\(d&#x3D;B+1\)</span>。后者在 <span class="math-inline">\(d&#x3D;B+1\)</span> 时仅需考虑 <span class="math-inline">\(k&#x3D;B+1\)</span>，否则会要求儿子提供标号 <span class="math-inline">\(B+1\)</span>。提取状态共花费 <span class="math-inline">\(O(NK^2)\)</span>，排序共花费 <span class="math-inline">\(O(N\log N)\)</span>。</p>
+<p>总时间复杂度为 <span class="math-inline">\(O(N\log^2 N)\)</span>。保存各点的 <span class="math-inline">\(dp_{v,k}\)</span> 需要 <span class="math-inline">\(O(N\log N)\)</span> 空间，合并儿子时复用两层掩码数组，只需额外 <span class="math-inline">\(O(2^K)&#x3D;O(N)\)</span> 空间。</p>
+<p>解法参考 <a target="_blank" rel="noopener" href="https://atcoder.jp/contests/arc233/editorial/27943">AtCoder 官方题解</a>。</p>
 
       
     </div>
