@@ -771,7 +771,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2026-11-21 20:44:08" itemprop="dateModified" datetime="2026-11-21T20:44:08+08:00">2026-11-21</time>
+      <time title="Modified: 2026-11-22 20:31:49" itemprop="dateModified" datetime="2026-11-22T20:31:49+08:00">2026-11-22</time>
     </span>
 
   
@@ -1808,6 +1808,24 @@ ans_v&#x3D;\sum_{d\ge 0}F[P_d].\]</div>
 <p>若儿子能提供的最大标号为 <span class="math-inline">\(B\)</span>（没有儿子时取 <span class="math-inline">\(0\)</span>），那么提取 <span class="math-inline">\(ans_v\)</span> 时只枚举到 <span class="math-inline">\(d&#x3D;B\)</span>，提取 <span class="math-inline">\(dp_{v,k}\)</span> 时只枚举到 <span class="math-inline">\(d&#x3D;B+1\)</span>。后者在 <span class="math-inline">\(d&#x3D;B+1\)</span> 时仅需考虑 <span class="math-inline">\(k&#x3D;B+1\)</span>，否则会要求儿子提供标号 <span class="math-inline">\(B+1\)</span>。提取状态共花费 <span class="math-inline">\(O(NK^2)\)</span>，排序共花费 <span class="math-inline">\(O(N\log N)\)</span>。</p>
 <p>总时间复杂度为 <span class="math-inline">\(O(N\log^2 N)\)</span>。保存各点的 <span class="math-inline">\(dp_{v,k}\)</span> 需要 <span class="math-inline">\(O(N\log N)\)</span> 空间，合并儿子时复用两层掩码数组，只需额外 <span class="math-inline">\(O(2^K)&#x3D;O(N)\)</span> 空间。</p>
 <p>解法参考 <a target="_blank" rel="noopener" href="https://atcoder.jp/contests/arc233/editorial/27943">AtCoder 官方题解</a>。</p>
+<h1 id="5949-–-烹饪比赛"><a href="#5949-–-烹饪比赛" class="headerlink" title="5949 – 烹饪比赛"></a><a target="_blank" rel="noopener" href="http://218.22.67.60:30808/OnlineJudge/contestproblem.php?id=16245949">5949 – 烹饪比赛</a></h1><ol>
+<li>固定的 <span class="math-inline">\(D\)</span> 怎么消掉<br>令 <span class="math-inline">\(g_j&#x3D;f_j-jD\)</span>，那么从左到右执行<div class="math-display">\[f_j\gets\min(f_j,f_{j-1}+D)\]</div>
+就变成 <span class="math-inline">\(g_j\gets\min(g_j,g_{j-1})\)</span>，也就是取前缀最小值。上一轮结束后，<span class="math-inline">\(g\)</span> 单调不增。如果本轮的区间加只可能在 <span class="math-inline">\(r-1,r\)</span> 之间破坏单调性，就查出 <span class="math-inline">\(g_{r-1}\)</span>，对整个后缀 <span class="math-inline">\([r,m]\)</span> 取 <span class="math-inline">\(\min(g_{r-1})\)</span>。如果有多个这样的边界，每个边界做一次即可。</li>
+</ol>
+<p>你的代码求最大值，下面把方向换成前缀最大值。</p>
+<ol start="2">
+<li>区间加，区间 chmax 但是只有单点修改，可以在线段树上直接打 tag。</li>
+</ol>
+<p>方法1:<br>把标记记成 <span class="math-inline">\(x\mapsto\max(x+\texttt{add},\texttt{low})\)</span>。父节点的标记比子节点已有的标记更新，所以下传时直接用同一个 apply 合并。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">apply</span><span class="params">(<span class="type">int</span> u, ll delta, ll bound)</span> </span>&#123;</span><br><span class="line">    tagAdd[u] += delta;</span><br><span class="line">    <span class="keyword">if</span> (tagLow[u] != -INF) tagLow[u] += delta;</span><br><span class="line">    tagLow[u] = <span class="built_in">max</span>(tagLow[u], bound);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>区间加调用 apply(u, delta, -INF)，区间取 <span class="math-inline">\(\max\)</span> 调用 apply(u, 0, bound)。节点只存这两个标记，不用 pushup。单点查询一路下传，到叶子返回 max(tagAdd[u], tagLow[u])，因为初值为 <span class="math-inline">\(0\)</span>。</p>
+<p>方法2:<br>如何在 <span class="math-inline">\(O(\log M)\)</span> 时间内对线段树整体执行 <span class="math-inline">\(V[j]&#x3D;\max\_{k\le j}V[k]\)</span> 的操作？做法中使用了一个非常巧妙的 <code>cmx</code> 懒标记：</p>
+<ul>
+<li>当一个节点打上 <code>cmx</code> 标记时，意味着<strong>右儿子的所有值必须与左儿子的最大值取 max</strong>。</li>
+<li>在 <code>pushdown</code>（下传标记）时，如果当前节点有 <code>cmx</code> 标记，则不仅左右儿子各自继承 <code>cmx</code> 标记，还会强制将左儿子的区间最大值 <code>mx[ls]</code> 以“区间取 max”的懒标记形式作用到右儿子上。</li>
+<li>这使得前缀的最大值能够像波浪一样从左往右跨越子树传递，完美地在一次 <span class="math-inline">\(O(1)\)</span> 的根节点打标记（加上后续下传）操作中完成了全局前缀取最大值的需求。</li>
+</ul>
 
       
     </div>
