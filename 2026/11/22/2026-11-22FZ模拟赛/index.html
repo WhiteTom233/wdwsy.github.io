@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 8.1.2">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" integrity="sha256-VHqXKFhhMxcpubYf9xiWdCiojEbY9NexQ4jh8AxbvcM=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"wdwsy.github.io","root":"/","images":"/images","scheme":"Muse","darkmode":true,"version":"8.27.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12,"width":240},"hljswrap":true,"codeblock":{"theme":{"light":"github-dark","dark":"github-dark-dimmed"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"language":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.json","localsearch":{"enable":true,"top_n_per_article":1,"unescape":true,"preload":false,"trigger":"auto"}}</script><script src="/js/config.js" defer></script>
+
+    <meta name="description" content="5948 公交给一棵带点权的树，点权是各城市的人数。以 \(r\) 为首都，可以选 \(k\) 条到 \(r\) 的公交线路。一个城市的不满度是它到最近公交站的距离乘人数。要求对每个 \(r\) 分别求最小总不满度。 固定根，把线路收益拆成链贡献先只把根看成已覆盖。设 \(s_u\) 是以当前首都为根时，\(u\) 的子树人数之和。一条公交线路覆盖一条到根的路径，所以所有覆盖点连起来是一棵包含根的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2026.11.22FZ模拟赛">
+<meta property="og:url" content="https://wdwsy.github.io/2026/11/22/2026-11-22FZ%E6%A8%A1%E6%8B%9F%E8%B5%9B/index.html">
+<meta property="og:site_name" content="wdwsy&#39;s Blog">
+<meta property="og:description" content="5948 公交给一棵带点权的树，点权是各城市的人数。以 \(r\) 为首都，可以选 \(k\) 条到 \(r\) 的公交线路。一个城市的不满度是它到最近公交站的距离乘人数。要求对每个 \(r\) 分别求最小总不满度。 固定根，把线路收益拆成链贡献先只把根看成已覆盖。设 \(s_u\) 是以当前首都为根时，\(u\) 的子树人数之和。一条公交线路覆盖一条到根的路径，所以所有覆盖点连起来是一棵包含根的">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2026-11-22T12:45:55.000Z">
+<meta property="article:modified_time" content="2026-11-22T12:45:55.655Z">
+<meta property="article:author" content="wdwsy">
+<meta property="article:tag" content="算法,OIC++,NOI,信息学竞赛">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://wdwsy.github.io/2026/11/22/2026-11-22FZ%E6%A8%A1%E6%8B%9F%E8%B5%9B/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"https://wdwsy.github.io/2026/11/22/2026-11-22FZ%E6%A8%A1%E6%8B%9F%E8%B5%9B/","path":"2026/11/22/2026-11-22FZ模拟赛/","title":"2026.11.22FZ模拟赛"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>2026.11.22FZ模拟赛 | wdwsy's Blog</title>
+  
+
+
+
+
+
+
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous" defer></script>
+<script src="/js/utils.js" defer></script><script src="/js/motion.js" defer></script><script src="/js/sidebar.js" defer></script><script src="/js/next-boot.js" defer></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.5.0/search.js" integrity="sha256-xFC6PJ82SL9b3WkGjFavNiA9gm5z6UBxWPiu4CYjptg=" crossorigin="anonymous" defer></script>
+<script src="/js/third-party/search/local-search.js" defer></script>
+
+
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"ams","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js" defer></script>
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">wdwsy's Blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">算法的世界</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="Searching..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#5948-%E5%85%AC%E4%BA%A4"><span class="nav-number">1.</span> <span class="nav-text">5948 公交</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%BA%E5%AE%9A%E6%A0%B9%EF%BC%8C%E6%8A%8A%E7%BA%BF%E8%B7%AF%E6%94%B6%E7%9B%8A%E6%8B%86%E6%88%90%E9%93%BE%E8%B4%A1%E7%8C%AE"><span class="nav-number">1.1.</span> <span class="nav-text">固定根，把线路收益拆成链贡献</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8D%A2%E6%A0%B9%E6%97%B6%EF%BC%8C%E7%BC%93%E5%AD%98%E7%9A%84%E6%98%AF%E8%BE%B9%E7%9A%84%E6%96%B9%E5%90%91%E8%B4%A1%E7%8C%AE"><span class="nav-number">1.2.</span> <span class="nav-text">换根时，缓存的是边的方向贡献</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8A%A8%E6%80%81%E7%BB%B4%E6%8A%A4%E5%89%8D-k-%E5%A4%A7"><span class="nav-number">1.3.</span> <span class="nav-text">动态维护前 \(k\) 大</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JOISC-2019-Two-Dishes"><span class="nav-number">2.</span> <span class="nav-text">JOISC 2019 Two Dishes</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%87%8F%E6%8E%89%E4%B8%80%E9%A1%B9%EF%BC%8C%E8%AE%A9%E5%90%91%E5%8F%B3%E8%BD%AC%E7%A7%BB%E7%9A%84%E4%BB%A3%E4%BB%B7%E5%8F%98%E6%88%90%E9%9B%B6"><span class="nav-number">2.1.</span> <span class="nav-text">减掉一项，让向右转移的代价变成零</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8A%8A%E5%8F%98%E5%8C%96%E8%AE%B0%E5%88%B0%E9%A6%96%E6%AC%A1%E8%B6%85%E6%97%B6%E7%9A%84%E9%82%A3%E4%B8%80%E8%A1%8C"><span class="nav-number">2.2.</span> <span class="nav-text">把变化记到首次超时的那一行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%AA%E5%9C%A8%E5%8C%BA%E9%97%B4%E5%8A%A0%E7%9A%84%E8%BE%B9%E7%95%8C%E8%A1%A5%E5%89%8D%E7%BC%80%E6%9C%80%E5%A4%A7%E5%80%BC"><span class="nav-number">2.3.</span> <span class="nav-text">只在区间加的边界补前缀最大值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%A4%E7%A7%8D%E7%BA%BF%E6%AE%B5%E6%A0%91%E5%86%99%E6%B3%95"><span class="nav-number">2.4.</span> <span class="nav-text">两种线段树写法</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="wdwsy"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">wdwsy</p>
+  <div class="site-description" itemprop="description">算法竞赛、C++、OI 技术分享</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">56</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">categories</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">25</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/wdwsy" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;wdwsy" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://wdwsy.github.io/2026/11/22/2026-11-22FZ%E6%A8%A1%E6%8B%9F%E8%B5%9B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="wdwsy">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="wdwsy's Blog">
+      <meta itemprop="description" content="算法竞赛、C++、OI 技术分享">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="2026.11.22FZ模拟赛 | wdwsy's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          2026.11.22FZ模拟赛
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2026-11-22 20:45:55" itemprop="dateCreated datePublished" datetime="2026-11-22T20:45:55+08:00">2026-11-22</time>
+    </span>
+
+  
+    <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">Views: </span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h2 id="5948-公交"><a href="#5948-公交" class="headerlink" title="5948 公交"></a>5948 公交</h2><p>给一棵带点权的树，点权是各城市的人数。以 <span class="math-inline">\(r\)</span> 为首都，可以选 <span class="math-inline">\(k\)</span> 条到 <span class="math-inline">\(r\)</span> 的公交线路。一个城市的不满度是它到最近公交站的距离乘人数。要求对每个 <span class="math-inline">\(r\)</span> 分别求最小总不满度。</p>
+<h3 id="固定根，把线路收益拆成链贡献"><a href="#固定根，把线路收益拆成链贡献" class="headerlink" title="固定根，把线路收益拆成链贡献"></a>固定根，把线路收益拆成链贡献</h3><p>先只把根看成已覆盖。设 <span class="math-inline">\(s_u\)</span> 是以当前首都为根时，<span class="math-inline">\(u\)</span> 的子树人数之和。一条公交线路覆盖一条到根的路径，所以所有覆盖点连起来是一棵包含根的子树。对于非根点 <span class="math-inline">\(u\)</span>，一旦它被覆盖，它的子树里所有城市都可以少走边 <span class="math-inline">\((u,\operatorname{fa}(u))\)</span>。因此覆盖 <span class="math-inline">\(u\)</span> 带来的收益就是 <span class="math-inline">\(s_u\)</span>。每个点只算一次，线路的重合也就处理掉了。</p>
+<p>下面把根的 <span class="math-inline">\(s_r\)</span> 同时计入基准和收益。令 <span class="math-inline">\(C&#x3D;\sum_u s_u\)</span>，那么答案是 <span class="math-inline">\(C\)</span> 减去能覆盖的点的 <span class="math-inline">\(s_u\)</span> 之和的最大值。由于 <span class="math-inline">\(k\ge 1\)</span>，根的贡献一定会抵消。</p>
+<p>固定一棵子树，按顺序记下每多用一条线路能多得到多少收益。这个边际收益序列可以自底向上归纳：</p>
+<ul>
+<li>叶子的第一项是 <span class="math-inline">\(s_u\)</span>，之后都是 <span class="math-inline">\(0\)</span>。</li>
+<li>对于非叶子，把所有儿子各自的边际收益从大到小归并。给儿子分配线路时，只能取它序列的一个前缀。由于各个序列都不增，取全局最大的若干项即可。同值时优先取同一序列里较早的项。</li>
+<li>只要用了至少一条线路，就会覆盖 <span class="math-inline">\(u\)</span>。所以只给归并后的第一项加上 <span class="math-inline">\(s_u\)</span>，其余项保持原样。新的序列仍然不增。</li>
+</ul>
+<p>这一步有一个方便的实现。记 <span class="math-inline">\(f_u\)</span> 为 <span class="math-inline">\(u\)</span> 子树内第一条线路的收益，选择 <span class="math-inline">\(f_v\)</span> 最大的儿子作为重儿子，于是</p>
+<div class="math-display">\[f_u&#x3D;s_u+\max_{v\text{ 是 }u\text{ 的儿子}}f_v,\]</div>
+<p>叶子的最大值按 <span class="math-inline">\(0\)</span> 算。把 <span class="math-inline">\(s_u\)</span> 加到第一项，相当于把 <span class="math-inline">\(u\)</span> 接到重儿子的链上。其余儿子的链不变。这样<strong>整棵树的边际收益就是根与所有轻儿子作为链头的 <span class="math-inline">\(f\)</span> 值</strong>。取其中最大的 <span class="math-inline">\(k\)</span> 项求和即可，链数不足时把剩余收益视为 <span class="math-inline">\(0\)</span>。</p>
+<h3 id="换根时，缓存的是边的方向贡献"><a href="#换根时，缓存的是边的方向贡献" class="headerlink" title="换根时，缓存的是边的方向贡献"></a>换根时，缓存的是边的方向贡献</h3><p>把根沿一条边从 <span class="math-inline">\(x\)</span> 移到 <span class="math-inline">\(y\)</span>，只有这条边翻向。除 <span class="math-inline">\(x,y\)</span> 外，其余点的子树和儿子都保持原样。设全树人数为 <span class="math-inline">\(S\)</span>，带撇的量表示换根之后：</p>
+<div class="math-display">\[s&#39;_x&#x3D;S-s_y,\qquad s&#39;_y&#x3D;S,\qquad C&#39;&#x3D;C+2s&#39;_x-S.\]</div>
+<p>原来的瓶颈是每次换根都重新扫描 <span class="math-inline">\(x,y\)</span> 的邻接表。一个点会参与与度数同阶的换根，代价是 <span class="math-inline">\(O(\sum_u\deg(u)^2)\)</span>。星形树每次换到叶子都要重新扫中心，这部分就会退化成平方级。</p>
+<p><strong>切开边 <span class="math-inline">\(uv\)</span> 以后，<span class="math-inline">\(v\)</span> 侧以 <span class="math-inline">\(v\)</span> 为根算出的 <span class="math-inline">\(f\)</span> 只由那一侧决定。</strong> 所以每个点 <span class="math-inline">\(u\)</span> 第一次成为根时，扫描一次邻接表，记下最大的两个方向贡献和对应的邻居。这个时候所有邻居都是儿子，读到的正是各方向的 <span class="math-inline">\(f_v\)</span>。</p>
+<p>换根时，<span class="math-inline">\(x\)</span> 要在排除 <span class="math-inline">\(y\)</span> 后选最优方向。如果第一名是 <span class="math-inline">\(y\)</span>，就取第二名。<span class="math-inline">\(y\)</span> 要在所有方向里取第一名。若 <span class="math-inline">\(y\)</span> 的缓存还没建，先算好新的 <span class="math-inline">\(f_x\)</span> 再扫描 <span class="math-inline">\(y\)</span>，这样父亲方向也有值了。</p>
+<p>缓存里<strong>只存儿子方向的 <span class="math-inline">\(f_v\)</span></strong>。新的 <span class="math-inline">\(f_x\)</span> 要加新的 <span class="math-inline">\(s&#39;_x\)</span>，提前把根的子树和加进缓存，下一次 <span class="math-inline">\(x\)</span> 变成儿子就会多算。记录前两名时，还要把被挤下去的旧第一名放到第二名。允许方向贡献为 <span class="math-inline">\(0\)</span>，用邻居编号 <span class="math-inline">\(0\)</span> 表示空位，同值的两个不同邻居也可以分别占第一和第二。</p>
+<h3 id="动态维护前-k-大"><a href="#动态维护前-k-大" class="headerlink" title="动态维护前 \(k\) 大"></a>动态维护前 <span class="math-inline">\(k\)</span> 大</h3><p>维护一个链头贡献的多重集合。换根前，先拆开 <span class="math-inline">\(x\)</span> 的重边，删掉 <span class="math-inline">\(f_x\)</span>，把它原重儿子的贡献放回集合。现在 <span class="math-inline">\(y\)</span> 一定是链头，可以同样拆开 <span class="math-inline">\(y\)</span>。等两点的新 <span class="math-inline">\(s,f\)</span> 和重儿子算完，再先接好 <span class="math-inline">\(x\)</span>、后接好 <span class="math-inline">\(y\)</span>。每次接回都是删新重儿子的贡献，再加入当前点的 <span class="math-inline">\(f\)</span>。如果没有重儿子，只需插入自己的贡献。</p>
+<p>集合用两个堆维护：小根堆存前 <span class="math-inline">\(k\)</span> 大的贡献，大根堆存其余贡献。每次插入或删除后，把两边的堆顶按需搬运，同时维护小根堆的和。删除用配对的堆做懒删除，重复值按出现次数处理。堆顶、子树人数和答案都用 <code>long long</code>。</p>
+<p>每个点只扫描一次邻居，每次换根只做常数次堆修改。遍历所有根时，每条边正反各换一次，因此总时间为 <span class="math-inline">\(O(n\log n)\)</span>，空间为 <span class="math-inline">\(O(n)\)</span>。链形树深度可达 <span class="math-inline">\(n\)</span>，实现时可以用显式栈做 DFS，并在退出子树时沿原边换回去。</p>
+<h2 id="JOISC-2019-Two-Dishes"><a href="#JOISC-2019-Two-Dishes" class="headerlink" title="JOISC 2019 Two Dishes"></a>JOISC 2019 Two Dishes</h2><p>两道菜各有一串必须按顺序完成的步骤。任意时刻可以选择推进其中一道菜。每一步在截止时间内完成就得到该步的分数，分数可以为负。要求做完两道菜后的最大总分。<a target="_blank" rel="noopener" href="https://www2.ioi-jp.org/camp/2019/2019-sp-tasks/day2/dishes-en.pdf">官方题面</a></p>
+<h3 id="减掉一项，让向右转移的代价变成零"><a href="#减掉一项，让向右转移的代价变成零" class="headerlink" title="减掉一项，让向右转移的代价变成零"></a>减掉一项，让向右转移的代价变成零</h3><p>设 <span class="math-inline">\(A_i,B_j\)</span> 为两道菜前 <span class="math-inline">\(i,j\)</span> 步的累计时间，<span class="math-inline">\(F_i(j)\)</span> 为做完这两部分的最大总分。到达 <span class="math-inline">\((i,j)\)</span> 时的时间一定是 <span class="math-inline">\(A_i+B_j\)</span>。记 <span class="math-inline">\(P_i(j)\)</span> 是在这个时刻完成 A 的第 <span class="math-inline">\(i\)</span> 步所得的分数，<span class="math-inline">\(Q_i(j)\)</span> 是完成 B 的第 <span class="math-inline">\(j\)</span> 步所得的分数。超时的分数记作 <span class="math-inline">\(0\)</span>。</p>
+<div class="math-display">\[F_i(j)&#x3D;\max\bigl(F_{i-1}(j)+P_i(j),\ F_i(j-1)+Q_i(j)\bigr).\]</div>
+<p>一行里的麻烦在于横向转移要加上 <span class="math-inline">\(Q_i(j)\)</span>。先把这一行所有横向边的分数做前缀和：</p>
+<div class="math-display">\[H_i(j)&#x3D;\sum_{b&#x3D;1}^j Q_i(b),\qquad G_i(j)&#x3D;F_i(j)-H_i(j).\]</div>
+<p>因为 <span class="math-inline">\(H_i(j)-H_i(j-1)&#x3D;Q_i(j)\)</span>，横向转移就变成了直接从左边取最大值。令 <span class="math-inline">\(R_i(j)\)</span> 表示只从上一行转移得到的值，则</p>
+<div class="math-display">\[\begin{aligned}
+R_i(j)&amp;&#x3D;G_{i-1}(j)+P_i(j)+H_{i-1}(j)-H_i(j),\\
+G_i(j)&amp;&#x3D;\max_{0\le b\le j}R_i(b).
+\end{aligned}\]</div>
+<p>这里第 <span class="math-inline">\(0\)</span> 行的 <span class="math-inline">\(F_0(j)\)</span> 正好等于 <span class="math-inline">\(H_0(j)\)</span>，所以 <span class="math-inline">\(G_0\)</span> 全为 <span class="math-inline">\(0\)</span>。最后记得把减掉的基准加回来，答案是 <span class="math-inline">\(G_n(m)+H_n(m)\)</span>。</p>
+<h3 id="把变化记到首次超时的那一行"><a href="#把变化记到首次超时的那一行" class="headerlink" title="把变化记到首次超时的那一行"></a>把变化记到首次超时的那一行</h3><p>计算 <span class="math-inline">\(R_i\)</span> 时，两类贡献都能用区间加处理。</p>
+<ul>
+<li><strong>A 的第 <span class="math-inline">\(i\)</span> 步。</strong> 能按时完成的 <span class="math-inline">\(j\)</span> 形成一个前缀。二分找到最大的 <span class="math-inline">\(j\)</span>，使 <span class="math-inline">\(A_i+B_j\le s_i\)</span>，给这个前缀加 <span class="math-inline">\(p_i\)</span>。</li>
+<li><strong>B 的第 <span class="math-inline">\(j\)</span> 步。</strong> 二分找到最小的 <span class="math-inline">\(i\)</span>，使 <span class="math-inline">\(A_i+B_j&gt;t_j\)</span>。在这一行，<span class="math-inline">\(H_i\)</span> 比上一行少了 <span class="math-inline">\(q_j\)</span>，影响的是所有包含 B 第 <span class="math-inline">\(j\)</span> 步的状态，所以给后缀 <span class="math-inline">\([j,m]\)</span> 加 <span class="math-inline">\(q_j\)</span>。</li>
+</ul>
+<p>B 的事件在预处理时按行分桶。边界尤其容易写错：</p>
+<table>
+<thead>
+<tr>
+<th>首次超时的行</th>
+<th>怎么处理</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><span class="math-inline">\(0\)</span></td>
+<td>这一步从最早开始就拿不到分，直接跳过。</td>
+</tr>
+<tr>
+<td><span class="math-inline">\(1\)</span> 到 <span class="math-inline">\(n\)</span></td>
+<td>只在对应的行加入一次后缀加事件。</td>
+</tr>
+<tr>
+<td><span class="math-inline">\(n+1\)</span></td>
+<td>任意安排都能按时完成，把 <span class="math-inline">\(q_j\)</span> 计入最后要加回的 <span class="math-inline">\(H_n(m)\)</span>。</td>
+</tr>
+</tbody></table>
+<p>首次超时为 <span class="math-inline">\(0\)</span> 的步骤从未进入 <span class="math-inline">\(H_0\)</span>，也就没有分数可以加回来。把它丢进第 <span class="math-inline">\(0\)</span> 行的桶，会破坏 <span class="math-inline">\(G_0\)</span> 全为 <span class="math-inline">\(0\)</span> 的初始条件。</p>
+<h3 id="只在区间加的边界补前缀最大值"><a href="#只在区间加的边界补前缀最大值" class="headerlink" title="只在区间加的边界补前缀最大值"></a>只在区间加的边界补前缀最大值</h3><p>上一行 <span class="math-inline">\(G_{i-1}\)</span> 已经不降。这一行所有区间加做完后，每个加数不变的段内部仍然不降。因此，<strong>只可能在区间加的边界发生下降</strong>。需要考虑的位置是 A 的加分前缀结束后的第一列，以及各个 B 事件的后缀起点。</p>
+<p>对每个边界 <span class="math-inline">\(c\)</span>，查询当前第 <span class="math-inline">\(c-1\)</span> 列的值，然后让整个后缀 <span class="math-inline">\([c,m]\)</span> 与这个值取 <span class="math-inline">\(\max\)</span>。列 <span class="math-inline">\(0\)</span> 或 <span class="math-inline">\(m+1\)</span> 的边界可以跳过。</p>
+<p>这一步甚至不要求边界按升序处理。对任意一列，原数组里更早的每个段对它的贡献，只需要看那个段的最后一个值。处理对应边界时，查询到的值只会比原来的段尾更大，于是该段尾的贡献至少会传到目标列。同时，每次更新用的都是更早位置已经取得的值，不可能超过目标列真正的前缀最大值。所有边界处理完，结果就恰好是整行前缀最大值。</p>
+<p>核心循环可以这么写，<code>addRange</code> 和 <code>chmaxRange</code> 分别表示区间加和区间取下界。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; ++i) &#123;</span><br><span class="line">    <span class="type">int</span> r = <span class="built_in">upper_bound</span>(B, B + m + <span class="number">1</span>, s[i] - A[i]) - B - <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">if</span> (r &gt;= <span class="number">0</span>) <span class="built_in">addRange</span>(<span class="number">0</span>, r, p[i]);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> j : events[i]) <span class="built_in">addRange</span>(j, m, q[j]);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">auto</span> repair = [&amp;](<span class="type">int</span> c) &#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="number">1</span> &lt;= c &amp;&amp; c &lt;= m) &#123;</span><br><span class="line">            <span class="built_in">chmaxRange</span>(c, m, <span class="built_in">pointQuery</span>(c - <span class="number">1</span>));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="built_in">repair</span>(r + <span class="number">1</span>);</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> j : events[i]) <span class="built_in">repair</span>(j);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>注意先做完这行的所有加法，再做补前缀最大值。<span class="math-inline">\(p_i,q_j\)</span> 可以为负，如果在区间加的中途就把某个前缀最大值传到后面，之后的加法可能改变应该传播的值。</p>
+<h3 id="两种线段树写法"><a href="#两种线段树写法" class="headerlink" title="两种线段树写法"></a>两种线段树写法</h3><p>区间加与区间取下界可以统一成一个懒标记 <span class="math-inline">\(T(z)&#x3D;\max(z+\text{add},\text{low})\)</span>。先施加 <span class="math-inline">\((a,\ell)\)</span>，再施加 <span class="math-inline">\((b,h)\)</span>，合成结果是</p>
+<div class="math-display">\[(a+b,\ \max(\ell+b,h)).\]</div>
+<p>线段树只需要 <code>add</code> 和 <code>low</code> 两个标记，以及单点查询。纯区间加的下界是负无穷，合成时单独处理这个哨兵。</p>
+<p>也可以把<strong>整段取前缀最大值</strong>记成一个懒标记 <code>cmx</code>。下传时，左右儿子各自取前缀最大值，右儿子还要整段与左儿子的最大值取 <span class="math-inline">\(\max\)</span>。取前缀最大值不会改变整段最大值，而且 <span class="math-inline">\(T\)</span> 是单调函数，所以下传时可以先做 <code>add/low</code>，再做 <code>cmx</code>。这样每行做完加法后只需给根打一次 <code>cmx</code>，代价是每个节点还要维护区间最大值。</p>
+<p>每个 A 步骤至多产生一次前缀加，每个 B 步骤至多产生一次后缀加。按边界修补的写法中，每个加法也只对应一次单点查询和后缀取下界。算上二分找边界，总时间为 <span class="math-inline">\(O((n+m)\log(n+m))\)</span>，空间为 <span class="math-inline">\(O(n+m)\)</span>。数据量大时，事件还可以用 <code>head[i]</code> 和 <code>next[j]</code> 两个数组串起来，省掉每一行一个 <code>vector</code> 的开销。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2026/11/19/%E5%8F%8C%E7%BA%BF%E5%8F%8D%E5%B0%84%E5%AE%B9%E6%96%A5%E8%A7%A3%E6%9E%90/" rel="prev" title="双线反射容斥解析">
+                  <i class="fa fa-angle-left"></i> 双线反射容斥解析
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2026</span>
+    <span class="with-love">
+      <i class=""></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">wdwsy</span>
+  </div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="Total Visitors">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="Total Views">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+<script defer src="/js/blog-code.js"></script>
+
+</body>
+</html>

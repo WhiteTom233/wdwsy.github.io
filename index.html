@@ -178,7 +178,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">55</span>
+          <span class="site-state-item-count">56</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -210,6 +210,145 @@
     </div>
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://wdwsy.github.io/2026/11/22/2026-11-22FZ%E6%A8%A1%E6%8B%9F%E8%B5%9B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="wdwsy">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="wdwsy's Blog">
+      <meta itemprop="description" content="算法竞赛、C++、OI 技术分享">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content=" | wdwsy's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2026/11/22/2026-11-22FZ%E6%A8%A1%E6%8B%9F%E8%B5%9B/" class="post-title-link" itemprop="url">2026.11.22FZ模拟赛</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2026-11-22 20:45:55" itemprop="dateCreated datePublished" datetime="2026-11-22T20:45:55+08:00">2026-11-22</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h2 id="5948-公交"><a href="#5948-公交" class="headerlink" title="5948 公交"></a>5948 公交</h2><p>给一棵带点权的树，点权是各城市的人数。以 <span class="math-inline">\(r\)</span> 为首都，可以选 <span class="math-inline">\(k\)</span> 条到 <span class="math-inline">\(r\)</span> 的公交线路。一个城市的不满度是它到最近公交站的距离乘人数。要求对每个 <span class="math-inline">\(r\)</span> 分别求最小总不满度。</p>
+<h3 id="固定根，把线路收益拆成链贡献"><a href="#固定根，把线路收益拆成链贡献" class="headerlink" title="固定根，把线路收益拆成链贡献"></a>固定根，把线路收益拆成链贡献</h3><p>先只把根看成已覆盖。设 <span class="math-inline">\(s_u\)</span> 是以当前首都为根时，<span class="math-inline">\(u\)</span> 的子树人数之和。一条公交线路覆盖一条到根的路径，所以所有覆盖点连起来是一棵包含根的子树。对于非根点 <span class="math-inline">\(u\)</span>，一旦它被覆盖，它的子树里所有城市都可以少走边 <span class="math-inline">\((u,\operatorname{fa}(u))\)</span>。因此覆盖 <span class="math-inline">\(u\)</span> 带来的收益就是 <span class="math-inline">\(s_u\)</span>。每个点只算一次，线路的重合也就处理掉了。</p>
+<p>下面把根的 <span class="math-inline">\(s_r\)</span> 同时计入基准和收益。令 <span class="math-inline">\(C&#x3D;\sum_u s_u\)</span>，那么答案是 <span class="math-inline">\(C\)</span> 减去能覆盖的点的 <span class="math-inline">\(s_u\)</span> 之和的最大值。由于 <span class="math-inline">\(k\ge 1\)</span>，根的贡献一定会抵消。</p>
+<p>固定一棵子树，按顺序记下每多用一条线路能多得到多少收益。这个边际收益序列可以自底向上归纳：</p>
+<ul>
+<li>叶子的第一项是 <span class="math-inline">\(s_u\)</span>，之后都是 <span class="math-inline">\(0\)</span>。</li>
+<li>对于非叶子，把所有儿子各自的边际收益从大到小归并。给儿子分配线路时，只能取它序列的一个前缀。由于各个序列都不增，取全局最大的若干项即可。同值时优先取同一序列里较早的项。</li>
+<li>只要用了至少一条线路，就会覆盖 <span class="math-inline">\(u\)</span>。所以只给归并后的第一项加上 <span class="math-inline">\(s_u\)</span>，其余项保持原样。新的序列仍然不增。</li>
+</ul>
+<p>这一步有一个方便的实现。记 <span class="math-inline">\(f_u\)</span> 为 <span class="math-inline">\(u\)</span> 子树内第一条线路的收益，选择 <span class="math-inline">\(f_v\)</span> 最大的儿子作为重儿子，于是</p>
+<div class="math-display">\[f_u&#x3D;s_u+\max_{v\text{ 是 }u\text{ 的儿子}}f_v,\]</div>
+<p>叶子的最大值按 <span class="math-inline">\(0\)</span> 算。把 <span class="math-inline">\(s_u\)</span> 加到第一项，相当于把 <span class="math-inline">\(u\)</span> 接到重儿子的链上。其余儿子的链不变。这样<strong>整棵树的边际收益就是根与所有轻儿子作为链头的 <span class="math-inline">\(f\)</span> 值</strong>。取其中最大的 <span class="math-inline">\(k\)</span> 项求和即可，链数不足时把剩余收益视为 <span class="math-inline">\(0\)</span>。</p>
+<h3 id="换根时，缓存的是边的方向贡献"><a href="#换根时，缓存的是边的方向贡献" class="headerlink" title="换根时，缓存的是边的方向贡献"></a>换根时，缓存的是边的方向贡献</h3><p>把根沿一条边从 <span class="math-inline">\(x\)</span> 移到 <span class="math-inline">\(y\)</span>，只有这条边翻向。除 <span class="math-inline">\(x,y\)</span> 外，其余点的子树和儿子都保持原样。设全树人数为 <span class="math-inline">\(S\)</span>，带撇的量表示换根之后：</p>
+<div class="math-display">\[s&#39;_x&#x3D;S-s_y,\qquad s&#39;_y&#x3D;S,\qquad C&#39;&#x3D;C+2s&#39;_x-S.\]</div>
+<p>原来的瓶颈是每次换根都重新扫描 <span class="math-inline">\(x,y\)</span> 的邻接表。一个点会参与与度数同阶的换根，代价是 <span class="math-inline">\(O(\sum_u\deg(u)^2)\)</span>。星形树每次换到叶子都要重新扫中心，这部分就会退化成平方级。</p>
+<p><strong>切开边 <span class="math-inline">\(uv\)</span> 以后，<span class="math-inline">\(v\)</span> 侧以 <span class="math-inline">\(v\)</span> 为根算出的 <span class="math-inline">\(f\)</span> 只由那一侧决定。</strong> 所以每个点 <span class="math-inline">\(u\)</span> 第一次成为根时，扫描一次邻接表，记下最大的两个方向贡献和对应的邻居。这个时候所有邻居都是儿子，读到的正是各方向的 <span class="math-inline">\(f_v\)</span>。</p>
+<p>换根时，<span class="math-inline">\(x\)</span> 要在排除 <span class="math-inline">\(y\)</span> 后选最优方向。如果第一名是 <span class="math-inline">\(y\)</span>，就取第二名。<span class="math-inline">\(y\)</span> 要在所有方向里取第一名。若 <span class="math-inline">\(y\)</span> 的缓存还没建，先算好新的 <span class="math-inline">\(f_x\)</span> 再扫描 <span class="math-inline">\(y\)</span>，这样父亲方向也有值了。</p>
+<p>缓存里<strong>只存儿子方向的 <span class="math-inline">\(f_v\)</span></strong>。新的 <span class="math-inline">\(f_x\)</span> 要加新的 <span class="math-inline">\(s&#39;_x\)</span>，提前把根的子树和加进缓存，下一次 <span class="math-inline">\(x\)</span> 变成儿子就会多算。记录前两名时，还要把被挤下去的旧第一名放到第二名。允许方向贡献为 <span class="math-inline">\(0\)</span>，用邻居编号 <span class="math-inline">\(0\)</span> 表示空位，同值的两个不同邻居也可以分别占第一和第二。</p>
+<h3 id="动态维护前-k-大"><a href="#动态维护前-k-大" class="headerlink" title="动态维护前 \(k\) 大"></a>动态维护前 <span class="math-inline">\(k\)</span> 大</h3><p>维护一个链头贡献的多重集合。换根前，先拆开 <span class="math-inline">\(x\)</span> 的重边，删掉 <span class="math-inline">\(f_x\)</span>，把它原重儿子的贡献放回集合。现在 <span class="math-inline">\(y\)</span> 一定是链头，可以同样拆开 <span class="math-inline">\(y\)</span>。等两点的新 <span class="math-inline">\(s,f\)</span> 和重儿子算完，再先接好 <span class="math-inline">\(x\)</span>、后接好 <span class="math-inline">\(y\)</span>。每次接回都是删新重儿子的贡献，再加入当前点的 <span class="math-inline">\(f\)</span>。如果没有重儿子，只需插入自己的贡献。</p>
+<p>集合用两个堆维护：小根堆存前 <span class="math-inline">\(k\)</span> 大的贡献，大根堆存其余贡献。每次插入或删除后，把两边的堆顶按需搬运，同时维护小根堆的和。删除用配对的堆做懒删除，重复值按出现次数处理。堆顶、子树人数和答案都用 <code>long long</code>。</p>
+<p>每个点只扫描一次邻居，每次换根只做常数次堆修改。遍历所有根时，每条边正反各换一次，因此总时间为 <span class="math-inline">\(O(n\log n)\)</span>，空间为 <span class="math-inline">\(O(n)\)</span>。链形树深度可达 <span class="math-inline">\(n\)</span>，实现时可以用显式栈做 DFS，并在退出子树时沿原边换回去。</p>
+<h2 id="JOISC-2019-Two-Dishes"><a href="#JOISC-2019-Two-Dishes" class="headerlink" title="JOISC 2019 Two Dishes"></a>JOISC 2019 Two Dishes</h2><p>两道菜各有一串必须按顺序完成的步骤。任意时刻可以选择推进其中一道菜。每一步在截止时间内完成就得到该步的分数，分数可以为负。要求做完两道菜后的最大总分。<a target="_blank" rel="noopener" href="https://www2.ioi-jp.org/camp/2019/2019-sp-tasks/day2/dishes-en.pdf">官方题面</a></p>
+<h3 id="减掉一项，让向右转移的代价变成零"><a href="#减掉一项，让向右转移的代价变成零" class="headerlink" title="减掉一项，让向右转移的代价变成零"></a>减掉一项，让向右转移的代价变成零</h3><p>设 <span class="math-inline">\(A_i,B_j\)</span> 为两道菜前 <span class="math-inline">\(i,j\)</span> 步的累计时间，<span class="math-inline">\(F_i(j)\)</span> 为做完这两部分的最大总分。到达 <span class="math-inline">\((i,j)\)</span> 时的时间一定是 <span class="math-inline">\(A_i+B_j\)</span>。记 <span class="math-inline">\(P_i(j)\)</span> 是在这个时刻完成 A 的第 <span class="math-inline">\(i\)</span> 步所得的分数，<span class="math-inline">\(Q_i(j)\)</span> 是完成 B 的第 <span class="math-inline">\(j\)</span> 步所得的分数。超时的分数记作 <span class="math-inline">\(0\)</span>。</p>
+<div class="math-display">\[F_i(j)&#x3D;\max\bigl(F_{i-1}(j)+P_i(j),\ F_i(j-1)+Q_i(j)\bigr).\]</div>
+<p>一行里的麻烦在于横向转移要加上 <span class="math-inline">\(Q_i(j)\)</span>。先把这一行所有横向边的分数做前缀和：</p>
+<div class="math-display">\[H_i(j)&#x3D;\sum_{b&#x3D;1}^j Q_i(b),\qquad G_i(j)&#x3D;F_i(j)-H_i(j).\]</div>
+<p>因为 <span class="math-inline">\(H_i(j)-H_i(j-1)&#x3D;Q_i(j)\)</span>，横向转移就变成了直接从左边取最大值。令 <span class="math-inline">\(R_i(j)\)</span> 表示只从上一行转移得到的值，则</p>
+<div class="math-display">\[\begin{aligned}
+R_i(j)&amp;&#x3D;G_{i-1}(j)+P_i(j)+H_{i-1}(j)-H_i(j),\\
+G_i(j)&amp;&#x3D;\max_{0\le b\le j}R_i(b).
+\end{aligned}\]</div>
+<p>这里第 <span class="math-inline">\(0\)</span> 行的 <span class="math-inline">\(F_0(j)\)</span> 正好等于 <span class="math-inline">\(H_0(j)\)</span>，所以 <span class="math-inline">\(G_0\)</span> 全为 <span class="math-inline">\(0\)</span>。最后记得把减掉的基准加回来，答案是 <span class="math-inline">\(G_n(m)+H_n(m)\)</span>。</p>
+<h3 id="把变化记到首次超时的那一行"><a href="#把变化记到首次超时的那一行" class="headerlink" title="把变化记到首次超时的那一行"></a>把变化记到首次超时的那一行</h3><p>计算 <span class="math-inline">\(R_i\)</span> 时，两类贡献都能用区间加处理。</p>
+<ul>
+<li><strong>A 的第 <span class="math-inline">\(i\)</span> 步。</strong> 能按时完成的 <span class="math-inline">\(j\)</span> 形成一个前缀。二分找到最大的 <span class="math-inline">\(j\)</span>，使 <span class="math-inline">\(A_i+B_j\le s_i\)</span>，给这个前缀加 <span class="math-inline">\(p_i\)</span>。</li>
+<li><strong>B 的第 <span class="math-inline">\(j\)</span> 步。</strong> 二分找到最小的 <span class="math-inline">\(i\)</span>，使 <span class="math-inline">\(A_i+B_j&gt;t_j\)</span>。在这一行，<span class="math-inline">\(H_i\)</span> 比上一行少了 <span class="math-inline">\(q_j\)</span>，影响的是所有包含 B 第 <span class="math-inline">\(j\)</span> 步的状态，所以给后缀 <span class="math-inline">\([j,m]\)</span> 加 <span class="math-inline">\(q_j\)</span>。</li>
+</ul>
+<p>B 的事件在预处理时按行分桶。边界尤其容易写错：</p>
+<table>
+<thead>
+<tr>
+<th>首次超时的行</th>
+<th>怎么处理</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><span class="math-inline">\(0\)</span></td>
+<td>这一步从最早开始就拿不到分，直接跳过。</td>
+</tr>
+<tr>
+<td><span class="math-inline">\(1\)</span> 到 <span class="math-inline">\(n\)</span></td>
+<td>只在对应的行加入一次后缀加事件。</td>
+</tr>
+<tr>
+<td><span class="math-inline">\(n+1\)</span></td>
+<td>任意安排都能按时完成，把 <span class="math-inline">\(q_j\)</span> 计入最后要加回的 <span class="math-inline">\(H_n(m)\)</span>。</td>
+</tr>
+</tbody></table>
+<p>首次超时为 <span class="math-inline">\(0\)</span> 的步骤从未进入 <span class="math-inline">\(H_0\)</span>，也就没有分数可以加回来。把它丢进第 <span class="math-inline">\(0\)</span> 行的桶，会破坏 <span class="math-inline">\(G_0\)</span> 全为 <span class="math-inline">\(0\)</span> 的初始条件。</p>
+<h3 id="只在区间加的边界补前缀最大值"><a href="#只在区间加的边界补前缀最大值" class="headerlink" title="只在区间加的边界补前缀最大值"></a>只在区间加的边界补前缀最大值</h3><p>上一行 <span class="math-inline">\(G_{i-1}\)</span> 已经不降。这一行所有区间加做完后，每个加数不变的段内部仍然不降。因此，<strong>只可能在区间加的边界发生下降</strong>。需要考虑的位置是 A 的加分前缀结束后的第一列，以及各个 B 事件的后缀起点。</p>
+<p>对每个边界 <span class="math-inline">\(c\)</span>，查询当前第 <span class="math-inline">\(c-1\)</span> 列的值，然后让整个后缀 <span class="math-inline">\([c,m]\)</span> 与这个值取 <span class="math-inline">\(\max\)</span>。列 <span class="math-inline">\(0\)</span> 或 <span class="math-inline">\(m+1\)</span> 的边界可以跳过。</p>
+<p>这一步甚至不要求边界按升序处理。对任意一列，原数组里更早的每个段对它的贡献，只需要看那个段的最后一个值。处理对应边界时，查询到的值只会比原来的段尾更大，于是该段尾的贡献至少会传到目标列。同时，每次更新用的都是更早位置已经取得的值，不可能超过目标列真正的前缀最大值。所有边界处理完，结果就恰好是整行前缀最大值。</p>
+<p>核心循环可以这么写，<code>addRange</code> 和 <code>chmaxRange</code> 分别表示区间加和区间取下界。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; ++i) &#123;</span><br><span class="line">    <span class="type">int</span> r = <span class="built_in">upper_bound</span>(B, B + m + <span class="number">1</span>, s[i] - A[i]) - B - <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">if</span> (r &gt;= <span class="number">0</span>) <span class="built_in">addRange</span>(<span class="number">0</span>, r, p[i]);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> j : events[i]) <span class="built_in">addRange</span>(j, m, q[j]);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">auto</span> repair = [&amp;](<span class="type">int</span> c) &#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="number">1</span> &lt;= c &amp;&amp; c &lt;= m) &#123;</span><br><span class="line">            <span class="built_in">chmaxRange</span>(c, m, <span class="built_in">pointQuery</span>(c - <span class="number">1</span>));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="built_in">repair</span>(r + <span class="number">1</span>);</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> j : events[i]) <span class="built_in">repair</span>(j);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>注意先做完这行的所有加法，再做补前缀最大值。<span class="math-inline">\(p_i,q_j\)</span> 可以为负，如果在区间加的中途就把某个前缀最大值传到后面，之后的加法可能改变应该传播的值。</p>
+<h3 id="两种线段树写法"><a href="#两种线段树写法" class="headerlink" title="两种线段树写法"></a>两种线段树写法</h3><p>区间加与区间取下界可以统一成一个懒标记 <span class="math-inline">\(T(z)&#x3D;\max(z+\text{add},\text{low})\)</span>。先施加 <span class="math-inline">\((a,\ell)\)</span>，再施加 <span class="math-inline">\((b,h)\)</span>，合成结果是</p>
+<div class="math-display">\[(a+b,\ \max(\ell+b,h)).\]</div>
+<p>线段树只需要 <code>add</code> 和 <code>low</code> 两个标记，以及单点查询。纯区间加的下界是负无穷，合成时单独处理这个哨兵。</p>
+<p>也可以把<strong>整段取前缀最大值</strong>记成一个懒标记 <code>cmx</code>。下传时，左右儿子各自取前缀最大值，右儿子还要整段与左儿子的最大值取 <span class="math-inline">\(\max\)</span>。取前缀最大值不会改变整段最大值，而且 <span class="math-inline">\(T\)</span> 是单调函数，所以下传时可以先做 <code>add/low</code>，再做 <code>cmx</code>。这样每行做完加法后只需给根打一次 <code>cmx</code>，代价是每个节点还要维护区间最大值。</p>
+<p>每个 A 步骤至多产生一次前缀加，每个 B 步骤至多产生一次后缀加。按边界修补的写法中，每个加法也只对应一次单点查询和后缀取下界。算上二分找边界，总时间为 <span class="math-inline">\(O((n+m)\log(n+m))\)</span>，空间为 <span class="math-inline">\(O(n+m)\)</span>。数据量大时，事件还可以用 <code>head[i]</code> 和 <code>next[j]</code> 两个数组串起来，省掉每一行一个 <code>vector</code> 的开销。</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -1541,99 +1680,6 @@ h_i(t)&#x3D;\sum_{\substack{i&lt;j\le t\\j\text{ 为左端点}}}2^{-c(i,j)}.\]</
 <p>我们不妨看看不选择的位置有什么性质。<br>不难发现不选择的点一定不能有三度点。这样就会导致裂解成 $\geq 3$ 个连通块。<br>那么如果全部选择二度点，就会构成链。<br>而且我们发现，不可能选择两条链。否则也会裂解成至少 $3$ 个连通块。</p>
 <p>所以我们就只需要在每一个链上判断能否删除 $R&#x3D;C-k$ 个位置。<br>我们考虑每一个节点，即使不是叶子，也会导致这个链上增加限制，限制就形如从当前点开始，$x$ 步内必须有点没有被删除。<br>我们因为已经知道了要删除 $R$ 个位置，所以可以把这个限制变成关于起点的限制。这部分可以看看题解，说起来比较绕。</p>
 <p>感觉主要就是不知道可以找到核心树，也不知道所有叶子必须选择这个性质，其他容易去推得。</p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://wdwsy.github.io/2026/10/29/OIFC2026-10-11NOIP%E6%A8%A1%E6%8B%9F%E4%BA%8C/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="wdwsy">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="wdwsy's Blog">
-      <meta itemprop="description" content="算法竞赛、C++、OI 技术分享">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content=" | wdwsy's Blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2026/10/29/OIFC2026-10-11NOIP%E6%A8%A1%E6%8B%9F%E4%BA%8C/" class="post-title-link" itemprop="url">OIFC2026.10-11NOIP模拟二</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-      
-
-      <time title="Created: 2026-10-29 21:42:36 / Modified: 21:43:19" itemprop="dateCreated datePublished" datetime="2026-10-29T21:42:36+08:00">2026-10-29</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="OIFC2026-10-11NOIP模拟二"><a href="#OIFC2026-10-11NOIP模拟二" class="headerlink" title="OIFC2026.10-11NOIP模拟二"></a>OIFC2026.10-11NOIP模拟二</h1><p>这个比赛质量还是不错的，后面三题都比较有难度。但是 T1 太烂了，$10^10$ 你敢写就敢过。</p>
-<h2 id="2-百年孤独"><a href="#2-百年孤独" class="headerlink" title="2. 百年孤独"></a><a target="_blank" rel="noopener" href="https://xinyoudui.com/ac/contest/747015A17000D5F09E5C22/problem/48454">2. 百年孤独</a></h2><h3 id="形式化题面"><a href="#形式化题面" class="headerlink" title="形式化题面"></a>形式化题面</h3><p>给定一个简单无向图 $G&#x3D;(V,E)$，包含 $n$ 个点和 $m$ 条边。</p>
-<p>求最少删除多少条边，使得剩余图满足：</p>
-<ol>
-<li>图连通。</li>
-<li>每条边至多属于一个简单环。</li>
-</ol>
-<p>如果不存在满足条件的方案，输出 $-1$。</p>
-<p><strong>数据范围：</strong> $1\le t\le 3$，$1\le n\le 20$，$1\le m\le \frac{n(n-1)}{2}$。图不一定连通，保证无重边、无自环。</p>
-<h3 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h3><p>首先一个直接的思路，设置 $f_s$ 表示集合 $s$ 中的点已经选择，最多能拼出来几个多少个环。每次转移就是拼上一个环。可以做到 $O(3^n)$。</p>
-<p>然后考虑调整转移，$f_{s,i,j}$ 表示已经选择的点的集合为 $s$，还没有拼起来的环两端为 $i,j$ 最多能拼成多少个环。<br>转移就是每次拼上一个环上的一条边。<br>时间复杂度 $O(2^nn^3)$。</p>
-<p>我们考虑优化掉一个 $n$，由于我们每次拼接的时候，其实可以按照 $i$ 向后拼接，然后最终绕回 $j$。<br>所以我们可以设 $f_{s,i}$，然后其值是 $(v,T)$，$v$ 表示终点为 $i$，集合为 $s$ 的时候最多拼上多少个环，$T$ 代表可行的 $j$ 集合。 </p>
-<p>这样相当于省略了 $s,i$ 一定，$v$ 更小的方式。<br>思考一下发现是正确的。因为如果 ${v_1,T_1},f_{v_2,T_2}$，其中 $v_2&lt;v_1$ 那么在 $v_2$ 拼完一个环之后，仍然有 $v_2\leq v_1$，但是有 $s_1\subset s_2$ 可以发现，此时 $f_{v_2,T_2}$ 不优。</p>
-<h1 id="3-树的复合"><a href="#3-树的复合" class="headerlink" title="3.  树的复合"></a><a target="_blank" rel="noopener" href="https://xinyoudui.com/ac/contest/747015A17000D5F09E5C22/problem/48455">3.  树的复合</a></h1><p>考虑用$2\times 2$ 矩阵压缩一个树，发现是不困难的，代表选没有选。可以再匹配意义和独立集意义下做，都可以。<br>但是我们转移的时候发现其实可以直接推出最多有 $6$ 种不同的矩阵。<br>然后我们枚举 $6$ 种矩阵，在每一棵树上对于每一个矩阵都跑一遍树上 dp，看看会转移到哪个矩阵就好。</p>
-<h1 id="4-记忆"><a href="#4-记忆" class="headerlink" title="4.  记忆"></a><a target="_blank" rel="noopener" href="https://xinyoudui.com/ac/contest/747015A17000D5F09E5C22/problem/48456">4.  记忆</a></h1><p>对于 $m&gt;3$ 的可以直接容斥，然后二项式反演 $O(1)$ 回答询问。</p>
-<p>那么就只剩下 $m&#x3D;2$ 的情况。<br>这样我们可以把 $1$ 看成 $($，$2$ 看成 $)$。<br>我们考虑枚举一个位置，删除它和它之前的左括号，和它之后的右括号。<br>那么答案就是 $min(sufr_{i+1}+prel_{i})$<br>也就是 $cntr+prel_i-prer_i$。<br>我们定义 $h_i&#x3D;prel_i-prer_i$。</p>
-<p>我们发现 $min_{i&#x3D;1}^{n} h_i$ 就是剩余多少个右括号没有匹配！！！</p>
-<p>那么 $cntr-min_{i&#x3D;1}^{n} h_i$ 就是匹配的括号个数！！！</p>
-<p>那么我们记录所有匹配上的右括号位置集合为 $P&#x3D;{x_1,x_2,x_3,\dots}$，所有匹配上的左括号位置可以计算出来，就是挨着右括号的第一个空余位置，为了有空余位置，需要满足 $x_i\geq 2\times i$。</p>
-<p>那么我们填入完左右括号之后，剩下的位置一定形如<br>$$<br>))))(((((x)))((((x))))((((<br>$$<br>$x$ 表示大于等于 $2$ 的数字。定义这个序列为 $s$</p>
-<p>所以我们确定一个括号序列，其实只需要确定 $P$ 和 $s$ 就好。</p>
-<p>系数为：<br>$P$: ${n\choose i} \times {n\times i-1}$。<br>$s$: dp 求出。设置为 $f_i$。</p>
-<p>$f_0&#x3D;1,f_1&#x3D;k,f_i&#x3D;f_{i-1}\times k - f_{i-2}$。<br>我们正常转移就是直接 $\times k$，但是不能出现 $12$，而最后一位为 $1$ 的长度为 $i$ 的序列方案数就是 $f_{i-1}$。</p>
-<p>最后还是做一下前缀和，然后直接 $O(1)$ 回答。</p>
 
       
     </div>
