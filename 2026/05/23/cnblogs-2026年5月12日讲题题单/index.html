@@ -20,16 +20,16 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"wdwsy.github.io","root":"/","images":"/images","scheme":"Muse","darkmode":true,"version":"8.27.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12,"width":240},"hljswrap":true,"codeblock":{"theme":{"light":"github-dark","dark":"github-dark-dimmed"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"language":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.json","localsearch":{"enable":true,"top_n_per_article":1,"unescape":true,"preload":false,"trigger":"auto"}}</script><script src="/js/config.js" defer></script>
 
-    <meta name="description" content="原文来自 博客园  A - 百万富翁大概就是每次可以询问一对 $(i,j)$ 位置，要求出序列中的最大值是谁。首先一个直观的想法就是每次两两分组打擂台，然后递归所有胜者，但是我们发现这样不能够通过，因为这个题目要求询问轮数只能是 $8$，而我们的这个做法需要询问 log 轮。同时我们可以注意到，我们可以询问的次数是大于 n 的，所以自然可以猜想，我们可以调整最后的几次操作，看看能不能满足要求。具">
+    <meta name="description" content="原文来自 博客园  A - 百万富翁大概就是每次可以询问一对 \((i,j)\) 位置，要求出序列中的最大值是谁。首先一个直观的想法就是每次两两分组打擂台，然后递归所有胜者，但是我们发现这样不能够通过，因为这个题目要求询问轮数只能是 \(8\)，而我们的这个做法需要询问 log 轮。同时我们可以注意到，我们可以询问的次数是大于 n 的，所以自然可以猜想，我们可以调整最后的几次操作，看看能不能满足">
 <meta property="og:type" content="article">
 <meta property="og:title" content="2026年5月12日讲题题单">
 <meta property="og:url" content="https://wdwsy.github.io/2026/05/23/cnblogs-2026%E5%B9%B45%E6%9C%8812%E6%97%A5%E8%AE%B2%E9%A2%98%E9%A2%98%E5%8D%95/index.html">
 <meta property="og:site_name" content="wdwsy&#39;s Blog">
-<meta property="og:description" content="原文来自 博客园  A - 百万富翁大概就是每次可以询问一对 $(i,j)$ 位置，要求出序列中的最大值是谁。首先一个直观的想法就是每次两两分组打擂台，然后递归所有胜者，但是我们发现这样不能够通过，因为这个题目要求询问轮数只能是 $8$，而我们的这个做法需要询问 log 轮。同时我们可以注意到，我们可以询问的次数是大于 n 的，所以自然可以猜想，我们可以调整最后的几次操作，看看能不能满足要求。具">
+<meta property="og:description" content="原文来自 博客园  A - 百万富翁大概就是每次可以询问一对 \((i,j)\) 位置，要求出序列中的最大值是谁。首先一个直观的想法就是每次两两分组打擂台，然后递归所有胜者，但是我们发现这样不能够通过，因为这个题目要求询问轮数只能是 \(8\)，而我们的这个做法需要询问 log 轮。同时我们可以注意到，我们可以询问的次数是大于 n 的，所以自然可以猜想，我们可以调整最后的几次操作，看看能不能满足">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://wdwsy.github.io/images/5-12-tidan.png">
 <meta property="article:published_time" content="2026-05-23T12:00:00.000Z">
-<meta property="article:modified_time" content="2026-06-23T15:44:12.839Z">
+<meta property="article:modified_time" content="2026-11-25T15:03:10.827Z">
 <meta property="article:author" content="wdwsy">
 <meta property="article:tag" content="数据结构">
 <meta property="article:tag" content="线段树">
@@ -170,7 +170,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#A-%E7%99%BE%E4%B8%87%E5%AF%8C%E7%BF%81"><span class="nav-number">1.</span> <span class="nav-text">A - 百万富翁</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#B-%E5%85%83%E6%97%A6%E6%BF%80%E5%85%89%E7%82%AE"><span class="nav-number">2.</span> <span class="nav-text">B - 元旦激光炮</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#C-%E7%94%9F%E4%BA%A7%E8%AE%A1%E5%88%92-Day-2"><span class="nav-number">3.</span> <span class="nav-text">C - 生产计划 (Day 2)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#D-%E6%9C%AB%E6%97%A5%E9%AD%94%E6%B3%95%E5%B0%91%E5%A5%B3%E8%AE%A1%E5%88%92"><span class="nav-number">4.</span> <span class="nav-text">D - 末日魔法少女计划</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#E-%E4%BC%97%E6%95%B0"><span class="nav-number">5.</span> <span class="nav-text">E - 众数</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#F-%E7%BC%96%E7%A8%8B%E6%B5%8B%E8%AF%95"><span class="nav-number">6.</span> <span class="nav-text">F - 编程测试</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#G-%E7%A9%BF%E8%B6%8A"><span class="nav-number">7.</span> <span class="nav-text">G - 穿越</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#J-Souvenirs"><span class="nav-number">8.</span> <span class="nav-text">J - Souvenirs</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#K-rpmtdq"><span class="nav-number">9.</span> <span class="nav-text">K - rpmtdq</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#L-TEST-199"><span class="nav-number">10.</span> <span class="nav-text">L - TEST_199</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#M-%E9%AA%B0%E5%AD%90-Kostki"><span class="nav-number">11.</span> <span class="nav-text">M - 骰子 &#x2F; Kostki</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#A-%E7%99%BE%E4%B8%87%E5%AF%8C%E7%BF%81"><span class="nav-number">1.</span> <span class="nav-text">A - 百万富翁</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#B-%E5%85%83%E6%97%A6%E6%BF%80%E5%85%89%E7%82%AE"><span class="nav-number">2.</span> <span class="nav-text">B - 元旦激光炮</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#C-%E7%94%9F%E4%BA%A7%E8%AE%A1%E5%88%92-Day-2"><span class="nav-number">3.</span> <span class="nav-text">C - 生产计划 (Day 2)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#D-%E6%9C%AB%E6%97%A5%E9%AD%94%E6%B3%95%E5%B0%91%E5%A5%B3%E8%AE%A1%E5%88%92"><span class="nav-number">4.</span> <span class="nav-text">D - 末日魔法少女计划</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#E-%E4%BC%97%E6%95%B0"><span class="nav-number">5.</span> <span class="nav-text">E - 众数</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#F-%E7%BC%96%E7%A8%8B%E6%B5%8B%E8%AF%95"><span class="nav-number">6.</span> <span class="nav-text">F - 编程测试</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#G-%E7%A9%BF%E8%B6%8A"><span class="nav-number">7.</span> <span class="nav-text">G - 穿越</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#J-Souvenirs"><span class="nav-number">8.</span> <span class="nav-text">J - Souvenirs</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#K-rpmtdq"><span class="nav-number">9.</span> <span class="nav-text">K - rpmtdq</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#L-TEST-199"><span class="nav-number">10.</span> <span class="nav-text">L - TEST_199</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#M-%E9%AA%B0%E5%AD%90-Kostki"><span class="nav-number">11.</span> <span class="nav-text">M - 骰子 &#x2F; Kostki</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#gemini"><span class="nav-number">11.1.</span> <span class="nav-text">gemini:</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%B8%E5%BF%83%E6%80%9D%E8%B7%AF"><span class="nav-number">11.1.1.</span> <span class="nav-text">核心思路</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E7%8B%AC%E7%AB%8B%E5%BA%8F%E5%88%97%E4%B8%8E%E5%85%A8%E5%B1%80%E6%9C%80%E5%B0%8F%E5%BE%97%E5%88%86"><span class="nav-number">11.1.1.1.</span> <span class="nav-text">1. 独立序列与全局最小得分</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E7%8A%B6%E6%80%81%E6%A6%82%E7%8E%87%E9%80%92%E6%8E%A8"><span class="nav-number">11.1.1.2.</span> <span class="nav-text">2. 状态概率递推</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-%E7%BB%9F%E8%AE%A1%E5%9C%A8%E6%9C%80%E5%B0%8F%E5%BE%97%E5%88%86-s-%E5%A4%84%E7%9A%84%E6%9C%9F%E6%9C%9B%E6%8A%95%E6%8E%B7%E6%AC%A1%E6%95%B0"><span class="nav-number">11.1.1.3.</span> <span class="nav-text">3. 统计在最小得分 \(s\) 处的期望投掷次数</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%8D%E6%9D%82%E5%BA%A6%E5%88%86%E6%9E%90"><span class="nav-number">11.1.2.</span> <span class="nav-text">复杂度分析</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#claude"><span class="nav-number">11.2.</span> <span class="nav-text">claude</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8C%96%E6%88%90%E7%8B%AC%E7%AB%8B%E9%9A%8F%E6%9C%BA%E6%B8%B8%E8%B5%B0"><span class="nav-number">11.2.1.</span> <span class="nav-text">化成独立随机游走</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89%E5%87%A0%E4%B8%AA%E9%87%8F"><span class="nav-number">11.2.2.</span> <span class="nav-text">定义几个量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%9F%E6%9C%9B%E7%9A%84%E7%BA%BF%E6%80%A7%E6%80%A7"><span class="nav-number">11.2.3.</span> <span class="nav-text">期望的线性性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8C%96%E7%AE%80"><span class="nav-number">11.2.4.</span> <span class="nav-text">化简</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%80%E7%BB%88%E5%85%AC%E5%BC%8F"><span class="nav-number">11.2.5.</span> <span class="nav-text">最终公式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%8D%E6%9D%82%E5%BA%A6"><span class="nav-number">11.2.6.</span> <span class="nav-text">复杂度</span></a></li></ol></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -263,7 +263,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2026-06-23 23:44:12" itemprop="dateModified" datetime="2026-06-23T23:44:12+08:00">2026-06-23</time>
+      <time title="Modified: 2026-11-25 23:03:10" itemprop="dateModified" datetime="2026-11-25T23:03:10+08:00">2026-11-25</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -294,31 +294,132 @@
     <div class="post-body" itemprop="articleBody"><blockquote>
 <p>原文来自 <a target="_blank" rel="noopener" href="https://www.cnblogs.com/sggfishpotato/p/20134384">博客园</a></p>
 </blockquote>
-<h1 id="A-百万富翁"><a href="#A-百万富翁" class="headerlink" title="A - 百万富翁"></a><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P10786">A - 百万富翁</a></h1><p>大概就是每次可以询问一对 $(i,j)$ 位置，要求出序列中的最大值是谁。<br>首先一个直观的想法就是每次两两分组打擂台，然后递归所有胜者，但是我们发现这样不能够通过，因为这个题目要求询问轮数只能是 $8$，而我们的这个做法需要询问 log 轮。同时我们可以注意到，我们可以询问的次数是大于 n 的，所以自然可以猜想，我们可以调整最后的几次操作，看看能不能满足要求。<br>具体的，我们可以设 $f_{i,j}$ 表示 $i$ 个人，经过 $j$ 次轮操作之后只剩下 一个人的代价最小是多少，转移就是 $f_{i,j} &#x3D; f_{p, j - 1} + cost(i, p)$，其中 $cost(i,p)$ 指的是把 $i$ 个人经过一轮操作剩下$p$ 个人的最小代价，显然，因为代价类似于二次函数，所以每一组分成的人数大概一样的时候代价最小，换句话说，我们将所有人划分成 $p$ 组，每一组之间两两比较，最后每两组之间最多相差一。这个可能还是跑不出来，但是其实这就是个打表题，而且我们可以猜测，前面几次都是两两分组。</p>
+<h1 id="A-百万富翁"><a href="#A-百万富翁" class="headerlink" title="A - 百万富翁"></a><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P10786">A - 百万富翁</a></h1><p>大概就是每次可以询问一对 <span class="math-inline">\((i,j)\)</span> 位置，要求出序列中的最大值是谁。<br>首先一个直观的想法就是每次两两分组打擂台，然后递归所有胜者，但是我们发现这样不能够通过，因为这个题目要求询问轮数只能是 <span class="math-inline">\(8\)</span>，而我们的这个做法需要询问 log 轮。同时我们可以注意到，我们可以询问的次数是大于 n 的，所以自然可以猜想，我们可以调整最后的几次操作，看看能不能满足要求。<br>具体的，我们可以设 <span class="math-inline">\(f_{i,j}\)</span> 表示 <span class="math-inline">\(i\)</span> 个人，经过 <span class="math-inline">\(j\)</span> 次轮操作之后只剩下 一个人的代价最小是多少，转移就是 <span class="math-inline">\(f_{i,j} &#x3D; f_{p, j - 1} + cost(i, p)\)</span>，其中 <span class="math-inline">\(cost(i,p)\)</span> 指的是把 <span class="math-inline">\(i\)</span> 个人经过一轮操作剩下<span class="math-inline">\(p\)</span> 个人的最小代价，显然，因为代价类似于二次函数，所以每一组分成的人数大概一样的时候代价最小，换句话说，我们将所有人划分成 <span class="math-inline">\(p\)</span> 组，每一组之间两两比较，最后每两组之间最多相差一。这个可能还是跑不出来，但是其实这就是个打表题，而且我们可以猜测，前面几次都是两两分组。</p>
 <h1 id="B-元旦激光炮"><a href="#B-元旦激光炮" class="headerlink" title="B - 元旦激光炮"></a><a target="_blank" rel="noopener" href="https://uoj.ac/problem/52">B - 元旦激光炮</a></h1><p>联合多分！<br>这是一道交互题。</p>
-<p>给你三个排好序的数组，让你在有限次数询问中找到第 $k$ 小值。<br><strong>经典做法</strong>：先把 $a,b,c$ 都 resize 到 $k$ 我们设置 $l &#x3D; \lfloor \frac{n}{3} \rfloor$，接下来询问 $a[l],b[l],c[l]$ 这三个位置，我们找到这三个值中的最小值，并删除这个最小值所在的数组的前 $l$ 个元素，容易证明这 $l$ 个元素不可能是可行的第 $k$ 小值，所以直接递归到 $k-l$ 的子问题就行，$k &lt; 3$ 的时候特殊处理一下。<br>特别的，对于只有两个数组的时候，我们有更加优秀的做法，<mark>联合二分</mark>，我们可以每次把两个数组都删去一半，让迭代更快。</p>
+<p>给你三个排好序的数组，让你在有限次数询问中找到第 <span class="math-inline">\(k\)</span> 小值。<br><strong>经典做法</strong>：先把 <span class="math-inline">\(a,b,c\)</span> 都 resize 到 <span class="math-inline">\(k\)</span> 我们设置 <span class="math-inline">\(l &#x3D; \lfloor \frac{n}{3} \rfloor\)</span>，接下来询问 <span class="math-inline">\(a[l],b[l],c[l]\)</span> 这三个位置，我们找到这三个值中的最小值，并删除这个最小值所在的数组的前 <span class="math-inline">\(l\)</span> 个元素，容易证明这 <span class="math-inline">\(l\)</span> 个元素不可能是可行的第 <span class="math-inline">\(k\)</span> 小值，所以直接递归到 <span class="math-inline">\(k-l\)</span> 的子问题就行，<span class="math-inline">\(k &lt; 3\)</span> 的时候特殊处理一下。<br>特别的，对于只有两个数组的时候，我们有更加优秀的做法，<mark>联合二分</mark>，我们可以每次把两个数组都删去一半，让迭代更快。</p>
 <p><img src="/images/5-12-tidan.png"></p>
-<h1 id="C-生产计划-Day-2"><a href="#C-生产计划-Day-2" class="headerlink" title="C - 生产计划 (Day 2)"></a><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P11111">C - 生产计划 (Day 2)</a></h1><p>好题，首先我们定义 $L, R$。</p>
+<h1 id="C-生产计划-Day-2"><a href="#C-生产计划-Day-2" class="headerlink" title="C - 生产计划 (Day 2)"></a><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P11111">C - 生产计划 (Day 2)</a></h1><p>好题，首先我们定义 <span class="math-inline">\(L, R\)</span>。</p>
 <ul>
-<li>如果 $\forall a_i&#x3D;l_i$，求出的答案为 $L$。</li>
-<li>如果 $\forall a_i&#x3D;r_i$，求出的答案为 $R$。</li>
+<li>如果 <span class="math-inline">\(\forall a_i&#x3D;l_i\)</span>，求出的答案为 <span class="math-inline">\(L\)</span>。</li>
+<li>如果 <span class="math-inline">\(\forall a_i&#x3D;r_i\)</span>，求出的答案为 <span class="math-inline">\(R\)</span>。</li>
 </ul>
-<p>先所有位置都取 $l_i$ 我们考虑给某一个位置增加 $1$，最大独立集要么增加 $1$ ，要么不变，袋券独立集的答案  $ans \in [L, R]$。我们仔细思考每个位置从 $l_i \to r_i$ 的过程，发现一定是一开始它不在独立集里面，然后随着它增大，它进入了独立集，此后每次 $+1$ 答案都 $+1$，我们可以用动态 $dp$，维护这个东西，但是太麻烦，我们其实可以使用换根 dp，按照 dfs 序遍历即可。</p>
+<p>先所有位置都取 <span class="math-inline">\(l_i\)</span> 我们考虑给某一个位置增加 <span class="math-inline">\(1\)</span>，最大独立集要么增加 <span class="math-inline">\(1\)</span> ，要么不变，袋券独立集的答案  <span class="math-inline">\(ans \in [L, R]\)</span>。我们仔细思考每个位置从 <span class="math-inline">\(l_i \to r_i\)</span> 的过程，发现一定是一开始它不在独立集里面，然后随着它增大，它进入了独立集，此后每次 <span class="math-inline">\(+1\)</span> 答案都 <span class="math-inline">\(+1\)</span>，我们可以用动态 <span class="math-inline">\(dp\)</span>，维护这个东西，但是太麻烦，我们其实可以使用换根 dp，按照 dfs 序遍历即可。</p>
 <h1 id="D-末日魔法少女计划"><a href="#D-末日魔法少女计划" class="headerlink" title="D - 末日魔法少女计划"></a><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P8984">D - 末日魔法少女计划</a></h1><p>确实好题。</p>
-<p>首先 $k &#x3D; 2$ 的时候是猫树 $k &#x3D; logn$ 的时候是线段树。<br>这题的思路其实还是 dp 构造，我们沿用猫树的构造，每次确定中间的链接点，然后仍然是把剩余区间平均分，但是这里需要注意，两端的点不需要向单边连边，所以可以设置的稍微长一点。<br>具体 dp 不是很重要，就不写了。</p>
+<p>首先 <span class="math-inline">\(k &#x3D; 2\)</span> 的时候是猫树 <span class="math-inline">\(k &#x3D; logn\)</span> 的时候是线段树。<br>这题的思路其实还是 dp 构造，我们沿用猫树的构造，每次确定中间的链接点，然后仍然是把剩余区间平均分，但是这里需要注意，两端的点不需要向单边连边，所以可以设置的稍微长一点。<br>具体 dp 不是很重要，就不写了。</p>
 <h1 id="E-众数"><a href="#E-众数" class="headerlink" title="E - 众数"></a><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P11398">E - 众数</a></h1><p>倒着进行二进制分块。</p>
-<h1 id="F-编程测试"><a href="#F-编程测试" class="headerlink" title="F - 编程测试"></a><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P11587">F - 编程测试</a></h1><p>首先我们看到这个题目可以建网络流，但是我们肯定不能暴力去跑，注意到这个网络流类似二分图匹配，于是我们考虑霍尔定理，然后二分答案 $x$ 再用霍尔定理 check，容易发现，只 check 每个区间即可，不需要 check 每一个子集。<br>然后观察到 $l&#x3D;1$ 的特殊性质，我们可以直接用 李超线段树+二分 处理出所有前缀答案。但是 $l$ 不是 1 怎么办呢，我认为这种问题要么扫描线，要么分治，我们考虑后者，这样我们每次处理跨过当前 mid 的区间，都在左右端点都在左边的，我们只需要用 李超线段树判断是否有交点就行（这个地方好像题解继续用二分，导致复杂度变成 $O(nlog^3n)$）。然后跨段的，我们发现左右端点的决策是独立的，所以我们分开用两个可持久化李超线段树，然后二分答案，找到两侧的最值 check 即可。</p>
-<h1 id="G-穿越"><a href="#G-穿越" class="headerlink" title="G - 穿越"></a><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P11706">G - 穿越</a></h1><p>没有见过这样的题目，好题。<br>我竟然没有想出来单组 $A,B$ 怎么做。<br>对于单组 $A,B$，我们可以用 segment tree beats，我们就只有几个操作</p>
+<h1 id="F-编程测试"><a href="#F-编程测试" class="headerlink" title="F - 编程测试"></a><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P11587">F - 编程测试</a></h1><p>首先我们看到这个题目可以建网络流，但是我们肯定不能暴力去跑，注意到这个网络流类似二分图匹配，于是我们考虑霍尔定理，然后二分答案 <span class="math-inline">\(x\)</span> 再用霍尔定理 check，容易发现，只 check 每个区间即可，不需要 check 每一个子集。<br>然后观察到 <span class="math-inline">\(l&#x3D;1\)</span> 的特殊性质，我们可以直接用 李超线段树+二分 处理出所有前缀答案。但是 <span class="math-inline">\(l\)</span> 不是 1 怎么办呢，我认为这种问题要么扫描线，要么分治，我们考虑后者，这样我们每次处理跨过当前 mid 的区间，都在左右端点都在左边的，我们只需要用 李超线段树判断是否有交点就行（这个地方好像题解继续用二分，导致复杂度变成 <span class="math-inline">\(O(nlog^3n)\)</span>）。然后跨段的，我们发现左右端点的决策是独立的，所以我们分开用两个可持久化李超线段树，然后二分答案，找到两侧的最值 check 即可。</p>
+<h1 id="G-穿越"><a href="#G-穿越" class="headerlink" title="G - 穿越"></a><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P11706">G - 穿越</a></h1><p>没有见过这样的题目，好题。<br>我竟然没有想出来单组 <span class="math-inline">\(A,B\)</span> 怎么做。<br>对于单组 <span class="math-inline">\(A,B\)</span>，我们可以用 segment tree beats，我们就只有几个操作</p>
 <ul>
-<li>$[Y1[i], Y2[i]]$ 区间加。</li>
+<li><span class="math-inline">\([Y1[i], Y2[i]]\)</span> 区间加。</li>
 <li>查询全局 min</li>
 <li>全局 (min _+ B) 对全局进行 check min</li>
 </ul>
-<p>但是，我们没办法快速回答多组询问，于是我们考虑答案在什么时候取道，经过思考发现，这个答案一定在 横轴为 A 的个数，纵轴为 B 的个数的一个凸包上，于是我们考虑线段树莓哥节点是一个凸包，然后我们在凸包意义下做这个操作就好。<br>但是注意一下，这个复杂度不是 $O(n^2 \log n)$ 的，因为 $A,B$ 个数的值域都是 $[1,n]$ 所以有一个结论，凸包的节点只有 $n^{\frac{2}{3}}$ 个。<br>于是复杂度为 $O(n^{\frac{5}{3}}\log n)$。</p>
-<h1 id="J-Souvenirs"><a href="#J-Souvenirs" class="headerlink" title="J - Souvenirs"></a><a target="_blank" rel="noopener" href="https://codeforces.com/problemset/problem/765/F">J - Souvenirs</a></h1><p>支配对经典题目，其实 $(a_i - a_j)_{\min}$ 和 $(a_i + a_j)_{\min}$ 都是可以求出来的，不同的是，前者的支配对个数为 $O(n \log n)$ 但是后者的支配对个数为 $O(n)$。</p>
-<h1 id="K-rpmtdq"><a href="#K-rpmtdq" class="headerlink" title="K - rpmtdq"></a><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P9058">K - rpmtdq</a></h1><p>我们知道序列上 $a_i + a_j$ 的支配对个数是 $O(n)$ 的，但是现在在树上，我们考虑树上的序列哪里来，容易想到是点分治，这样我们每次把当前连通块内的点到分治中心到距离当作 $a_i$，对这个序列统计支配对就好，最后回答询问的时候全部离线，然后扫描线即可。<br>注：在分治中心 $rt$ 同一个子树内的点对的距离不是 $a_i + a_j$ ，但是他的答案我们算大了所以不会影响最终的答案。</p>
+<p>但是，我们没办法快速回答多组询问，于是我们考虑答案在什么时候取道，经过思考发现，这个答案一定在 横轴为 A 的个数，纵轴为 B 的个数的一个凸包上，于是我们考虑线段树莓哥节点是一个凸包，然后我们在凸包意义下做这个操作就好。<br>但是注意一下，这个复杂度不是 <span class="math-inline">\(O(n^2 \log n)\)</span> 的，因为 <span class="math-inline">\(A,B\)</span> 个数的值域都是 <span class="math-inline">\([1,n]\)</span> 所以有一个结论，凸包的节点只有 <span class="math-inline">\(n^{\frac{2}{3}}\)</span> 个。<br>于是复杂度为 <span class="math-inline">\(O(n^{\frac{5}{3}}\log n)\)</span>。</p>
+<h1 id="J-Souvenirs"><a href="#J-Souvenirs" class="headerlink" title="J - Souvenirs"></a><a target="_blank" rel="noopener" href="https://codeforces.com/problemset/problem/765/F">J - Souvenirs</a></h1><p>支配对经典题目，其实 <span class="math-inline">\((a\_i - a\_j)\_{\min}\)</span> 和 <span class="math-inline">\((a\_i + a\_j)\_{\min}\)</span> 都是可以求出来的，不同的是，前者的支配对个数为 <span class="math-inline">\(O(n \log n)\)</span> 但是后者的支配对个数为 <span class="math-inline">\(O(n)\)</span>。</p>
+<h1 id="K-rpmtdq"><a href="#K-rpmtdq" class="headerlink" title="K - rpmtdq"></a><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P9058">K - rpmtdq</a></h1><p>我们知道序列上 <span class="math-inline">\(a_i + a_j\)</span> 的支配对个数是 <span class="math-inline">\(O(n)\)</span> 的，但是现在在树上，我们考虑树上的序列哪里来，容易想到是点分治，这样我们每次把当前连通块内的点到分治中心到距离当作 <span class="math-inline">\(a_i\)</span>，对这个序列统计支配对就好，最后回答询问的时候全部离线，然后扫描线即可。<br>注：在分治中心 <span class="math-inline">\(rt\)</span> 同一个子树内的点对的距离不是 <span class="math-inline">\(a_i + a_j\)</span> ，但是他的答案我们算大了所以不会影响最终的答案。</p>
 <h1 id="L-TEST-199"><a href="#L-TEST-199" class="headerlink" title="L - TEST_199"></a><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/U559574">L - TEST_199</a></h1><p>求出支配对之后，上 K-D Tree。</p>
-<h1 id="M-骰子-Kostki"><a href="#M-骰子-Kostki" class="headerlink" title="M - 骰子 &#x2F; Kostki"></a><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P15985">M - 骰子 &#x2F; Kostki</a></h1><p>推式子题目，设 $f_i$ 表示刚好跳到 $i$，$g_i$ 表示跳过了 $i$，落在 $[i+1,i+k-1]$ 的概率。推式子不想讲。</p>
+<h1 id="M-骰子-Kostki"><a href="#M-骰子-Kostki" class="headerlink" title="M - 骰子 &#x2F; Kostki"></a><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P15985">M - 骰子 &#x2F; Kostki</a></h1><p>推式子题目，设 <span class="math-inline">\(f_i\)</span> 表示刚好跳到 <span class="math-inline">\(i\)</span>，<span class="math-inline">\(g_i\)</span> 表示跳过了 <span class="math-inline">\(i\)</span>，落在 <span class="math-inline">\([i+1,i+k-1]\)</span> 的概率。推式子不想讲。</p>
+<div class="note success"><p>update: 2026.11.25:<br>来补充一下这个题目的做法</p>
+<p>现在看来这个题目其实并不困难。</p>
+<p>首先肯定是拆开贡献。<br>我们先只考虑一个人的操作序列，记 <span class="math-inline">\(f_i\)</span> 为这个人恰好经过了位置 <span class="math-inline">\(i\)</span> 的概率。<br>可以简单递推得到：</p>
+<div class="math-display">\[f_0&#x3D;1,\qquad
+f_i&#x3D;\frac1k\sum_{j&#x3D;\max(0,i-k)}^{i-1}f_j \quad(1\le i&lt;m).\]</div>
+<p>使用前缀和优化可以 <span class="math-inline">\(O(n)\)</span> 得到整个 <span class="math-inline">\(f\)</span>。</p>
+<p>接下来考虑如何正确计算所有人一起走的贡献。</p>
+<p>先来讲一个比较精妙的做法。</p>
+<p>我们考虑当前在最前面的有 <span class="math-inline">\(c\)</span> 个人，位置为 <span class="math-inline">\(s\)</span>，这一次行动直接走到 <span class="math-inline">\(\geq m\)</span> 的位置的概率为 <span class="math-inline">\(p_i\)</span>，那么可以知道</p>
+<ol>
+<li>如果只有一个人，有 <span class="math-inline">\(p_i\)</span> 的概率直接结束，总投掷次数为 <span class="math-inline">\(1\)</span>，在这一阶段结束的概率为 <span class="math-inline">\(p_i\)</span>。</li>
+<li>如果有两个人，第一个人的情况已经分析过了，在第二个人的时候有 <span class="math-inline">\(p_i\)</span> 的概率结束，两个人汇总总投掷次数为 <span class="math-inline">\(1+(1-p_i)\)</span>，到第二步之前已经结束的概率为 <span class="math-inline">\(p_i+p_i\times(1-p_i)\)</span></li>
+<li>如果有三个人，省略，分析差不多。</li>
+</ol>
+<p>所以不难发现，<strong>总投掷次数</strong>和<strong>在 <span class="math-inline">\(s\)</span> 位置结束的概率</strong>之间的关系总是 <span class="math-inline">\(p_i\)</span> 倍。</p>
+<p>所以只需要想办法计算出 <span class="math-inline">\(S_i&#x3D;\Pr(L\geq i)\)</span>，由各人的骰子序列独立，</p>
+<div class="math-display">\[\Pr(\text{最后一次行动从 }i\text{分出发})
+&#x3D;S_i^n-S_{i+1}^n.\]</div>
+<p><span class="math-inline">\(S_i\)</span> 递推式，</p>
+<div class="math-display">\[S_{i+1}&#x3D;S_i-f_ip_i.\]</div>
+</div>
+
+
+<div class="note warning"><p>还有一个之前的推二项式定理的做法，其实就是没有发现<strong>总投掷次数</strong>和<strong>在 <span class="math-inline">\(s\)</span> 位置结束的概率</strong>之间的关系总是 <span class="math-inline">\(p_i\)</span> 倍。</p>
+<p>这里我懒得写了，基本一致，最后代码写出来也是基本一样的，就是推到过程更复杂了。</p>
+<p>我感觉这里 gemini 写的题解更加容易理解。</p>
+<h2 id="gemini"><a href="#gemini" class="headerlink" title="gemini:"></a>gemini:</h2><p>这道题（<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P15985">P15985 [PA 2026] 骰子 &#x2F; Kostki</a>）可以通过<strong>将玩家过程独立化</strong>并<strong>按当前全局最小得分 <span class="math-inline">\(s\)</span> 拆分期望</strong>来在 <span class="math-inline">\(O(m + \min(m, k) \log n)\)</span> 时间内解决。</p>
+<h3 id="核心思路"><a href="#核心思路" class="headerlink" title="核心思路"></a>核心思路</h3><h4 id="1-独立序列与全局最小得分"><a href="#1-独立序列与全局最小得分" class="headerlink" title="1. 独立序列与全局最小得分"></a>1. 独立序列与全局最小得分</h4><p>设想每名玩家 <span class="math-inline">\(i \in \{1, \dots, n\}\)</span> 都拥有一条互相独立的无限掷骰子序列，对应的累计得分序列为 <span class="math-inline">\(0 &#x3D; S_{i,0} &lt; S_{i,1} &lt; S_{i,2} &lt; \dots\)</span>。</p>
+<p>由于骰子点数至少为 <span class="math-inline">\(1\)</span>，且每次总是当前得分<strong>最低</strong>的玩家行动：只要还有任何玩家得分小于 <span class="math-inline">\(s\)</span>，得分已经 <span class="math-inline">\(\ge s\)</span> 的玩家就绝对不会再次行动。因此，对于任意得分阈值 <span class="math-inline">\(s \in \{0, 1, \dots, m-1\}\)</span>，游戏能够<strong>在未结束的情况下</strong>推进到“所有玩家得分均 <span class="math-inline">\(\ge s\)</span>”，当且仅当每一名玩家在独立序列中<strong>首次达到 <span class="math-inline">\(\ge s\)</span> 时的得分</strong>都严格小于 <span class="math-inline">\(m\)</span>。</p>
+<h4 id="2-状态概率递推"><a href="#2-状态概率递推" class="headerlink" title="2. 状态概率递推"></a>2. 状态概率递推</h4><p>首先，设 <span class="math-inline">\(p_s\)</span> 表示单个玩家从 <span class="math-inline">\(0\)</span> 分出发，在独立掷骰过程中<strong>恰好踩到得分 <span class="math-inline">\(s\)</span></strong> 的概率：</p>
+<div class="math-display">\[p_0 &#x3D; 1, \quad p_s &#x3D; \frac{1}{k} \sum_{d&#x3D;1}^{\min(k, s)} p_{s-d} \quad (1 \le s &lt; m)\]</div>
+<p>利用滑动窗口维护前 <span class="math-inline">\(k\)</span> 项之和，可以在 <span class="math-inline">\(O(m)\)</span> 时间内求出所有 <span class="math-inline">\(p_s\)</span>。</p>
+<p>对于固定的 <span class="math-inline">\(s \in [0, m-1]\)</span>，考虑单个玩家首次到达 <span class="math-inline">\(\ge s\)</span> 时的得分 <span class="math-inline">\(Y(s)\)</span>，可分为三种互斥情况：</p>
+<ul>
+<li><strong><span class="math-inline">\(Y(s) &#x3D; s\)</span></strong>（恰好停在 <span class="math-inline">\(s\)</span>）：概率为 <span class="math-inline">\(a_s &#x3D; p_s\)</span>。</li>
+<li><strong><span class="math-inline">\(s &lt; Y(s) &lt; m\)</span></strong>（从 <span class="math-inline">\(&lt; s\)</span> 跨过 <span class="math-inline">\(s\)</span>，但仍未获胜）：记概率为 <span class="math-inline">\(b_s\)</span>。</li>
+<li><strong><span class="math-inline">\(Y(s) \ge m\)</span></strong>（在到达 <span class="math-inline">\(s\)</span> 之前就已经从 <span class="math-inline">\(&lt; s\)</span> 直接跳到 <span class="math-inline">\(\ge m\)</span> 结束游戏）：概率为 <span class="math-inline">\(1 - a_s - b_s\)</span>。</li>
+</ul>
+<p>设 <span class="math-inline">\(S_s &#x3D; a_s + b_s\)</span> 表示单个玩家首次到达 <span class="math-inline">\(\ge s\)</span> 时尚未触发 <span class="math-inline">\(\ge m\)</span> 的概率。显然 <span class="math-inline">\(S_0 &#x3D; 1\)</span>。从 <span class="math-inline">\(s\)</span> 推进到 <span class="math-inline">\(s+1\)</span> 时，唯一新增的“在 <span class="math-inline">\(&lt; s+1\)</span> 处直接获胜”的情况，就是玩家先恰好踩到 <span class="math-inline">\(s\)</span>（概率 <span class="math-inline">\(p_s\)</span>），再从 <span class="math-inline">\(s\)</span> 一掷达到 <span class="math-inline">\(\ge m\)</span>。记从得分 <span class="math-inline">\(s\)</span> 一掷获胜的概率为：</p>
+<div class="math-display">\[w_s &#x3D; \frac{\max(0, s + k - m + 1)}{k}\]</div>
+<p>于是有递推式：</p>
+<div class="math-display">\[S_{s+1} &#x3D; S_s - p_s \cdot w_s\]</div>
+<p>（特别地，当 <span class="math-inline">\(s \le m - k\)</span> 时，<span class="math-inline">\(w_0 &#x3D; \dots &#x3D; w_{s-1} &#x3D; 0\)</span>，因此恒有 <span class="math-inline">\(S_s &#x3D; 1\)</span>。）</p>
+<h4 id="3-统计在最小得分-s-处的期望投掷次数"><a href="#3-统计在最小得分-s-处的期望投掷次数" class="headerlink" title="3. 统计在最小得分 \(s\) 处的期望投掷次数"></a>3. 统计在最小得分 <span class="math-inline">\(s\)</span> 处的期望投掷次数</h4><p>由于每次投掷都在某个唯一的当前最小得分 <span class="math-inline">\(s \in [0, m-1]\)</span> 处发生，由期望的线性性，总投掷次数期望等于 <span class="math-inline">\(\sum_{s&#x3D;0}^{m-1} E_s\)</span>，其中 <span class="math-inline">\(E_s\)</span> 为在最小得分 <span class="math-inline">\(s\)</span> 处发生的投掷次数期望。</p>
+<p>若所有玩家均满足 <span class="math-inline">\(Y_i(s) &lt; m\)</span>，且其中恰好有 <span class="math-inline">\(r\)</span> 名玩家停在 <span class="math-inline">\(s\)</span>、<span class="math-inline">\(n - r\)</span> 名玩家在 <span class="math-inline">\((s, m-1]\)</span>，这 <span class="math-inline">\(r\)</span> 名玩家会按随机顺序依次从 <span class="math-inline">\(s\)</span> 投掷，只要前面没有人投出 <span class="math-inline">\(\ge m\)</span>（每次继续的概率为 <span class="math-inline">\(q_s &#x3D; 1 - w_s\)</span>），下一名玩家就会继续投掷：</p>
+<ul>
+<li>第 <span class="math-inline">\(1\)</span> 名玩家投掷的概率为 <span class="math-inline">\(1\)</span>；</li>
+<li>第 <span class="math-inline">\(2\)</span> 名玩家投掷的概率为 <span class="math-inline">\(q_s\)</span>；</li>
+<li>……</li>
+<li>第 <span class="math-inline">\(j\)</span> 名玩家投掷的概率为 <span class="math-inline">\(q_s^{j-1}\)</span>。</li>
+</ul>
+<p>对所有 <span class="math-inline">\(r\)</span> 求和，得到：</p>
+<div class="math-display">\[E_s &#x3D; \sum_{r&#x3D;1}^{n} \binom{n}{r} a_s^r b_s^{n-r} \sum_{j&#x3D;1}^{r} q_s^{j-1}\]</div>
+<p>分两种情况化简：</p>
+<ol>
+<li><strong>当 <span class="math-inline">\(w_s &#x3D; 0\)</span>（即 <span class="math-inline">\(s &lt; m - k\)</span>）时</strong>：此时 <span class="math-inline">\(q_s &#x3D; 1\)</span> 且 <span class="math-inline">\(S_s &#x3D; a_s + b_s &#x3D; 1\)</span>，内层求和为 <span class="math-inline">\(r\)</span>，由二项分布期望公式得：</li>
+</ol>
+<div class="math-display">\[E_s &#x3D; n \cdot a_s \cdot (a_s + b_s)^{n-1} &#x3D; n \cdot p_s\]</div>
+<ol start="2">
+<li><strong>当 <span class="math-inline">\(w_s &gt; 0\)</span>（即 <span class="math-inline">\(s \ge m - k\)</span>）时</strong>：利用等比数列求和 <span class="math-inline">\(\sum_{j&#x3D;1}^r q_s^{j-1} &#x3D; \frac{1 - q_s^r}{w_s}\)</span> 与二项式定理得：</li>
+</ol>
+<div class="math-display">\[E_s &#x3D; \frac{(a_s + b_s)^n - (q_s a_s + b_s)^n}{w_s} &#x3D; \frac{S_s^n - (S_s - w_s p_s)^n}{w_s}\]</div>
+<h3 id="复杂度分析"><a href="#复杂度分析" class="headerlink" title="复杂度分析"></a>复杂度分析</h3><ul>
+<li><strong>时间复杂度</strong>：<span class="math-inline">\(O(m + \min(m, k) \log n)\)</span>。前 <span class="math-inline">\(m - k\)</span> 项只需 <span class="math-inline">\(O(1)\)</span> 计算，后 <span class="math-inline">\(\min(m, k)\)</span> 项每次使用快速幂即可。</li>
+<li><strong>空间复杂度</strong>：<span class="math-inline">\(O(m)\)</span>，用于存储 <span class="math-inline">\(p\)</span> 数组。</li>
+</ul>
+<h2 id="claude"><a href="#claude" class="headerlink" title="claude"></a>claude</h2><p>之前我把公式写在了代码格式里，所以不会被当作 LaTeX 渲染。下面改用标准的 <code>$...$</code> 和 <code>$$...$$</code> 重新输出，代码没有变化。</p>
+<h3 id="化成独立随机游走"><a href="#化成独立随机游走" class="headerlink" title="化成独立随机游走"></a>化成独立随机游走</h3><p>每名玩家的得分序列 <span class="math-inline">\(0&#x3D;s_0&lt;s_1&lt;s_2&lt;\cdots\)</span> 与其他人无关。”得分最低的人行动”等价于：所有行动按”行动前的得分”从小到大依次进行，同分的玩家按随机顺序行动。</p>
+<h3 id="定义几个量"><a href="#定义几个量" class="headerlink" title="定义几个量"></a>定义几个量</h3><p>令 <span class="math-inline">\(u_s\)</span> 表示一名玩家的得分序列经过 <span class="math-inline">\(s\)</span> 的概率：</p>
+<div class="math-display">\[u_0&#x3D;1,\qquad u_s&#x3D;\frac1k\sum_{d&#x3D;1}^{k}u_{s-d}\quad(\text{下标小于 }0\text{ 的项取 }0)\]</div>
+<p>用前缀和可以 <span class="math-inline">\(O(m)\)</span> 求出。再定义：</p>
+<div class="math-display">\[\mathrm{cnt}_s&#x3D;\max(0,\;k-m+s+1),\qquad c_s&#x3D;\frac{\mathrm{cnt}_s}{k}\]</div>
+<p>这里 <span class="math-inline">\(\mathrm{cnt}_s\)</span> 是从 <span class="math-inline">\(s\)</span> 出发一步能到达 <span class="math-inline">\(\ge m\)</span> 的点数，<span class="math-inline">\(c_s\)</span> 是一步结束的概率。</p>
+<div class="math-display">\[x_s&#x3D;u_s\,c_s,\qquad q_s&#x3D;\sum_{p&lt;s}x_p\]</div>
+<p><span class="math-inline">\(x_s\)</span> 是恰好从 <span class="math-inline">\(s\)</span> 出发跨过终点的概率，<span class="math-inline">\(q_s\)</span> 是在 <span class="math-inline">\(s\)</span> 之前就已经跨过终点的概率。</p>
+<h3 id="期望的线性性"><a href="#期望的线性性" class="headerlink" title="期望的线性性"></a>期望的线性性</h3><p>总行动次数等于 <span class="math-inline">\(n\)</span> 乘以”玩家 1 在位置 <span class="math-inline">\(s\)</span> 的行动是否发生”的概率之和。玩家 1 在 <span class="math-inline">\(s\)</span> 处的行动发生，需要同时满足三个条件：</p>
+<ol>
+<li>玩家 1 经过 <span class="math-inline">\(s\)</span>；</li>
+<li>其他人没有在 <span class="math-inline">\(s\)</span> 之前就结束；</li>
+<li>在位置 <span class="math-inline">\(s\)</span> 的随机顺序里，没有”在 <span class="math-inline">\(s\)</span> 处跨过终点的人”排在玩家 1 前面。</li>
+</ol>
+<p>设其他 <span class="math-inline">\(n-1\)</span> 人中恰有 <span class="math-inline">\(B\)</span> 个在 <span class="math-inline">\(s\)</span> 处跨过终点。无论玩家 1 自己是否在 <span class="math-inline">\(s\)</span> 处跨过终点，他排在这 <span class="math-inline">\(B\)</span> 个人之前的概率都是 <span class="math-inline">\(\frac1{B+1}\)</span>。令 <span class="math-inline">\(r&#x3D;1-q_s-x_s&#x3D;1-q_{s+1}\)</span>，则玩家 1 在 <span class="math-inline">\(s\)</span> 处行动的概率为：</p>
+<div class="math-display">\[P(s)&#x3D;u_s\sum_{B&#x3D;0}^{n-1}\binom{n-1}{B}\,x_s^{B}\,r^{\,n-1-B}\cdot\frac1{B+1}\]</div>
+<h3 id="化简"><a href="#化简" class="headerlink" title="化简"></a>化简</h3><p>利用 <span class="math-inline">\(\binom{n-1}{B}\frac1{B+1}&#x3D;\frac1n\binom{n}{B+1}\)</span> 和二项式定理：</p>
+<div class="math-display">\[\sum_{j&#x3D;1}^{n}\binom nj x_s^{j}r^{\,n-j}&#x3D;(x_s+r)^n-r^n&#x3D;(1-q_s)^n-(1-q_{s+1})^n\]</div>
+<p>所以</p>
+<div class="math-display">\[P(s)&#x3D;\frac{u_s}{n\,x_s}\Big[(1-q_s)^n-(1-q_{s+1})^n\Big]&#x3D;\frac{(1-q_s)^n-(1-q_{s+1})^n}{n\,c_s}\]</div>
+<h3 id="最终公式"><a href="#最终公式" class="headerlink" title="最终公式"></a>最终公式</h3><p>分两段计算：</p>
+<ul>
+<li><span class="math-inline">\(s&lt;m-k\)</span> 时 <span class="math-inline">\(c_s&#x3D;0\)</span>，不可能有人提前结束，每个人经过 <span class="math-inline">\(s\)</span> 就一定行动，贡献为 <span class="math-inline">\(n\,u_s\)</span>。</li>
+<li><span class="math-inline">\(s\ge m-k\)</span> 时用上面化简后的式子，再乘以 <span class="math-inline">\(n\)</span>。</li>
+</ul>
+<p>合起来：</p>
+<div class="math-display">\[\boxed{\;E&#x3D;n\sum_{s&#x3D;0}^{m-k-1}u_s+\sum_{s&#x3D;\max(0,\,m-k)}^{m-1}\frac{k}{\mathrm{cnt}_s}\Big[(1-q_s)^n-(1-q_{s+1})^n\Big]\;}\]</div>
+<p>第一项仅当 <span class="math-inline">\(m&gt;k\)</span> 时存在，否则为 <span class="math-inline">\(0\)</span>。另外 <span class="math-inline">\(q_m&#x3D;1\)</span>，所以最后一项里 <span class="math-inline">\((1-q_m)^n&#x3D;0\)</span>。</p>
+<h3 id="复杂度"><a href="#复杂度" class="headerlink" title="复杂度"></a>复杂度</h3><ul>
+<li>因为 <span class="math-inline">\(\mathrm{cnt}_s\le k&lt;10^9+7\)</span>，所以逆元都存在，可以线性预处理 <span class="math-inline">\(1..k\)</span> 的逆元。</li>
+<li>每个 <span class="math-inline">\(s\)</span> 做一次快速幂，总复杂度 <span class="math-inline">\(O(m+k\log n)\)</span>。</li>
+<li><span class="math-inline">\(n&#x3D;k&#x3D;m&#x3D;10^6\)</span> 时实测约 <span class="math-inline">\(0.1\)</span> 秒。</li>
+</ul>
+</div>
 
     </div>
 
