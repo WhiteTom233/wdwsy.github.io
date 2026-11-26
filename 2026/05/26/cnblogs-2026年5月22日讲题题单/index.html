@@ -28,7 +28,7 @@
 <meta property="og:description" content="D - 帽子 Šeširi神秘构造题，我们考虑最后的帽子集合是怎么样情况的时候第 \(i\) 个人无法分辨自己的帽子，发现当且仅当他看到别人的帽子相同的时候。 于是我们想到，可以建立双射。 集合 \(S\) 和 集合 \(S \cup {i}\) 之间建立双射，发现这两种情况只能满足一个猜对，所以我们就把这两个点连接一条无向边。 我们对这个图跑一个欧拉回路按照我们跑出来的回路的方向定向每条边，永远">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2026-05-26T12:00:00.000Z">
-<meta property="article:modified_time" content="2026-11-07T13:22:47.037Z">
+<meta property="article:modified_time" content="2026-11-25T12:11:40.000Z">
 <meta property="article:author" content="wdwsy">
 <meta property="article:tag" content="DP">
 <meta property="article:tag" content="多项式">
@@ -183,7 +183,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">56</span>
+          <span class="site-state-item-count">57</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -261,7 +261,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2026-11-07 21:22:47" itemprop="dateModified" datetime="2026-11-07T21:22:47+08:00">2026-11-07</time>
+      <time title="Modified: 2026-11-25 20:11:40" itemprop="dateModified" datetime="2026-11-25T20:11:40+08:00">2026-11-25</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -297,7 +297,7 @@
 <p>首先我们发现直接算 <span class="math-inline">\(k\)</span> 个上升段不好算，于是我们进行容斥，改成钦定 <span class="math-inline">\(k\)</span> 个上升段。</p>
 <p>这题，我们对于每一个连续段考虑整体转移。如果我们按照下标从小到大填了 <span class="math-inline">\(p\)</span> 每一个连续段，那么也就相当于每次在 <span class="math-inline">\(p^{-1}\)</span> 中填上了前几小的数字（而且这几个数组的下标就是我在 <span class="math-inline">\(p\)</span> 中的值）。</p>
 <p>不难发现，我们用一个矩阵 <span class="math-inline">\(a_{i,j}\)</span> 表示在填 <span class="math-inline">\(p\)</span> 的第 <span class="math-inline">\(i\)</span> 个连续段的同时，<span class="math-inline">\(p^{-1}\)</span> 中第 <span class="math-inline">\(j\)</span> 个连续段多填了多少个。</p>
-<p>这样我们就很好计算了，我们只要满足一下条件即可。</p>
+<p>这样我们就很好计算了，我们只要满足以下条件即可。</p>
 <ul>
 <li>每一行不全部为 <span class="math-inline">\(0\)</span>。</li>
 <li>每一列不全部为 <span class="math-inline">\(0\)</span>。</li>
@@ -401,6 +401,14 @@
   <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
 </noscript>
 <script defer src="/js/blog-code.js"></script>
+
+
+  <link rel="stylesheet" href="/css/blog-editor-entry.css">
+  <div id="blog-editor-entry" class="blog-editor-entry" data-origin="https://wdwsy-blog-editor.wdwsy-blog-editor.workers.dev" data-post="_posts/cnblogs-2026年5月22日讲题题单.md" hidden>
+    <button class="blog-editor-launch" type="button" aria-expanded="false" aria-controls="blog-editor-panel">作者登录</button>
+  </div>
+  <script defer src="/js/blog-editor-entry.js"></script>
+
 
 </body>
 </html>

@@ -1385,7 +1385,7 @@ pre code {
   vertical-align: middle;
 }
 .links-of-author a::before {
-  background: #2563b0;
+  background: #ccffbf;
   display: inline-block;
   margin-right: 3px;
   transform: translateY(-2px);
@@ -3016,5 +3016,62 @@ header.header {
   .blog-code-toggle {
     min-width: 44px;
     min-height: 44px;
+  }
+}
+.post-body .note.claude,
+.post-body .note.deepseek,
+.post-body .note.chatgpt {
+  --note-avatar-size: 28px;
+  --note-avatar-inset: 12px;
+  background-color: var(--avatar-note-background);
+  border-left-color: var(--avatar-note-accent);
+  padding-inline-start: calc(var(--note-avatar-size) + var(--note-avatar-inset) + 10px);
+}
+.post-body .note.claude::before,
+.post-body .note.deepseek::before,
+.post-body .note.chatgpt::before {
+  content: '';
+  position: absolute;
+  inset-block-start: var(--note-avatar-inset);
+  inset-inline-start: var(--note-avatar-inset);
+  width: var(--note-avatar-size);
+  height: var(--note-avatar-size);
+  background-image: var(--note-avatar-image);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  pointer-events: none;
+}
+.post-body .note.claude {
+  --avatar-note-background: #fff4ee;
+  --avatar-note-background-dark: #2d211e;
+  --avatar-note-accent: #d97757;
+  --note-avatar-image: url("/images/claude-note-avatar.png");
+}
+.post-body .note.deepseek {
+  --avatar-note-background: #f0f4ff;
+  --avatar-note-background-dark: #202537;
+  --avatar-note-accent: #4d6bfe;
+  --note-avatar-image: url("/images/deepseek-note-avatar.png");
+}
+.post-body .note.chatgpt {
+  --avatar-note-background: #f7f3fc;
+  --avatar-note-background-dark: #2b2335;
+  --avatar-note-accent: #9578be;
+  --note-avatar-image: url("/images/chatgpt-note-avatar.png");
+}
+@media (max-width: 480px) {
+  .post-body .note.claude,
+  .post-body .note.deepseek,
+  .post-body .note.chatgpt {
+    --note-avatar-size: 24px;
+    --note-avatar-inset: 10px;
+  }
+}
+@media (prefers-color-scheme: dark) {
+  .post-body .note.claude,
+  .post-body .note.deepseek,
+  .post-body .note.chatgpt {
+    background-color: var(--avatar-note-background-dark);
   }
 }
