@@ -751,7 +751,7 @@ b_2
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2026-06-23 23:44:12" itemprop="dateModified" datetime="2026-06-23T23:44:12+08:00">2026-06-23</time>
+      <time title="Modified: 2026-11-26 13:51:45" itemprop="dateModified" datetime="2026-11-26T13:51:45+08:00">2026-11-26</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -776,40 +776,88 @@ b_2
           <blockquote>
 <p>原文来自 <a target="_blank" rel="noopener" href="https://www.cnblogs.com/sggfishpotato/p/20462384">博客园</a></p>
 </blockquote>
-<h1 id="序列妙妙值"><a href="#序列妙妙值" class="headerlink" title="序列妙妙值"></a><a target="_blank" rel="noopener" href="https://uoj.ac/problem/549">序列妙妙值</a></h1><p>很好的母题。<br>我们首先考虑 $dp$。</p>
-<p>显然我们可以设 $dp_{i,j}$ 表示，到了位置 $i$，选了 $j$ 段之后的最小和。</p>
-<p>暴力转移就是 $O(n^2 k)$ 的做法了。<br>设 $v &#x3D; \lfloor log_2(x) \rfloor$。</p>
-<p>但是我们注意到 $v \leq 16$，这非常特殊，不是我们想办法让复杂度带上 $v$。</p>
-<p>注意到我们的转移方程是<br>$$dp_{i,j} &#x3D; \min(dp_{x,j} + (b_{x+1}\ xor \ b_{x+2} \dots \ xor \ b_j))<br>$$如果我们记录 $s_i &#x3D; b_1 \ xor\  b_2 \ xor\ \dots \ xor \ b_i$</p>
-<p>那么转移方程可以写成：<br>$$dp_{i,j} &#x3D; \min(dp_{x,j} + (s_x \ xor \ s_j))<br>$$于是所有 $s_x$ 相同的位置 $x$，我们就记录最小值就好了，但是这样还是超时。</p>
-<p>于是我们发现现在修改我们的记录数组的代价是 $O(1)$ 的，但是每次查询是 $O(2^v)$ 的，于是考虑平衡这两部分的复杂度。<br>具体的我们可以把每个 $s_x$ 拆成前 $\frac{v}{2}$ 和后 $\frac{v}{2}$ 位考虑，分别记为 $a, b$，我们按照 $a$ 给这些  $s_x$ 分组，然后预处理出来，如果询问的 $s_i$ 的 $b$ 位当前我们枚举的值的时候，我们就会选择位置 $pos[a][b]$ 作为最优解，于是就平衡到 $O(2^{\frac{v}{2}})$ 了。</p>
+<h1 id="序列妙妙值"><a href="#序列妙妙值" class="headerlink" title="序列妙妙值"></a><a target="_blank" rel="noopener" href="https://uoj.ac/problem/549">序列妙妙值</a></h1><p>很好的母题。<br>我们首先考虑 <span class="math-inline">\(dp\)</span>。</p>
+<p>显然我们可以设 <span class="math-inline">\(dp_{i,j}\)</span> 表示，到了位置 <span class="math-inline">\(i\)</span>，选了 <span class="math-inline">\(j\)</span> 段之后的最小和。</p>
+<p>暴力转移就是 <span class="math-inline">\(O(n^2 k)\)</span> 的做法了。<br>设 <span class="math-inline">\(v &#x3D; \lfloor log_2(x) \rfloor\)</span>。</p>
+<p>但是我们注意到 <span class="math-inline">\(v \leq 16\)</span>，这非常特殊，不是我们想办法让复杂度带上 <span class="math-inline">\(v\)</span>。</p>
+<p>注意到我们的转移方程是</p>
+<div class="math-display">\[dp_{i,j} &#x3D; \min(dp_{x,j} + (b_{x+1}\ xor \ b_{x+2} \dots \ xor \ b_j))\]</div>
+<p>如果我们记录 <span class="math-inline">\(s_i &#x3D; b_1 \ xor\  b_2 \ xor\ \dots \ xor \ b_i\)</span></p>
+<p>那么转移方程可以写成：</p>
+<div class="math-display">\[dp_{i,j} &#x3D; \min(dp_{x,j} + (s_x \ xor \ s_j))\]</div>
+<p>于是所有 <span class="math-inline">\(s_x\)</span> 相同的位置 <span class="math-inline">\(x\)</span>，我们就记录最小值就好了，但是这样还是超时。</p>
+<p>于是我们发现现在修改我们的记录数组的代价是 <span class="math-inline">\(O(1)\)</span> 的，但是每次查询是 <span class="math-inline">\(O(2^v)\)</span> 的，于是考虑平衡这两部分的复杂度。<br>具体的我们可以把每个 <span class="math-inline">\(s_x\)</span> 拆成前 <span class="math-inline">\(\frac{v}{2}\)</span> 和后 <span class="math-inline">\(\frac{v}{2}\)</span> 位考虑，分别记为 <span class="math-inline">\(a, b\)</span>，我们按照 <span class="math-inline">\(a\)</span> 给这些  <span class="math-inline">\(s_x\)</span> 分组，然后预处理出来，如果询问的 <span class="math-inline">\(s_i\)</span> 的 <span class="math-inline">\(b\)</span> 位当前我们枚举的值的时候，我们就会选择位置 <span class="math-inline">\(pos[a][b]\)</span> 作为最优解，于是就平衡到 <span class="math-inline">\(O(2^{\frac{v}{2}})\)</span> 了。</p>
 <h1 id="【MX-X8-T7】「TAOI-3」2236-A-D"><a href="#【MX-X8-T7】「TAOI-3」2236-A-D" class="headerlink" title="【MX-X8-T7】「TAOI-3」2236 A.D."></a><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P11648">【MX-X8-T7】「TAOI-3」2236 A.D.</a></h1><h2 id="题意简述："><a href="#题意简述：" class="headerlink" title="题意简述："></a>题意简述：</h2><p>给你一个数，每个节点上有一个颜色，每个颜色有一个权值，输出每一个子树中的所有路径的权值之和，一个路径的权值为这个路径上存在的所有颜色的权值乘积。</p>
 <h2 id="我想到了啥"><a href="#我想到了啥" class="headerlink" title="我想到了啥"></a>我想到了啥</h2><p>我会暴力！</p>
-<p>如果我们要计算子树 $u$ 中的答案，其实每次计算经过了 $u$ 的所有路径和就够了。</p>
-<p>但是没有用，我们计算这些还是 $n^2$ 的。</p>
-<h2 id="解法"><a href="#解法" class="headerlink" title="解法"></a>解法</h2><p>注意到 $k \leq 15$ ，这可能是我们优化的关键。<br>想要优化复杂度，直观的想法就是先计算重儿子，看看能不能快一点。<br>首先我们对重儿子 $son$，可以继承他的信息，具体的，对于一个子树中的每个位置，我们可以用一个二进制数表示这个位置到子树的根经过了哪些颜色，然后对于 $2^k$ 种不同的二进制数，我们记录一下各有多少种。<br>有一个常用的结论，就是每个点的所有轻子树大小之和是 $O(n \log n)$ 的，所以我们可以对轻子树中的位置进行暴力<strong>插入</strong>。<br>现在我们看看这个做法复杂度怎么样。<br>我们进行重剖的预处理部分是 $O(n)$ 的。</p>
-<p>然后计算的时候，我们有 $O(n \log n )$ 次插入和查询，其中插入是 $O(1)$ 的，查询（即更新插入一个数字之后的答案）是 $O(2^k)$ 的。</p>
-<p>所以总体的复杂度就是 $O(n \log n \times 2^k)$<br>发现还是不能接受，于是我们可以想到 <a target="_blank" rel="noopener" href="https://uoj.ac/problem/549">序列妙妙值</a> 的做法。</p>
-<p>我们考虑平衡查询和插入的复杂度，如果他们两个都是 $O(2^{k&#x2F;2})$ 的，我们总复杂度 $O(n \log n \times 2^{k&#x2F;2})$ 就足矣通过这个题目了。<br>接下来我就来详细说说如何完成这个壮举！</p>
-<p>我们先把每个二进制数字的二进制位拆开，前 $k&#x2F;2$ 位为 $a$，后 $k&#x2F;2$ 位为 $b$，那么我们按照不同的 $a$，把所有可能的二进制数进行分组，然后每次插入的时候，预处理出来，如果查询的值的 $b$ 为 $x$，那么在集合 $a$ 中的数字产生的贡献是多少，这样就可以了。<br>虽然思路难在这里，但是实际上写起来我把预处理继承的时候的挂载问题调了 3 h，同机房大佬卡常卡了一下午。祭….</p>
-<h1 id="龙门考古"><a href="#龙门考古" class="headerlink" title="龙门考古"></a><a target="_blank" rel="noopener" href="https://uoj.ac/problem/840">龙门考古</a></h1><h2 id="题意简述"><a href="#题意简述" class="headerlink" title="题意简述"></a>题意简述</h2><p>给你一个长度为 $n$ 的排列 $b$。</p>
-<p>现在询问你有多少种选择方式满足：你现在可以选择一些位置留下，其他位置上的数字消失，然后在满足所有前缀最大值的位置不变的前提下，能填出来的最小的排列恰好为 $b$。</p>
+<p>如果我们要计算子树 <span class="math-inline">\(u\)</span> 中的答案，其实每次计算经过了 <span class="math-inline">\(u\)</span> 的所有路径和就够了。</p>
+<p>但是没有用，我们计算这些还是 <span class="math-inline">\(n^2\)</span> 的。</p>
+<h2 id="解法"><a href="#解法" class="headerlink" title="解法"></a>解法</h2><p>注意到 <span class="math-inline">\(k \leq 15\)</span> ，这可能是我们优化的关键。<br>想要优化复杂度，直观的想法就是先计算重儿子，看看能不能快一点。<br>首先我们对重儿子 <span class="math-inline">\(son\)</span>，可以继承他的信息，具体的，对于一个子树中的每个位置，我们可以用一个二进制数表示这个位置到子树的根经过了哪些颜色，然后对于 <span class="math-inline">\(2^k\)</span> 种不同的二进制数，我们记录一下各有多少种。<br>有一个常用的结论，就是每个点的所有轻子树大小之和是 <span class="math-inline">\(O(n \log n)\)</span> 的，所以我们可以对轻子树中的位置进行暴力<strong>插入</strong>。<br>现在我们看看这个做法复杂度怎么样。<br>我们进行重剖的预处理部分是 <span class="math-inline">\(O(n)\)</span> 的。</p>
+<p>然后计算的时候，我们有 <span class="math-inline">\(O(n \log n )\)</span> 次插入和查询，其中插入是 <span class="math-inline">\(O(1)\)</span> 的，查询（即更新插入一个数字之后的答案）是 <span class="math-inline">\(O(2^k)\)</span> 的。</p>
+<p>所以总体的复杂度就是 <span class="math-inline">\(O(n \log n \times 2^k)\)</span><br>发现还是不能接受，于是我们可以想到 <a target="_blank" rel="noopener" href="https://uoj.ac/problem/549">序列妙妙值</a> 的做法。</p>
+<p>我们考虑平衡查询和插入的复杂度，如果他们两个都是 <span class="math-inline">\(O(2^{k&#x2F;2})\)</span> 的，我们总复杂度 <span class="math-inline">\(O(n \log n \times 2^{k&#x2F;2})\)</span> 就足矣通过这个题目了。<br>接下来我就来详细说说如何完成这个壮举！</p>
+<p>我们先把每个二进制数字的二进制位拆开，前 <span class="math-inline">\(k&#x2F;2\)</span> 位为 <span class="math-inline">\(a\)</span>，后 <span class="math-inline">\(k&#x2F;2\)</span> 位为 <span class="math-inline">\(b\)</span>，那么我们按照不同的 <span class="math-inline">\(a\)</span>，把所有可能的二进制数进行分组，然后每次插入的时候，预处理出来，如果查询的值的 <span class="math-inline">\(b\)</span> 为 <span class="math-inline">\(x\)</span>，那么在集合 <span class="math-inline">\(a\)</span> 中的数字产生的贡献是多少，这样就可以了。<br>虽然思路难在这里，但是实际上写起来我把预处理继承的时候的挂载问题调了 3 h，同机房大佬卡常卡了一下午。祭….</p>
+<h1 id="龙门考古"><a href="#龙门考古" class="headerlink" title="龙门考古"></a><a target="_blank" rel="noopener" href="https://uoj.ac/problem/840">龙门考古</a></h1><h2 id="题意简述"><a href="#题意简述" class="headerlink" title="题意简述"></a>题意简述</h2><p>给你一个长度为 <span class="math-inline">\(n\)</span> 的排列 <span class="math-inline">\(b\)</span>。</p>
+<p>现在询问你有多少种选择方式满足：你现在可以选择一些位置留下，其他位置上的数字消失，然后在满足所有前缀最大值的位置不变的前提下，能填出来的最小的排列恰好为 <span class="math-inline">\(b\)</span>。</p>
 <h2 id="做法"><a href="#做法" class="headerlink" title="做法"></a>做法</h2><p><a target="_blank" rel="noopener" href="https://zhoukangyang.blog.uoj.ac/blog/8974">官方题解</a></p>
 <p>首先，考虑用一个充要条件来描述合法的选择方式。</p>
-<p>设 $c_i&#x3D;[位置 i 是前缀最大值]$。</p>
+<p>设 <span class="math-inline">\(c_i&#x3D;[位置 i 是前缀最大值]\)</span>。</p>
 <ul>
-<li>假设前缀最大值集合为 $T &#x3D; {t_1,t_2,\dots}$，那么需要满足 $t_1 &lt; t_2 &lt; t_3 \dots$</li>
-<li>所有不选的 $c_i&#x3D;0$ 的位置的值，都是随着位置递增的（否则可以交换位置）。</li>
-<li>虽有不选的 $c_i&#x3D;1$ 的位置，记下一个 $c_i&#x3D;1$ 的位置为 $nxt$，$[1,nxt)$ 之间的最大值为 $b_i$，次大值为 $v$，要求 $(v, b_i)$ 之间的值所对应的位置都要选。（否则可以交换位置）。</li>
+<li>假设前缀最大值集合为 <span class="math-inline">\(T &#x3D; {t_1,t_2,\dots}\)</span>，那么需要满足 <span class="math-inline">\(t_1 &lt; t_2 &lt; t_3 \dots\)</span></li>
+<li>所有不选的 <span class="math-inline">\(c_i&#x3D;0\)</span> 的位置的值，都是随着位置递增的（否则可以交换位置）。</li>
+<li>虽有不选的 <span class="math-inline">\(c_i&#x3D;1\)</span> 的位置，记下一个 <span class="math-inline">\(c_i&#x3D;1\)</span> 的位置为 <span class="math-inline">\(nxt\)</span>，<span class="math-inline">\([1,nxt)\)</span> 之间的最大值为 <span class="math-inline">\(b_i\)</span>，次大值为 <span class="math-inline">\(v\)</span>，要求 <span class="math-inline">\((v, b_i)\)</span> 之间的值所对应的位置都要选。（否则可以交换位置）。</li>
 </ul>
-<p>$tip:$ 显然在第三种情况中，$nxt$ 之前不存在 $(v, b_i)$ 之间的值。<br>容易验证，这三条就是充要条件。<br>于是我们可以进行 $dp$，$dp_i$ 表示做到位置 $i$ 的方案数。<br>我们考虑用一下两种方式来统计方案数。</p>
+<p><span class="math-inline">\(tip:\)</span> 显然在第三种情况中，<span class="math-inline">\(nxt\)</span> 之前不存在 <span class="math-inline">\((v, b_i)\)</span> 之间的值。<br>容易验证，这三条就是充要条件。<br>于是我们可以进行 <span class="math-inline">\(dp\)</span>，<span class="math-inline">\(dp_i\)</span> 表示做到位置 <span class="math-inline">\(i\)</span> 的方案数。<br>我们考虑用一下两种方式来统计方案数。</p>
 <ul>
-<li>$c_i&#x3D;0$ 的位置，我们用 $dp$ 统计。</li>
-<li>$c_i&#x3D;1$ 的位置，如果在它要求的 $(v, b_i)$ 之间没有选择任何一个，那么它随便选不选，否则必须选。</li>
+<li><span class="math-inline">\(c_i&#x3D;0\)</span> 的位置，我们用 <span class="math-inline">\(dp\)</span> 统计。</li>
+<li><span class="math-inline">\(c_i&#x3D;1\)</span> 的位置，如果在它要求的 <span class="math-inline">\((v, b_i)\)</span> 之间没有选择任何一个，那么它随便选不选，否则必须选。</li>
 </ul>
-<p>于是我们就有了 $dp$ 转移：<br>$$dp_i&#x3D;\sum\limits_{j&#x3D;0}^{i-1}\ dp_j \times 2^{f(i,j)}<br>$$其中 $f(i,j)$ 表示 $(v,b_x) \subseteq (i,j)$ 的区间 $(v,b_x)$ 的个数。<br>接下来我们用树状数组优化这个过程，注意到所有的 $(v,b_x)$ 不交，发现我们可以把 $f_0$ 设为 $2^{\sum [c_i&#x3D;0]}$。</p>
-<p>然后如果现在是第一次进入当前区间，即 $j &lt; v &lt; i &lt; b_x$  那么 $dp_i \leftarrow dp_j &#x2F; 2$，否则 $dp_i \leftarrow dp_j$。</p>
+<p>于是我们就有了 <span class="math-inline">\(dp\)</span> 转移：</p>
+<div class="math-display">\[dp_i&#x3D;\sum\limits_{j&#x3D;0}^{i-1}\ dp_j \times 2^{f(i,j)}\]</div>
+<p>其中 <span class="math-inline">\(f(i,j)\)</span> 表示 <span class="math-inline">\((v,b_x) \subseteq (i,j)\)</span> 的区间 <span class="math-inline">\((v,b_x)\)</span> 的个数。<br>接下来我们用树状数组优化这个过程，注意到所有的 <span class="math-inline">\((v,b_x)\)</span> 不交，发现我们可以把 <span class="math-inline">\(f_0\)</span> 设为 <span class="math-inline">\(2^{\sum [c_i&#x3D;0]}\)</span>。</p>
+<p>然后如果现在是第一次进入当前区间，即 <span class="math-inline">\(j &lt; v &lt; i &lt; b_x\)</span>  那么 <span class="math-inline">\(dp_i \leftarrow dp_j &#x2F; 2\)</span>，否则 <span class="math-inline">\(dp_i \leftarrow dp_j\)</span>。</p>
 <h1 id="USACO24DEC-All-Pairs-Similarity-P"><a href="#USACO24DEC-All-Pairs-Similarity-P" class="headerlink" title="[USACO24DEC] All Pairs Similarity P"></a><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P11458">[USACO24DEC] All Pairs Similarity P</a></h1><h2 id="有关一些重要的公式"><a href="#有关一些重要的公式" class="headerlink" title="有关一些重要的公式"></a>有关一些重要的公式</h2><p><a target="_blank" rel="noopener" href="https://chat.deepseek.com/share/072ofd06s66atk99e0">deepseek推导</a></p>
+<p>chatgpt 做法：</p>
+<p>把位串看成集合，第 <span class="math-inline">\(i\)</span> 位为 <span class="math-inline">\(1\)</span> 就表示集合中有元素 <span class="math-inline">\(i\)</span>。记 <span class="math-inline">\(c(T)\)</span> 为集合 <span class="math-inline">\(T\)</span> 在输入中出现的次数。对于每个出现过的集合 <span class="math-inline">\(S\)</span>，我们要求</p>
+<div class="math-display">\[\operatorname{ans}(S)&#x3D;\sum_T c(T)\frac{|S\cap T|}{|S\cup T|}.\]</div>
+<p>题目中 <span class="math-inline">\(N\le 5\cdot 10^5\)</span>，但位数 <span class="math-inline">\(K\le 20\)</span>。逐对枚举奶牛太慢，不过我们可以开出大小为 <span class="math-inline">\(2^K\)</span> 的数组，用高维前缀和同时处理所有集合。<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P11458?utm_source=chatgpt.com">洛谷</a></p>
+<p>一、先把交集从式子里消掉</p>
+<p>分子和分母分别依赖交集、并集。如果能让式子只依赖一种集合运算，就更容易批量统计。由 <span class="math-inline">\(|S\cap T|&#x3D;|S|+|T|-|S\cup T|\)</span>，有</p>
+<div class="math-display">\[\frac{|S\cap T|}{|S\cup T|}
+&#x3D;\frac{|S|+|T|}{|S\cup T|}-1.\]</div>
+<p>每头奶牛都贡献一个 <span class="math-inline">\(-1\)</span>，因此</p>
+<div class="math-display">\[\operatorname{ans}(S)+N
+&#x3D;\sum_T c(T)\frac{|S|+|T|}{|S\cup T|}.\]</div>
+<p>现在固定 <span class="math-inline">\(S\)</span>，分子里的 <span class="math-inline">\(|S|\)</span> 是常数，<span class="math-inline">\(|T|\)</span> 可以作为每个 <span class="math-inline">\(T\)</span> 自带的权值。唯一把 <span class="math-inline">\(S,T\)</span> 联系在一起的，就是分母 <span class="math-inline">\(|S\cup T|\)</span>。<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/ku7hz09i?utm_source=chatgpt.com">洛谷专栏</a></p>
+<p>二、为什么想到枚举并集的超集</p>
+<p>试着固定一个集合 <span class="math-inline">\(U\)</span>。如果要求 <span class="math-inline">\(S\cup T&#x3D;U\)</span>，那么即使知道 <span class="math-inline">\(S\subseteq U\)</span>，我们仍得检查 <span class="math-inline">\(T\)</span> 是否补齐了 <span class="math-inline">\(S\)</span> 缺少的元素。但把条件放宽成 <span class="math-inline">\(S\cup T\subseteq U\)</span>，它就拆开了：</p>
+<div class="math-display">\[S\cup T\subseteq U
+\quad\Longleftrightarrow\quad
+S\subseteq U\ \text{且}\ T\subseteq U.\]</div>
+<p>这样一来，对于所有 <span class="math-inline">\(S\subseteq U\)</span>，可选的 <span class="math-inline">\(T\)</span> 都是 <span class="math-inline">\(U\)</span> 的全部子集，可以共用一次统计。代价是，一对 <span class="math-inline">\(S,T\)</span> 会在并集的每个超集处都被算到。我们要给这些超集分配权值，让它们加起来恰好等于原来的 <span class="math-inline">\(1&#x2F;|S\cup T|\)</span>。</p>
+<p>具体地，给每个大小为 <span class="math-inline">\(j\)</span> 的集合赋予权值 <span class="math-inline">\(w_j\)</span>。设实际并集 <span class="math-inline">\(V&#x3D;S\cup T\)</span> 的大小为 <span class="math-inline">\(t\)</span>。大小为 <span class="math-inline">\(j\)</span> 且包含 <span class="math-inline">\(V\)</span> 的集合有 <span class="math-inline">\(\binom{K-t}{j-t}\)</span> 个，因为还要从 <span class="math-inline">\(V\)</span> 外的 <span class="math-inline">\(K-t\)</span> 个元素中选出 <span class="math-inline">\(j-t\)</span> 个。所以我们希望</p>
+<div class="math-display">\[\sum_{j&#x3D;t}^{K}\binom{K-t}{j-t}w_j&#x3D;\frac1t.\]</div>
+<p>这个方程可以从大到小解。大小为 <span class="math-inline">\(K\)</span> 的并集只有它自己这一个超集，所以 <span class="math-inline">\(w_K&#x3D;1&#x2F;K\)</span>。对于大小为 <span class="math-inline">\(t\)</span> 的并集，所有更大的超集已经贡献了一部分，剩下多少，就给它自己赋多少权：</p>
+<div class="math-display">\[w_t&#x3D;\frac1t-\sum_{j&#x3D;t+1}^{K}\binom{K-t}{j-t}w_j.\]</div>
+<p>这一步就是按集合大小做容斥。预处理只需 <span class="math-inline">\(O(K^2)\)</span>，而且题目保证输入集合非空，算到 <span class="math-inline">\(t&#x3D;1\)</span> 即可。</p>
+<p>三、用两遍高维前缀和汇总贡献</p>
+<p>回到一个固定的 <span class="math-inline">\(U\)</span>。先把所有 <span class="math-inline">\(T\subseteq U\)</span> 的信息收起来，记</p>
+<div class="math-display">\[C(U)&#x3D;\sum_{T\subseteq U}c(T),\qquad
+D(U)&#x3D;\sum_{T\subseteq U}|T|c(T).\]</div>
+<p><span class="math-inline">\(C(U)\)</span> 是被 <span class="math-inline">\(U\)</span> 包含的奶牛数，<span class="math-inline">\(D(U)\)</span> 是这些奶牛的集合大小之和。于是，对任意 <span class="math-inline">\(S\subseteq U\)</span>，把分子 <span class="math-inline">\(|S|+|T|\)</span> 对这些奶牛求和，结果正好是 <span class="math-inline">\(|S|C(U)+D(U)\)</span>。再乘上 <span class="math-inline">\(U\)</span> 的权值，就得到</p>
+<div class="math-display">\[\begin{aligned}
+\operatorname{ans}(S)
+&amp;&#x3D;\sum_{U\supseteq S}w_{|U|}\bigl(|S|C(U)+D(U)\bigr)-N\\
+&amp;&#x3D;|S|\sum_{U\supseteq S}w_{|U|}C(U)
++\sum_{U\supseteq S}w_{|U|}D(U)-N.
+\end{aligned}\]</div>
+<p>这个式子也直接给出了实现顺序。只需要两个数组 <span class="math-inline">\(A,B\)</span>：</p>
+<ol>
+<li>初始化 <span class="math-inline">\(A[S]&#x3D;c(S)\)</span>，<span class="math-inline">\(B[S]&#x3D;|S|c(S)\)</span>。对两个数组各做一次子集和。枚举二进制位 <span class="math-inline">\(b\)</span>，对于含有 <span class="math-inline">\(b\)</span> 的 <span class="math-inline">\(S\)</span>，把 <span class="math-inline">\(S\setminus\{b\}\)</span> 处的值加到 <span class="math-inline">\(S\)</span> 处。做完后，两个数组就是 <span class="math-inline">\(C,D\)</span>。</li>
+<li>对每个非空集合 <span class="math-inline">\(U\)</span>，把 <span class="math-inline">\(A[U],B[U]\)</span> 都乘上 <span class="math-inline">\(w_{|U|}\)</span>。然后对两个数组各做一次超集和，传递方向反过来：枚举位 <span class="math-inline">\(b\)</span>，对于不含 <span class="math-inline">\(b\)</span> 的 <span class="math-inline">\(S\)</span>，把 <span class="math-inline">\(S\cup\{b\}\)</span> 处的值加到 <span class="math-inline">\(S\)</span> 处。</li>
+<li>按输入顺序，对于每头奶牛的集合 <span class="math-inline">\(S\)</span>，输出 <span class="math-inline">\(|S|A[S]+B[S]-N\)</span>。</li>
+</ol>
+<p>两遍传递的方向可以从贡献的去向理解：第一遍把每头奶牛 <span class="math-inline">\(T\)</span> 的信息交给所有包含它的 <span class="math-inline">\(U\)</span>，第二遍把 <span class="math-inline">\(U\)</span> 的加权统计交给所有被它包含的询问 <span class="math-inline">\(S\)</span>。因此一对 <span class="math-inline">\(S,T\)</span> 恰好通过所有 <span class="math-inline">\(U\supseteq S\cup T\)</span> 产生贡献，而这些 <span class="math-inline">\(U\)</span> 的权值和正好是 <span class="math-inline">\(1&#x2F;|S\cup T|\)</span>。</p>
+<p>总时间复杂度为 <span class="math-inline">\(O(N+K2^K)\)</span>，空间复杂度为 <span class="math-inline">\(O(N+2^K)\)</span>。所有运算都在模 <span class="math-inline">\(10^9+7\)</span> 下进行，递推中的 <span class="math-inline">\(1&#x2F;t\)</span> 用 <span class="math-inline">\(t\)</span> 的模逆元代替。</p>
 <h1 id="集合"><a href="#集合" class="headerlink" title="集合"></a><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P13275">集合</a></h1>
       
     </div>
@@ -872,7 +920,7 @@ b_2
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2026-11-07 21:22:47" itemprop="dateModified" datetime="2026-11-07T21:22:47+08:00">2026-11-07</time>
+      <time title="Modified: 2026-11-26 13:48:57" itemprop="dateModified" datetime="2026-11-26T13:48:57+08:00">2026-11-26</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -927,6 +975,67 @@ $$
 <p>考虑这样做之后，我们还有 <span class="math-inline">\(dp[m][x],x\in [3,m]\)</span> 的转移没有用，因为没有 <span class="math-inline">\(dp[m+1][x]\)</span>，于是我们根据这些转移列出方程，我们会惊讶的发现，现在的矩阵是 <span class="math-inline">\(m
 \times m\)</span> 的了，我们现在消元就是 <span class="math-inline">\(\mathcal{O}(m^3)\)</span> 的了！</p>
 <div class="note warning"><p><strong>注意</strong>：<strong>这个转移方程对于 <span class="math-inline">\(i&#x3D;j\)</span> 或者 <span class="math-inline">\(j&#x3D;1\)</span> 的边界情况并不成立</strong>，所以千万不要用这个来计算，否则会导致错误。</p>
+</div>
+
+<div class="note success"><h2 id="CF1184D2-Parallel-Universes-Hard"><a href="#CF1184D2-Parallel-Universes-Hard" class="headerlink" title="CF1184D2 Parallel Universes (Hard)"></a>CF1184D2 Parallel Universes (Hard)</h2><p>这道题从 <span class="math-inline">\(O(m^6)\)</span> 降到 <span class="math-inline">\(O(m^3)\)</span>，可以从一个问题想起：<strong>如果有人告诉我们第 <span class="math-inline">\(2\)</span> 列的所有值，能不能把第 <span class="math-inline">\(3\)</span> 列算出来？</strong> 看一眼转移就会发现，可以。接下来，第 <span class="math-inline">\(3\)</span> 列又能推出第 <span class="math-inline">\(4\)</span> 列。这样一来，真正需要联立求解的，就只剩第 <span class="math-inline">\(2\)</span> 列。</p>
+<h3 id="1-先写出期望方程"><a href="#1-先写出期望方程" class="headerlink" title="1. 先写出期望方程"></a>1. 先写出期望方程</h3><p>设 <span class="math-inline">\(f_{i,j}\)</span> 表示当前长度为 <span class="math-inline">\(i\)</span>、Doctor 位于第 <span class="math-inline">\(j\)</span> 个位置时，停止时的期望长度。到达任意一端就停止，因此 <span class="math-inline">\(f_{i,1}&#x3D;f_{i,i}&#x3D;i\)</span>，答案为 <span class="math-inline">\(f_{n,k}\)</span>。<a target="_blank" rel="noopener" href="https://codeforces.com/problemset/problem/1184/D2?utm_source=chatgpt.com">Codeforces</a></p>
+<p>对于内部状态 <span class="math-inline">\(1&lt;j&lt;i\)</span>，记</p>
+<div class="math-display">\[a_{i,j}&#x3D;\left(1-\frac im\right)\frac j{i+1},\qquad
+b_{i,j}&#x3D;\left(1-\frac im\right)\frac{i+1-j}{i+1},\qquad
+c_i&#x3D;\frac{i}{m(i-1)}.\]</div>
+<p>前两项分别是插入后 Doctor 的位置变成 <span class="math-inline">\(j+1\)</span>、仍为 <span class="math-inline">\(j\)</span> 的概率，<span class="math-inline">\(c_i\)</span> 是在某个指定位置切断的概率。按下一步分类，有</p>
+<div class="math-display">\[f_{i,j}
+&#x3D;a_{i,j}f_{i+1,j+1}+b_{i,j}f_{i+1,j}
++c_i\left(
+\sum_{t&#x3D;1}^{j-1}f_{i-t,j-t}
++\sum_{t&#x3D;1}^{i-j}f_{i-t,j}
+\right).\]</div>
+<p>两个求和分别对应切掉左边 <span class="math-inline">\(t\)</span> 个宇宙、切掉右边 <span class="math-inline">\(t\)</span> 个宇宙。当 <span class="math-inline">\(i&#x3D;m\)</span> 时，只保留切断部分。<a target="_blank" rel="noopener" href="https://codeforces.com/problemset/problem/1184/D2?utm_source=chatgpt.com">Codeforces</a></p>
+<p>共有 <span class="math-inline">\(\Theta(m^2)\)</span> 个内部状态。把它们全部当成未知量，直接高斯消元就是 <span class="math-inline">\(O(m^6)\)</span>。</p>
+<h3 id="2-为什么只留第-2-列就够了？"><a href="#2-为什么只留第-2-列就够了？" class="headerlink" title="2. 为什么只留第 \(2\) 列就够了？"></a>2. 为什么只留第 <span class="math-inline">\(2\)</span> 列就够了？</h3><p>把 <span class="math-inline">\(i\)</span> 看成行号，<span class="math-inline">\(j\)</span> 看成列号。观察 <span class="math-inline">\((i,j)\)</span> 的方程中，各项分别落在哪一列。</p>
+<table>
+<thead>
+<tr>
+<th>所在位置</th>
+<th>方程中的状态</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>第 <span class="math-inline">\(j\)</span> 列左侧</td>
+<td>所有 <span class="math-inline">\(f_{i-t,j-t}\)</span></td>
+</tr>
+<tr>
+<td>第 <span class="math-inline">\(j\)</span> 列</td>
+<td><span class="math-inline">\(f_{i,j}\)</span>、<span class="math-inline">\(f_{i+1,j}\)</span>、所有 <span class="math-inline">\(f_{i-t,j}\)</span></td>
+</tr>
+<tr>
+<td>第 <span class="math-inline">\(j+1\)</span> 列</td>
+<td><strong>只有 <span class="math-inline">\(f_{i+1,j+1}\)</span></strong></td>
+</tr>
+</tbody></table>
+<p>于是，只要前 <span class="math-inline">\(j\)</span> 列已经填好，<span class="math-inline">\((i,j)\)</span> 的方程中就只剩一个未知量 <span class="math-inline">\(f_{i+1,j+1}\)</span>。当 <span class="math-inline">\(i&lt;m\)</span> 时，它的系数 <span class="math-inline">\(a_{i,j}\ne 0\)</span>，可以直接移项求出它。</p>
+<p>现在就能看出为什么从第 <span class="math-inline">\(2\)</span> 列开始。第 <span class="math-inline">\(1\)</span> 列全是终止状态，只有边界值，没有转移方程可供我们推出第 <span class="math-inline">\(2\)</span> 列。于是把第 <span class="math-inline">\(2\)</span> 列的内部状态暂时设成未知数：</p>
+<div class="math-display">\[x_3&#x3D;f_{3,2},\quad x_4&#x3D;f_{4,2},\quad \ldots,\quad x_m&#x3D;f_{m,2}.\]</div>
+<p>看第一步就够了。用 <span class="math-inline">\((3,2)\)</span> 的方程求 <span class="math-inline">\(f_{4,3}\)</span> 时，方程是</p>
+<div class="math-display">\[x_3&#x3D;a_{3,2}f_{4,3}+b_{3,2}x_4+c_3(f_{2,1}+f_{2,2}).\]</div>
+<p>最后两个边界值都是 <span class="math-inline">\(2\)</span>。因此，即使还不知道 <span class="math-inline">\(x_3,x_4\)</span> 的数值，也已经能把 <span class="math-inline">\(f_{4,3}\)</span> 写成它们的<strong>一次式</strong>。</p>
+<p>同理，用 <span class="math-inline">\((4,2)\)</span> 的方程求 <span class="math-inline">\(f_{5,3}\)</span>，用 <span class="math-inline">\((5,2)\)</span> 的方程求 <span class="math-inline">\(f_{6,3}\)</span>，一直到 <span class="math-inline">\(f_{m,3}\)</span>，第 <span class="math-inline">\(3\)</span> 列的内部状态就填完了。再用第 <span class="math-inline">\(3\)</span> 列的方程填第 <span class="math-inline">\(4\)</span> 列，依次向右。每个第 <span class="math-inline">\(3\)</span> 列及之后的内部状态 <span class="math-inline">\(f_{r,s}\)</span>，都恰好由左上方 <span class="math-inline">\((r-1,s-1)\)</span> 的方程求出。</p>
+<p>所以，<strong>给定 <span class="math-inline">\(x_3,\ldots,x_m\)</span>，整张表就随之确定</strong>。实现时，每个格子存一个系数向量，表示它关于这些未知数的一次式，另留一项存常数。</p>
+<h3 id="3-用哪些方程解出这-m-2-个未知数？"><a href="#3-用哪些方程解出这-m-2-个未知数？" class="headerlink" title="3. 用哪些方程解出这 \(m-2\) 个未知数？"></a>3. 用哪些方程解出这 <span class="math-inline">\(m-2\)</span> 个未知数？</h3><p>回头看刚才的过程。每用一条 <span class="math-inline">\((i,j)\)</span> 的方程，我们都在求下一行的 <span class="math-inline">\(f_{i+1,j+1}\)</span>。因此，<span class="math-inline">\(i&lt;m\)</span> 的内部方程全部用过，<strong>恰好剩下最后一行 <span class="math-inline">\(i&#x3D;m\)</span> 的方程</strong>。</p>
+<p>长度达到 <span class="math-inline">\(m\)</span> 时只能切断，所以最后一行满足</p>
+<div class="math-display">\[f_{m,j}&#x3D;\frac1{m-1}
+\left(
+\sum_{t&#x3D;1}^{j-1}f_{m-t,j-t}
++\sum_{t&#x3D;1}^{m-j}f_{m-t,j}
+\right),
+\qquad 2\le j\le m-1.\]</div>
+<p>此时等式两边都已经写成了关于 <span class="math-inline">\(x_3,\ldots,x_m\)</span> 的一次式。每个 <span class="math-inline">\(j\)</span> 给出一条约束，正好得到 <strong><span class="math-inline">\(m-2\)</span> 条方程、<span class="math-inline">\(m-2\)</span> 个未知数</strong>。对这个小方程组做高斯消元，再把解代入 <span class="math-inline">\(f_{n,k}\)</span> 即可。原图这里的下标需要改成 <span class="math-inline">\(2\le j\le m-1\)</span>：<span class="math-inline">\(j&#x3D;2\)</span> 的方程要用，<span class="math-inline">\(j&#x3D;m\)</span> 已经是终止状态。</p>
+<h3 id="4-建方程也要做到-O-m-3"><a href="#4-建方程也要做到-O-m-3" class="headerlink" title="4. 建方程也要做到 \(O(m^3)\)"></a>4. 建方程也要做到 <span class="math-inline">\(O(m^3)\)</span></h3><p>还有一处容易漏算。每个格子存的是长度 <span class="math-inline">\(O(m)\)</span> 的系数向量，如果把转移里的两个求和逐项枚举，一个格子就要 <span class="math-inline">\(O(m^2)\)</span>，光填表便要 <span class="math-inline">\(O(m^4)\)</span>。</p>
+<p>看两个求和在表里的走向：<span class="math-inline">\(f_{i-t,j-t}\)</span> 从左上方沿对角线走，<span class="math-inline">\(f_{i-t,j}\)</span> 在同一列向上走。两者一直走到边界，因此各维护一个前缀和就够了：</p>
+<div class="math-display">\[D_{i,j}&#x3D;f_{i,j}+D_{i-1,j-1},\qquad
+S_{i,j}&#x3D;f_{i,j}+S_{i-1,j},\]</div>
+<p>表外取零。原转移中的两个求和就分别等于 <span class="math-inline">\(D_{i-1,j-1}\)</span> 和 <span class="math-inline">\(S_{i-1,j}\)</span>。每填完一列，从上往下更新这两类前缀和，就可以继续推下一列。</p>
+<p>这样，每个状态只做常数次向量加减和数乘，耗时 <span class="math-inline">\(O(m)\)</span>。总共 <span class="math-inline">\(O(m^2)\)</span> 个状态，<strong>建方程耗时 <span class="math-inline">\(O(m^3)\)</span>，最后对 <span class="math-inline">\(m-2\)</span> 阶方程组消元也耗时 <span class="math-inline">\(O(m^3)\)</span></strong>。</p>
 </div>
 
       

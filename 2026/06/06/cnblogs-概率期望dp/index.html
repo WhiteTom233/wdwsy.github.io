@@ -28,7 +28,7 @@
 <meta property="og:description" content="原文来自 博客园  可重集设我和我的父亲之间的转移为 k 游走注意到 n 并不是很大，但是我们发现边数量还是比较大的，于是我们考虑求出每个点可能被走到的期望次数。 用 \(f_u\) 表示。进行高斯消元求出期望，然后用 \(g_i&#x3D;f_u \times deg_u + f_v \times deg_v\) 来计算一条边 \((u,v)\) 走到的概率。 最后按照排序不等式分配边权就好。">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2026-06-06T12:00:00.000Z">
-<meta property="article:modified_time" content="2026-11-07T13:22:47.037Z">
+<meta property="article:modified_time" content="2026-11-26T05:48:57.680Z">
 <meta property="article:author" content="wdwsy">
 <meta property="article:tag" content="DP">
 <meta property="article:tag" content="概率期望">
@@ -167,7 +167,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%AF%E9%87%8D%E9%9B%86"><span class="nav-number">1.</span> <span class="nav-text">可重集</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%B8%B8%E8%B5%B0"><span class="nav-number">2.</span> <span class="nav-text">游走</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Parallel-Universes-Hard"><span class="nav-number">3.</span> <span class="nav-text">Parallel Universes (Hard)</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%AF%E9%87%8D%E9%9B%86"><span class="nav-number">1.</span> <span class="nav-text">可重集</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%B8%B8%E8%B5%B0"><span class="nav-number">2.</span> <span class="nav-text">游走</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Parallel-Universes-Hard"><span class="nav-number">3.</span> <span class="nav-text">Parallel Universes (Hard)</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#CF1184D2-Parallel-Universes-Hard"><span class="nav-number">3.1.</span> <span class="nav-text">CF1184D2 Parallel Universes (Hard)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E5%85%88%E5%86%99%E5%87%BA%E6%9C%9F%E6%9C%9B%E6%96%B9%E7%A8%8B"><span class="nav-number">3.1.1.</span> <span class="nav-text">1. 先写出期望方程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E4%B8%BA%E4%BB%80%E4%B9%88%E5%8F%AA%E7%95%99%E7%AC%AC-2-%E5%88%97%E5%B0%B1%E5%A4%9F%E4%BA%86%EF%BC%9F"><span class="nav-number">3.1.2.</span> <span class="nav-text">2. 为什么只留第 \(2\) 列就够了？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E7%94%A8%E5%93%AA%E4%BA%9B%E6%96%B9%E7%A8%8B%E8%A7%A3%E5%87%BA%E8%BF%99-m-2-%E4%B8%AA%E6%9C%AA%E7%9F%A5%E6%95%B0%EF%BC%9F"><span class="nav-number">3.1.3.</span> <span class="nav-text">3. 用哪些方程解出这 \(m-2\) 个未知数？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E5%BB%BA%E6%96%B9%E7%A8%8B%E4%B9%9F%E8%A6%81%E5%81%9A%E5%88%B0-O-m-3"><span class="nav-number">3.1.4.</span> <span class="nav-text">4. 建方程也要做到 \(O(m^3)\)</span></a></li></ol></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -260,7 +260,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2026-11-07 21:22:47" itemprop="dateModified" datetime="2026-11-07T21:22:47+08:00">2026-11-07</time>
+      <time title="Modified: 2026-11-26 13:48:57" itemprop="dateModified" datetime="2026-11-26T13:48:57+08:00">2026-11-26</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -321,6 +321,67 @@ $$
 <p>考虑这样做之后，我们还有 <span class="math-inline">\(dp[m][x],x\in [3,m]\)</span> 的转移没有用，因为没有 <span class="math-inline">\(dp[m+1][x]\)</span>，于是我们根据这些转移列出方程，我们会惊讶的发现，现在的矩阵是 <span class="math-inline">\(m
 \times m\)</span> 的了，我们现在消元就是 <span class="math-inline">\(\mathcal{O}(m^3)\)</span> 的了！</p>
 <div class="note warning"><p><strong>注意</strong>：<strong>这个转移方程对于 <span class="math-inline">\(i&#x3D;j\)</span> 或者 <span class="math-inline">\(j&#x3D;1\)</span> 的边界情况并不成立</strong>，所以千万不要用这个来计算，否则会导致错误。</p>
+</div>
+
+<div class="note success"><h2 id="CF1184D2-Parallel-Universes-Hard"><a href="#CF1184D2-Parallel-Universes-Hard" class="headerlink" title="CF1184D2 Parallel Universes (Hard)"></a>CF1184D2 Parallel Universes (Hard)</h2><p>这道题从 <span class="math-inline">\(O(m^6)\)</span> 降到 <span class="math-inline">\(O(m^3)\)</span>，可以从一个问题想起：<strong>如果有人告诉我们第 <span class="math-inline">\(2\)</span> 列的所有值，能不能把第 <span class="math-inline">\(3\)</span> 列算出来？</strong> 看一眼转移就会发现，可以。接下来，第 <span class="math-inline">\(3\)</span> 列又能推出第 <span class="math-inline">\(4\)</span> 列。这样一来，真正需要联立求解的，就只剩第 <span class="math-inline">\(2\)</span> 列。</p>
+<h3 id="1-先写出期望方程"><a href="#1-先写出期望方程" class="headerlink" title="1. 先写出期望方程"></a>1. 先写出期望方程</h3><p>设 <span class="math-inline">\(f_{i,j}\)</span> 表示当前长度为 <span class="math-inline">\(i\)</span>、Doctor 位于第 <span class="math-inline">\(j\)</span> 个位置时，停止时的期望长度。到达任意一端就停止，因此 <span class="math-inline">\(f_{i,1}&#x3D;f_{i,i}&#x3D;i\)</span>，答案为 <span class="math-inline">\(f_{n,k}\)</span>。<a target="_blank" rel="noopener" href="https://codeforces.com/problemset/problem/1184/D2?utm_source=chatgpt.com">Codeforces</a></p>
+<p>对于内部状态 <span class="math-inline">\(1&lt;j&lt;i\)</span>，记</p>
+<div class="math-display">\[a_{i,j}&#x3D;\left(1-\frac im\right)\frac j{i+1},\qquad
+b_{i,j}&#x3D;\left(1-\frac im\right)\frac{i+1-j}{i+1},\qquad
+c_i&#x3D;\frac{i}{m(i-1)}.\]</div>
+<p>前两项分别是插入后 Doctor 的位置变成 <span class="math-inline">\(j+1\)</span>、仍为 <span class="math-inline">\(j\)</span> 的概率，<span class="math-inline">\(c_i\)</span> 是在某个指定位置切断的概率。按下一步分类，有</p>
+<div class="math-display">\[f_{i,j}
+&#x3D;a_{i,j}f_{i+1,j+1}+b_{i,j}f_{i+1,j}
++c_i\left(
+\sum_{t&#x3D;1}^{j-1}f_{i-t,j-t}
++\sum_{t&#x3D;1}^{i-j}f_{i-t,j}
+\right).\]</div>
+<p>两个求和分别对应切掉左边 <span class="math-inline">\(t\)</span> 个宇宙、切掉右边 <span class="math-inline">\(t\)</span> 个宇宙。当 <span class="math-inline">\(i&#x3D;m\)</span> 时，只保留切断部分。<a target="_blank" rel="noopener" href="https://codeforces.com/problemset/problem/1184/D2?utm_source=chatgpt.com">Codeforces</a></p>
+<p>共有 <span class="math-inline">\(\Theta(m^2)\)</span> 个内部状态。把它们全部当成未知量，直接高斯消元就是 <span class="math-inline">\(O(m^6)\)</span>。</p>
+<h3 id="2-为什么只留第-2-列就够了？"><a href="#2-为什么只留第-2-列就够了？" class="headerlink" title="2. 为什么只留第 \(2\) 列就够了？"></a>2. 为什么只留第 <span class="math-inline">\(2\)</span> 列就够了？</h3><p>把 <span class="math-inline">\(i\)</span> 看成行号，<span class="math-inline">\(j\)</span> 看成列号。观察 <span class="math-inline">\((i,j)\)</span> 的方程中，各项分别落在哪一列。</p>
+<table>
+<thead>
+<tr>
+<th>所在位置</th>
+<th>方程中的状态</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>第 <span class="math-inline">\(j\)</span> 列左侧</td>
+<td>所有 <span class="math-inline">\(f_{i-t,j-t}\)</span></td>
+</tr>
+<tr>
+<td>第 <span class="math-inline">\(j\)</span> 列</td>
+<td><span class="math-inline">\(f_{i,j}\)</span>、<span class="math-inline">\(f_{i+1,j}\)</span>、所有 <span class="math-inline">\(f_{i-t,j}\)</span></td>
+</tr>
+<tr>
+<td>第 <span class="math-inline">\(j+1\)</span> 列</td>
+<td><strong>只有 <span class="math-inline">\(f_{i+1,j+1}\)</span></strong></td>
+</tr>
+</tbody></table>
+<p>于是，只要前 <span class="math-inline">\(j\)</span> 列已经填好，<span class="math-inline">\((i,j)\)</span> 的方程中就只剩一个未知量 <span class="math-inline">\(f_{i+1,j+1}\)</span>。当 <span class="math-inline">\(i&lt;m\)</span> 时，它的系数 <span class="math-inline">\(a_{i,j}\ne 0\)</span>，可以直接移项求出它。</p>
+<p>现在就能看出为什么从第 <span class="math-inline">\(2\)</span> 列开始。第 <span class="math-inline">\(1\)</span> 列全是终止状态，只有边界值，没有转移方程可供我们推出第 <span class="math-inline">\(2\)</span> 列。于是把第 <span class="math-inline">\(2\)</span> 列的内部状态暂时设成未知数：</p>
+<div class="math-display">\[x_3&#x3D;f_{3,2},\quad x_4&#x3D;f_{4,2},\quad \ldots,\quad x_m&#x3D;f_{m,2}.\]</div>
+<p>看第一步就够了。用 <span class="math-inline">\((3,2)\)</span> 的方程求 <span class="math-inline">\(f_{4,3}\)</span> 时，方程是</p>
+<div class="math-display">\[x_3&#x3D;a_{3,2}f_{4,3}+b_{3,2}x_4+c_3(f_{2,1}+f_{2,2}).\]</div>
+<p>最后两个边界值都是 <span class="math-inline">\(2\)</span>。因此，即使还不知道 <span class="math-inline">\(x_3,x_4\)</span> 的数值，也已经能把 <span class="math-inline">\(f_{4,3}\)</span> 写成它们的<strong>一次式</strong>。</p>
+<p>同理，用 <span class="math-inline">\((4,2)\)</span> 的方程求 <span class="math-inline">\(f_{5,3}\)</span>，用 <span class="math-inline">\((5,2)\)</span> 的方程求 <span class="math-inline">\(f_{6,3}\)</span>，一直到 <span class="math-inline">\(f_{m,3}\)</span>，第 <span class="math-inline">\(3\)</span> 列的内部状态就填完了。再用第 <span class="math-inline">\(3\)</span> 列的方程填第 <span class="math-inline">\(4\)</span> 列，依次向右。每个第 <span class="math-inline">\(3\)</span> 列及之后的内部状态 <span class="math-inline">\(f_{r,s}\)</span>，都恰好由左上方 <span class="math-inline">\((r-1,s-1)\)</span> 的方程求出。</p>
+<p>所以，<strong>给定 <span class="math-inline">\(x_3,\ldots,x_m\)</span>，整张表就随之确定</strong>。实现时，每个格子存一个系数向量，表示它关于这些未知数的一次式，另留一项存常数。</p>
+<h3 id="3-用哪些方程解出这-m-2-个未知数？"><a href="#3-用哪些方程解出这-m-2-个未知数？" class="headerlink" title="3. 用哪些方程解出这 \(m-2\) 个未知数？"></a>3. 用哪些方程解出这 <span class="math-inline">\(m-2\)</span> 个未知数？</h3><p>回头看刚才的过程。每用一条 <span class="math-inline">\((i,j)\)</span> 的方程，我们都在求下一行的 <span class="math-inline">\(f_{i+1,j+1}\)</span>。因此，<span class="math-inline">\(i&lt;m\)</span> 的内部方程全部用过，<strong>恰好剩下最后一行 <span class="math-inline">\(i&#x3D;m\)</span> 的方程</strong>。</p>
+<p>长度达到 <span class="math-inline">\(m\)</span> 时只能切断，所以最后一行满足</p>
+<div class="math-display">\[f_{m,j}&#x3D;\frac1{m-1}
+\left(
+\sum_{t&#x3D;1}^{j-1}f_{m-t,j-t}
++\sum_{t&#x3D;1}^{m-j}f_{m-t,j}
+\right),
+\qquad 2\le j\le m-1.\]</div>
+<p>此时等式两边都已经写成了关于 <span class="math-inline">\(x_3,\ldots,x_m\)</span> 的一次式。每个 <span class="math-inline">\(j\)</span> 给出一条约束，正好得到 <strong><span class="math-inline">\(m-2\)</span> 条方程、<span class="math-inline">\(m-2\)</span> 个未知数</strong>。对这个小方程组做高斯消元，再把解代入 <span class="math-inline">\(f_{n,k}\)</span> 即可。原图这里的下标需要改成 <span class="math-inline">\(2\le j\le m-1\)</span>：<span class="math-inline">\(j&#x3D;2\)</span> 的方程要用，<span class="math-inline">\(j&#x3D;m\)</span> 已经是终止状态。</p>
+<h3 id="4-建方程也要做到-O-m-3"><a href="#4-建方程也要做到-O-m-3" class="headerlink" title="4. 建方程也要做到 \(O(m^3)\)"></a>4. 建方程也要做到 <span class="math-inline">\(O(m^3)\)</span></h3><p>还有一处容易漏算。每个格子存的是长度 <span class="math-inline">\(O(m)\)</span> 的系数向量，如果把转移里的两个求和逐项枚举，一个格子就要 <span class="math-inline">\(O(m^2)\)</span>，光填表便要 <span class="math-inline">\(O(m^4)\)</span>。</p>
+<p>看两个求和在表里的走向：<span class="math-inline">\(f_{i-t,j-t}\)</span> 从左上方沿对角线走，<span class="math-inline">\(f_{i-t,j}\)</span> 在同一列向上走。两者一直走到边界，因此各维护一个前缀和就够了：</p>
+<div class="math-display">\[D_{i,j}&#x3D;f_{i,j}+D_{i-1,j-1},\qquad
+S_{i,j}&#x3D;f_{i,j}+S_{i-1,j},\]</div>
+<p>表外取零。原转移中的两个求和就分别等于 <span class="math-inline">\(D_{i-1,j-1}\)</span> 和 <span class="math-inline">\(S_{i-1,j}\)</span>。每填完一列，从上往下更新这两类前缀和，就可以继续推下一列。</p>
+<p>这样，每个状态只做常数次向量加减和数乘，耗时 <span class="math-inline">\(O(m)\)</span>。总共 <span class="math-inline">\(O(m^2)\)</span> 个状态，<strong>建方程耗时 <span class="math-inline">\(O(m^3)\)</span>，最后对 <span class="math-inline">\(m-2\)</span> 阶方程组消元也耗时 <span class="math-inline">\(O(m^3)\)</span></strong>。</p>
 </div>
 
     </div>
